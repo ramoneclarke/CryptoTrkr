@@ -1,6 +1,12 @@
 import "./App.css";
-import { createTheme, colors, ThemeProvider } from "@mui/material";
-import Palette from "./Palette";
+import {
+  createTheme,
+  colors,
+  ThemeProvider,
+  Box,
+  CssBaseline,
+} from "@mui/material";
+import Sidebar from "./components/layout/Sidebar";
 
 const theme = createTheme({
   palette: {
@@ -8,7 +14,7 @@ const theme = createTheme({
       main: colors.blueGrey[800],
     },
     secondary: {
-      main: colors.indigo[500],
+      main: colors.cyan[500],
     },
     tertiary: {
       main: colors.cyan[500],
@@ -19,16 +25,26 @@ const theme = createTheme({
       main: "#141416",
       light: "#1A1B1D",
     },
+    text: {
+      primary: "#FFFFFF",
+      secondary: colors.blueGrey[400],
+    },
+    background: {
+      // paper: colors.blueGrey[800],
+      // default: colors.blueGrey[900],
+      paper: "#1A1B1D",
+      default: "#141416",
+    },
   },
 });
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <>
-        <Palette />
-      </>
-      ;
+      <Box sx={{ width: "100vw", height: "100vh" }}>
+        <CssBaseline />
+        <Sidebar />
+      </Box>
     </ThemeProvider>
   );
 }
