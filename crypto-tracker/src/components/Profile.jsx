@@ -32,9 +32,26 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-const Profile = () => {
-  return (
-    <Stack flexDirection="row" alignItems="center">
+const Profile = ({ name }) => {
+  if (name) {
+    return (
+      <Stack flexDirection="row" alignItems="center">
+        <StyledBadge
+          overlap="circular"
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          variant="dot"
+        >
+          <Avatar alt="Satoshi Nakamoto" sx={{ bgcolor: "text.secondary" }}>
+            <Person />
+          </Avatar>
+        </StyledBadge>
+        <Typography variant="body1" ml="10px">
+          Satoshi Nakamoto
+        </Typography>
+      </Stack>
+    );
+  } else {
+    return (
       <StyledBadge
         overlap="circular"
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
@@ -44,11 +61,8 @@ const Profile = () => {
           <Person />
         </Avatar>
       </StyledBadge>
-      <Typography variant="body1" ml="10px">
-        Satoshi Nakamoto
-      </Typography>
-    </Stack>
-  );
+    );
+  }
 };
 
 export default Profile;

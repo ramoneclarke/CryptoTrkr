@@ -43,11 +43,13 @@ const Sidebar = () => {
           },
         }}
       >
-        <Logo />
+        <Box mt="2rem" mb="2rem">
+          <Logo />
+        </Box>
         <Divider variant="middle" sx={{ bgcolor: "text.secondary" }} />
         <Box sx={{ height: "85%" }}>
           <Toolbar sx={{ height: "15%" }}>
-            <Profile />
+            <Profile name />
           </Toolbar>
           <Divider variant="middle" sx={{ bgcolor: "text.secondary" }} />
           <List>

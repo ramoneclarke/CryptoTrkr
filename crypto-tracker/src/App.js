@@ -5,8 +5,10 @@ import {
   ThemeProvider,
   Box,
   CssBaseline,
+  useMediaQuery,
 } from "@mui/material";
 import Sidebar from "./components/layout/Sidebar";
+import MobileNavbar from "./components/layout/MobileNavbar";
 
 const theme = createTheme({
   palette: {
@@ -39,11 +41,12 @@ const theme = createTheme({
 });
 
 function App() {
+  const isSmallDevice = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ width: "100vw", height: "100vh" }}>
         <CssBaseline />
-        <Sidebar />
+        {isSmallDevice ? <MobileNavbar /> : <Sidebar />}
       </Box>
     </ThemeProvider>
   );
