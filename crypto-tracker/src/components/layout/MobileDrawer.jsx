@@ -32,7 +32,7 @@ const MobileDrawer = ({ drawerOpen, toggleDrawer }) => {
         },
       }}
       variant="temporary"
-      anchor="left"
+      anchor="top"
       open={drawerOpen}
       onClose={toggleDrawer}
       PaperProps={{
