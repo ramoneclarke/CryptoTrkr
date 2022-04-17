@@ -49,6 +49,7 @@ const MobileDrawer = ({ drawerOpen, toggleDrawer }) => {
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-between",
+            mb: "5px",
           }}
         >
           <Profile name />

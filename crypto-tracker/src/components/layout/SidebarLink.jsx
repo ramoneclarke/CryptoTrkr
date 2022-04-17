@@ -9,7 +9,7 @@ import React from "react";
 const SidebarLink = ({ text, Icon }) => {
   return (
     <>
-      <ListItem alignItems="center">
+      <ListItem alignItems="flex-start">
         <ListItemButton
           component="a"
           href="#"
