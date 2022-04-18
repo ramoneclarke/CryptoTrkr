@@ -10,6 +10,9 @@ import {
 } from "@mui/material";
 import Sidebar from "./components/layout/Sidebar";
 import MobileNavbar from "./components/layout/MobileNavbar";
+import Dashboard from "./pages/Dashboard";
+import { Route, Routes } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 const theme = createTheme({
   palette: {
@@ -58,6 +61,10 @@ function App() {
       >
         <CssBaseline />
         {isSmallDevice ? <MobileNavbar /> : <Sidebar />}
+        {/* <Box
+          sx={{ border: "3px solid red", width: "100%", height: "100%" }}
+        ></Box> */}
+        <Outlet />
       </Box>
     </ThemeProvider>
   );

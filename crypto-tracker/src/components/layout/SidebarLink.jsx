@@ -5,14 +5,16 @@ import {
   ListItemButton,
 } from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
 
-const SidebarLink = ({ text, Icon }) => {
+const SidebarLink = ({ text, Icon, route }) => {
   return (
     <>
       <ListItem alignItems="flex-start">
         <ListItemButton
-          component="a"
-          href="#"
+          component={Link}
+          to={route}
+          // href="#"
           alignItems="center"
           sx={{
             "&.MuiListItemButton-gutters": {

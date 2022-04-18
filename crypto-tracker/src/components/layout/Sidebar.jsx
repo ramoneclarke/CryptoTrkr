@@ -4,6 +4,7 @@ import {
   Divider,
   Drawer,
   IconButton,
+  Link as MuiLink,
   List,
   Toolbar,
   Tooltip,
@@ -19,6 +20,7 @@ import {
 } from "@mui/icons-material";
 import Logo from "../Logo";
 import Profile from "../Profile";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -44,7 +46,9 @@ const Sidebar = () => {
         }}
       >
         <Box mt="2rem" mb="2rem">
-          <Logo />
+          <MuiLink component={Link} to="/" underline="none">
+            <Logo />
+          </MuiLink>
         </Box>
         <Divider variant="middle" sx={{ bgcolor: "text.secondary" }} />
         <Box sx={{ height: "85%" }}>
@@ -53,11 +57,15 @@ const Sidebar = () => {
           </Toolbar>
           <Divider variant="middle" sx={{ bgcolor: "text.secondary" }} />
           <List>
-            <SidebarLink text="Dashboard" Icon={Home} />
-            <SidebarLink text="Market" Icon={ShowChart} />
-            <SidebarLink text="Watch List" Icon={Star} />
-            <SidebarLink text="Portfolio" Icon={AccountBalanceWallet} />
-            <SidebarLink text="News" Icon={Feed} />
+            <SidebarLink text="Dashboard" route="/" Icon={Home} />
+            <SidebarLink text="Market" route="/market" Icon={ShowChart} />
+            <SidebarLink text="Watch List" route="/watchlist" Icon={Star} />
+            <SidebarLink
+              text="Portfolio"
+              route="/portfolio"
+              Icon={AccountBalanceWallet}
+            />
+            <SidebarLink text="News" route="/news" Icon={Feed} />
           </List>
         </Box>
         <Box
@@ -68,14 +76,13 @@ const Sidebar = () => {
             mb: "1rem",
           }}
         >
-          <IconButton
-            sx={{ color: "secondary.light" }}
-            onClick={() => alert("Settings")}
-          >
-            <Tooltip title="Settings">
-              <Settings fontSize="large" />
-            </Tooltip>
-          </IconButton>
+          <MuiLink component={Link} to="/settings">
+            <IconButton sx={{ color: "secondary.light" }}>
+              <Tooltip title="Settings">
+                <Settings fontSize="large" />
+              </Tooltip>
+            </IconButton>
+          </MuiLink>
         </Box>
       </Drawer>
     </Box>

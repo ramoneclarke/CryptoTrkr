@@ -11,6 +11,7 @@ import {
   Divider,
   Drawer,
   IconButton,
+  Link as MuiLink,
   List,
   Toolbar,
   Tooltip,
@@ -19,6 +20,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import React from "react";
 import Profile from "../Profile";
 import SidebarLink from "./SidebarLink";
+import { Link } from "react-router-dom";
 
 const MobileDrawer = ({ drawerOpen, toggleDrawer }) => {
   return (
@@ -64,11 +66,15 @@ const MobileDrawer = ({ drawerOpen, toggleDrawer }) => {
         </Toolbar>
         <Divider variant="middle" sx={{ bgcolor: "text.secondary" }} />
         <List>
-          <SidebarLink text="Dashboard" Icon={Home} />
-          <SidebarLink text="Market" Icon={ShowChart} />
-          <SidebarLink text="Watch List" Icon={Star} />
-          <SidebarLink text="Portfolio" Icon={AccountBalanceWallet} />
-          <SidebarLink text="News" Icon={Feed} />
+          <SidebarLink text="Dashboard" route="/" Icon={Home} />
+          <SidebarLink text="Market" route="/market" Icon={ShowChart} />
+          <SidebarLink text="Watch List" route="/watchlist" Icon={Star} />
+          <SidebarLink
+            text="Portfolio"
+            route="/portfolio"
+            Icon={AccountBalanceWallet}
+          />
+          <SidebarLink text="News" route="/news" Icon={Feed} />
         </List>
       </Box>
       <Box
@@ -79,14 +85,13 @@ const MobileDrawer = ({ drawerOpen, toggleDrawer }) => {
           mb: "1rem",
         }}
       >
-        <IconButton
-          sx={{ color: "secondary.light" }}
-          onClick={() => alert("Settings")}
-        >
-          <Tooltip title="Settings">
-            <Settings fontSize="large" />
-          </Tooltip>
-        </IconButton>
+        <MuiLink component={Link} to="/settings">
+          <IconButton sx={{ color: "secondary.light" }}>
+            <Tooltip title="Settings">
+              <Settings fontSize="large" />
+            </Tooltip>
+          </IconButton>
+        </MuiLink>
       </Box>
     </Drawer>
   );
