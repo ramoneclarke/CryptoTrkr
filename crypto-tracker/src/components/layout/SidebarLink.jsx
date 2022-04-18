@@ -7,14 +7,13 @@ import {
 import React from "react";
 import { Link } from "react-router-dom";
 
-const SidebarLink = ({ text, Icon, route }) => {
+const SidebarLink = ({ text, Icon, route, toggleDrawer }) => {
   return (
     <>
       <ListItem alignItems="flex-start">
         <ListItemButton
           component={Link}
           to={route}
-          // href="#"
           alignItems="center"
           sx={{
             "&.MuiListItemButton-gutters": {
@@ -23,6 +22,7 @@ const SidebarLink = ({ text, Icon, route }) => {
               },
             },
           }}
+          onClick={toggleDrawer}
         >
           <ListItemIcon>
             <Icon sx={{ color: "text.secondary" }} />

@@ -66,15 +66,36 @@ const MobileDrawer = ({ drawerOpen, toggleDrawer }) => {
         </Toolbar>
         <Divider variant="middle" sx={{ bgcolor: "text.secondary" }} />
         <List>
-          <SidebarLink text="Dashboard" route="/" Icon={Home} />
-          <SidebarLink text="Market" route="/market" Icon={ShowChart} />
-          <SidebarLink text="Watch List" route="/watchlist" Icon={Star} />
+          <SidebarLink
+            text="Dashboard"
+            route="/"
+            Icon={Home}
+            toggleDrawer={toggleDrawer}
+          />
+          <SidebarLink
+            text="Market"
+            route="/market"
+            Icon={ShowChart}
+            toggleDrawer={toggleDrawer}
+          />
+          <SidebarLink
+            text="Watch List"
+            route="/watchlist"
+            Icon={Star}
+            toggleDrawer={toggleDrawer}
+          />
           <SidebarLink
             text="Portfolio"
             route="/portfolio"
             Icon={AccountBalanceWallet}
+            toggleDrawer={toggleDrawer}
           />
-          <SidebarLink text="News" route="/news" Icon={Feed} />
+          <SidebarLink
+            text="News"
+            route="/news"
+            Icon={Feed}
+            toggleDrawer={toggleDrawer}
+          />
         </List>
       </Box>
       <Box
@@ -86,7 +107,7 @@ const MobileDrawer = ({ drawerOpen, toggleDrawer }) => {
         }}
       >
         <MuiLink component={Link} to="/settings">
-          <IconButton sx={{ color: "secondary.light" }}>
+          <IconButton sx={{ color: "secondary.light" }} onClick={toggleDrawer}>
             <Tooltip title="Settings">
               <Settings fontSize="large" />
             </Tooltip>
