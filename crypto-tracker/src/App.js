@@ -41,6 +41,9 @@ const theme = createTheme({
       paper: "#1A1B1D",
       default: "#141416",
     },
+    action: {
+      hover: "#141416",
+    },
   },
 });
 
