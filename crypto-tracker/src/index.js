@@ -22,6 +22,14 @@ root.render(
           <Route path="portfolio" element={<Portfolio />} />
           <Route path="settings" element={<Settings />} />
           <Route path="watchlist" element={<WatchList />} />
+          <Route
+            path="*"
+            element={
+              <main style={{ padding: "1rem" }}>
+                <p>Page not found!</p>
+              </main>
+            }
+          />
         </Route>
       </Routes>
     </React.StrictMode>
