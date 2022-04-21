@@ -6,12 +6,10 @@ import {
   Box,
   CssBaseline,
   useMediaQuery,
-  Typography,
 } from "@mui/material";
 import Sidebar from "./components/layout/Sidebar";
 import MobileNavbar from "./components/layout/MobileNavbar";
-import Dashboard from "./pages/Dashboard";
-import { Route, Routes } from "react-router-dom";
+
 import { Outlet } from "react-router-dom";
 
 const theme = createTheme({
