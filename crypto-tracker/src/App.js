@@ -34,13 +34,22 @@ const theme = createTheme({
       secondary: colors.blueGrey[400],
     },
     background: {
-      // paper: colors.blueGrey[800],
-      // default: colors.blueGrey[900],
-      paper: "#1A1B1D",
-      default: "#141416",
+      paper: colors.blueGrey[800],
+      default: colors.blueGrey[900],
+      // paper: "#1A1B1D",
+      // default: "#141416",
     },
     action: {
-      hover: "#141416",
+      hover: colors.cyan[800],
+    },
+  },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1600,
     },
   },
 });
@@ -51,7 +60,11 @@ function App() {
     <ThemeProvider theme={theme}>
       <Box
         sx={{
-          width: "100vw",
+          width: {
+            xs: "100%",
+            xl: "100%",
+          },
+          margin: "auto",
           height: "100vh",
           display: "flex",
           flexDirection: {
@@ -62,9 +75,6 @@ function App() {
       >
         <CssBaseline />
         {isSmallDevice ? <MobileNavbar /> : <Sidebar />}
-        {/* <Box
-          sx={{ border: "3px solid red", width: "100%", height: "100%" }}
-        ></Box> */}
         <Outlet />
       </Box>
     </ThemeProvider>

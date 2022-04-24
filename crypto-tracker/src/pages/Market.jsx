@@ -27,12 +27,12 @@ const Market = () => {
       //   <Box sx={{ border: "3px solid red" }}></Box>
       //   <Box sx={{ border: "3px solid blue" }}></Box>
       // </Stack>
-      <Grid container spacing={0.5} border="3px solid blue">
-        <Grid item xs={9} border="3px solid red">
+      <Grid container spacing={0.5}>
+        <Grid item xs={9} sx={{ display: "flex", flexDirection: "column" }}>
           <MarketHeader />
           <MarketTable />
         </Grid>
-        <Grid item xs={3} border="3px solid green">
+        <Grid item xs={3}>
           Coin info bar
         </Grid>
       </Grid>
