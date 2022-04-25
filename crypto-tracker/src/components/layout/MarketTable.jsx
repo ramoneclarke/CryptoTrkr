@@ -351,6 +351,10 @@ const MarketTable = () => {
               },
             },
           },
+          "& .MuiDataGrid-cell:focus-within, & .MuiDataGrid-cell:focus, & .MuiDataGrid-columnHeader:focus-within":
+            {
+              outline: "none",
+            },
         }}
         // getRowClassName={(params) =>
         //   params.row.id % 2 === 0
