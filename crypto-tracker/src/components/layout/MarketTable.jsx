@@ -295,18 +295,18 @@ const MarketTable = () => {
       sx={{
         width: "100%",
         height: "100%",
-        "& .market-table-row-odd": {
-          bgcolor: "background.default",
-          "&:hover": {
-            border: "None",
-          },
-        },
-        "& .market-table-row-even": {
-          bgcolor: "background.paper",
-          "&:hover": {
-            border: "None",
-          },
-        },
+        // "& .market-table-row-odd": {
+        //   bgcolor: "background.default",
+        //   "&:hover": {
+        //     border: "None",
+        //   },
+        // },
+        // "& .market-table-row-even": {
+        //   bgcolor: "background.paper",
+        //   "&:hover": {
+        //     border: "None",
+        //   },
+        // },
         "& ::-webkit-scrollbar": {
           width: "0.4em",
         },
@@ -343,15 +343,20 @@ const MarketTable = () => {
           "& .MuiIconButton-root": {
             color: "text.secondary",
           },
-          //   "& .MuiDataGrid-virtualScroller": {
-          //     bgcolor: "red",
-          //   },
+          "& .MuiDataGrid-virtualScrollerRenderZone": {
+            "& .MuiDataGrid-row": {
+              bgcolor: "background.default",
+              "&:nth-child(2n)": {
+                bgcolor: "background.paper",
+              },
+            },
+          },
         }}
-        getRowClassName={(params) =>
-          params.row.id % 2 === 0
-            ? "market-table-row-even"
-            : "market-table-row-odd"
-        }
+        // getRowClassName={(params) =>
+        //   params.row.id % 2 === 0
+        //     ? "market-table-row-even"
+        //     : "market-table-row-odd"
+        // }
         components={{
           Pagination: CustomPagination,
         }}
