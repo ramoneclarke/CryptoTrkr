@@ -229,21 +229,21 @@ const MarketTable = () => {
     {
       field: "price",
       headerName: "Price",
-      width: 100,
+      width: 140,
       type: "number",
       headerClassName: "market-table-header",
     },
     {
       field: "24h",
       headerName: "24h %",
-      width: 75,
+      width: 100,
       type: "number",
       headerClassName: "market-table-header",
     },
     {
       field: "7d",
       headerName: "7d %",
-      width: 75,
+      width: 100,
       type: "number",
       headerClassName: "market-table-header",
     },
@@ -307,6 +307,17 @@ const MarketTable = () => {
             border: "None",
           },
         },
+        "& ::-webkit-scrollbar": {
+          width: "0.4em",
+        },
+        "& ::-webkit-scrollbar-track": {
+          boxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+          webkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+        },
+        "& ::-webkit-scrollbar-thumb": {
+          backgroundColor: "rgba(0,0,0,.1)",
+          outline: "1px solid slategrey",
+        },
       }}
     >
       <DataGrid
@@ -316,6 +327,7 @@ const MarketTable = () => {
         disableSelectionOnClick
         sx={{
           border: "None",
+          overflow: "hidden",
           "& .market-table-header": {
             color: "text.secondary",
           },
@@ -325,6 +337,15 @@ const MarketTable = () => {
           "& .MuiDataGrid-columnHeaders": {
             border: "none",
           },
+          "& .MuiDataGrid-footerContainer": {
+            border: "none",
+          },
+          "& .MuiIconButton-root": {
+            color: "text.secondary",
+          },
+          //   "& .MuiDataGrid-virtualScroller": {
+          //     bgcolor: "red",
+          //   },
         }}
         getRowClassName={(params) =>
           params.row.id % 2 === 0

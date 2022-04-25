@@ -3,7 +3,7 @@ import React from "react";
 
 const MarketHeader = () => {
   return (
-    <Grid container height="140px">
+    <Grid container>
       <Grid
         item
         xs={12}

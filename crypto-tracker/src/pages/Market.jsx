@@ -23,19 +23,34 @@ const Market = () => {
     );
   } else {
     return (
-      // <Stack direction="row" spacing={2} sx={{ width: "100%", height: "100%" }}>
-      //   <Box sx={{ border: "3px solid red" }}></Box>
-      //   <Box sx={{ border: "3px solid blue" }}></Box>
-      // </Stack>
-      <Grid container spacing={0.5}>
-        <Grid item xs={9} sx={{ display: "flex", flexDirection: "column" }}>
-          <MarketHeader />
-          <MarketTable />
-        </Grid>
-        <Grid item xs={3}>
-          Coin info bar
-        </Grid>
-      </Grid>
+      // <Grid
+      //   container
+      //   sx={{
+      //     display: "flex",
+      //     justifyContent: "flex-start",
+      //     alignItems: "flex-start",
+      //   }}
+      // >
+      //   <Grid item xs={12} height="15%">
+      //     <MarketHeader />
+      //   </Grid>
+      //   <Grid item xs={12} height="85%">
+      //     <MarketTable />
+      //   </Grid>
+      // </Grid>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          alignItems: "flex-start",
+          width: "100%",
+          // border: "3px solid green",
+        }}
+      >
+        <MarketHeader />
+        <MarketTable />
+      </Box>
     );
   }
 };
