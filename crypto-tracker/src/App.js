@@ -42,6 +42,12 @@ const theme = createTheme({
     action: {
       hover: colors.cyan[800],
     },
+    chip: {
+      // watch: colors.yellow[600],
+      watch: colors.blueGrey[400],
+      // portfolio: "#ff8463",
+      portfolio: colors.blueGrey[400],
+    },
   },
   breakpoints: {
     values: {

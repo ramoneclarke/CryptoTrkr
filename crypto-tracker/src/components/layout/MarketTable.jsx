@@ -14,6 +14,8 @@ import {
   Typography,
 } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
+import AddToWatchlistChip from "../AddToWatchlistChip";
+import AddToPortfolioChip from "../AddToPortfolioChip";
 
 function CustomPagination() {
   const apiRef = useGridApiContext();
@@ -223,13 +225,32 @@ const MarketTable = () => {
     {
       field: "name",
       headerName: "Name",
-      width: 250,
+      width: 290,
       headerClassName: "market-table-header",
+      renderCell: (cellValues) => {
+        return (
+          <Stack
+            direction="row"
+            spacing={2}
+            width="100%"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Typography>{cellValues.row.name}</Typography>
+            <Stack direction="row" spacing={0.5}>
+              <AddToWatchlistChip />
+              <AddToPortfolioChip />
+            </Stack>
+          </Stack>
+          //   <Typography>{cellValues.row.name}</Typography>
+          //   <AddToWatchlistChip />
+        );
+      },
     },
     {
       field: "price",
       headerName: "Price",
-      width: 140,
+      width: 100,
       type: "number",
       headerClassName: "market-table-header",
     },

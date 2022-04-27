@@ -23,21 +23,6 @@ const Market = () => {
     );
   } else {
     return (
-      // <Grid
-      //   container
-      //   sx={{
-      //     display: "flex",
-      //     justifyContent: "flex-start",
-      //     alignItems: "flex-start",
-      //   }}
-      // >
-      //   <Grid item xs={12} height="15%">
-      //     <MarketHeader />
-      //   </Grid>
-      //   <Grid item xs={12} height="85%">
-      //     <MarketTable />
-      //   </Grid>
-      // </Grid>
       <Box
         sx={{
           display: "flex",
@@ -45,7 +30,6 @@ const Market = () => {
           justifyContent: "flex-start",
           alignItems: "flex-start",
           width: "100%",
-          // border: "3px solid green",
         }}
       >
         <MarketHeader />
