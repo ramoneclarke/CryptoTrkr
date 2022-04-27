@@ -22,6 +22,7 @@ const SidebarLink = ({ text, Icon, route, toggleDrawer }) => {
           alignItems="center"
           sx={{
             "&.MuiListItemButton-gutters": {
+              borderRadius: "10px",
               "&:hover": {
                 borderRadius: "10px",
               },
