@@ -367,7 +367,7 @@ const MarketTable = () => {
           "& .MuiDataGrid-virtualScrollerRenderZone": {
             "& .MuiDataGrid-row": {
               bgcolor: "background.default",
-              "&:nth-child(2n)": {
+              "&:nth-of-type(2n)": {
                 bgcolor: "background.paper",
               },
             },
