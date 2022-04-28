@@ -9,6 +9,7 @@ import {
 import React from "react";
 import MarketHeader from "../components/layout/MarketHeader";
 import MarketTable from "../components/layout/MarketTable";
+import MarketTableMobile from "../components/layout/MarketTableMobile";
 
 const Market = () => {
   const theme = useTheme();
@@ -18,7 +19,8 @@ const Market = () => {
   if (isSmallDevice) {
     return (
       <Box sx={{ width: "100%", height: "100%" }}>
-        <h1>Market mobile</h1>
+        <MarketHeader />
+        <MarketTableMobile />
       </Box>
     );
   } else {

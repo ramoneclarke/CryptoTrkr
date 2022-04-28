@@ -24,7 +24,20 @@ const MarketHeader = () => {
     //     <CurrencySelector currentCurrency={"gbp"} />
     //   </Grid>
     // </Grid>
-    <Box mt={5} mb={2}>
+    <Box
+      sx={{
+        mt: {
+          xs: 2,
+          md: 5,
+        },
+        mb: {
+          xs: 1,
+          md: 2,
+        },
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
       <FilterSearchBar placeholder="Filter coins..." />
     </Box>
   );

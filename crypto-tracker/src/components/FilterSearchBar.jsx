@@ -10,8 +10,13 @@ const FilterSearchBar = ({ placeholder }) => {
         p: "2px 4px",
         display: "flex",
         alignItems: "center",
-        width: 400,
-        ml: 3,
+        width: {
+          xs: "90%",
+          md: 400,
+        },
+        ml: {
+          md: 3,
+        },
       }}
     >
       <IconButton>
