@@ -11,6 +11,8 @@ import Sidebar from "./components/layout/Sidebar";
 import MobileNavbar from "./components/layout/MobileNavbar";
 
 import { Outlet } from "react-router-dom";
+import { AppContextProvider } from "./context/AppContext";
+import DataContextProvider from "./context/DataContext";
 
 const theme = createTheme({
   palette: {
@@ -63,27 +65,31 @@ const theme = createTheme({
 function App() {
   const isSmallDevice = useMediaQuery(theme.breakpoints.down("md"));
   return (
-    <ThemeProvider theme={theme}>
-      <Box
-        sx={{
-          width: {
-            xs: "100%",
-            xl: "100%",
-          },
-          margin: "auto",
-          height: "100vh",
-          display: "flex",
-          flexDirection: {
-            xs: "column",
-            md: "row",
-          },
-        }}
-      >
-        <CssBaseline />
-        {isSmallDevice ? <MobileNavbar /> : <Sidebar />}
-        <Outlet />
-      </Box>
-    </ThemeProvider>
+    <AppContextProvider>
+      <DataContextProvider>
+        <ThemeProvider theme={theme}>
+          <Box
+            sx={{
+              width: {
+                xs: "100%",
+                xl: "100%",
+              },
+              margin: "auto",
+              height: "100vh",
+              display: "flex",
+              flexDirection: {
+                xs: "column",
+                md: "row",
+              },
+            }}
+          >
+            <CssBaseline />
+            {isSmallDevice ? <MobileNavbar /> : <Sidebar />}
+            <Outlet />
+          </Box>
+        </ThemeProvider>
+      </DataContextProvider>
+    </AppContextProvider>
   );
 }
 

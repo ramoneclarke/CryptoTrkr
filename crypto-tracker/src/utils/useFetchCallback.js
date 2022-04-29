@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useCallback } from "react";
 
-const useFetch = (url) => {
+const useFetchCallback = (url) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
+  const fetchCallback = useCallback(() => {
     setLoading(true);
     setData(null);
     setError(null);
-    const controller = new AbortController();
     axios
-      .get(url, { signal: controller.signal })
+      .get(url)
       .then((res) => {
         setLoading(false);
         res.data && setData(res.data);
@@ -21,13 +21,9 @@ const useFetch = (url) => {
         setLoading(false);
         setError(err);
       });
-
-    return () => {
-      controller.abort();
-    };
   }, [url]);
 
-  return { data, loading, error };
+  return { fetchCallback, data, loading, error };
 };
 
-export default useFetch;
+export default useFetchCallback;
