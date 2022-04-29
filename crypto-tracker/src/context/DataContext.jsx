@@ -4,33 +4,45 @@ import axios from "axios";
 import { AppContext } from "./AppContext";
 import { useContext } from "react";
 import useFetch from "../utils/useFetch";
+import { useReducer } from "react";
 export const DataContext = createContext();
 
+const initialState = {
+  coinData: [],
+  isLoading: false,
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "setCoinData":
+      return {
+        ...state,
+        coinData: action.payload,
+      };
+    case "setIsLoading":
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
 const DataContextProvider = ({ children }) => {
-  const [coinData, setCoinData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [state, dispatchDataContext] = useReducer(reducer, initialState);
+  const { coinData, isLoading } = state;
+
   const useAppContext = useContext(AppContext);
   const { settings } = useAppContext;
-
-  // Fetch data
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${settings.activeCurrency}&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h%2C%204d`
-  //     )
-  //     .then((res) => {
-  //       console.log(res.data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, [settings.activeCurrency]);
 
   const { data, loading, error } = useFetch(
     `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${settings.activeCurrency}&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h%2C%204d`
   );
 
   useEffect(() => {
-    setCoinData(data);
-    setIsLoading(loading);
+    dispatchDataContext({ type: "setCoinData", payload: data });
+    dispatchDataContext({ type: "setIsLoading", payload: loading });
   }, [data, loading]);
 
   return (
