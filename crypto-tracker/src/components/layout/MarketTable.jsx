@@ -35,7 +35,7 @@ function CustomPagination() {
   );
 }
 
-const MarketTable = () => {
+const MarketTable = ({ marketData }) => {
   const rows = [
     {
       rank: 1,
@@ -342,7 +342,7 @@ const MarketTable = () => {
       }}
     >
       <DataGrid
-        rows={rows}
+        rows={marketData}
         columns={columns}
         disableColumnMenu
         disableSelectionOnClick
@@ -377,11 +377,6 @@ const MarketTable = () => {
               outline: "none",
             },
         }}
-        // getRowClassName={(params) =>
-        //   params.row.id % 2 === 0
-        //     ? "market-table-row-even"
-        //     : "market-table-row-odd"
-        // }
         components={{
           Pagination: CustomPagination,
         }}

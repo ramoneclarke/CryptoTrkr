@@ -35,7 +35,7 @@ function CustomPagination() {
   );
 }
 
-const MarketTableMobile = () => {
+const MarketTableMobile = ({ marketData }) => {
   const rows = [
     {
       rank: 1,
@@ -237,14 +237,13 @@ const MarketTableMobile = () => {
             alignItems="center"
             position="sticky"
           >
-            <Typography>{cellValues.row.name}</Typography>
+            {cellValues.row.name}
             <Stack direction="row" spacing={0.5}>
               <AddToWatchlistChip />
               <AddToPortfolioChip />
             </Stack>
           </Stack>
           //   <Typography>{cellValues.row.name}</Typography>
-          //   <AddToWatchlistChip />
         );
       },
     },
@@ -342,7 +341,7 @@ const MarketTableMobile = () => {
       }}
     >
       <DataGrid
-        rows={rows}
+        rows={marketData}
         columns={columns}
         disableColumnMenu
         disableSelectionOnClick

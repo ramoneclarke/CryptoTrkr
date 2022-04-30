@@ -28,27 +28,22 @@ const reducer = (state, action) => {
 };
 
 export const AppContextProvider = ({ children }) => {
-  //   const [coinList, setListData] = useState([]);
-  //   const [activeCurrency, setActiveCurrency] = useState("");
-  //   const [settings, setSettings] = useState({});
   const [state, dispatchAppContext] = useReducer(reducer, initialState);
 
   const { settings } = state;
 
-  const supportedCurrencies = [
-    "usd",
-    "eur",
-    "gbp",
-    "jpy",
-    "cny",
-    "idr",
-    "krw",
-    "twd",
-    "btc",
-    "eth",
-    "ltc",
-    "bnb",
-  ];
+  const supportedCurrencies = {
+    usd: { code: "usd", symbol: "$" },
+    eur: { code: "eur", symbol: "€" },
+    gbp: { code: "gbp", symbol: "£" },
+    jpy: { code: "jpy", symbol: "¥" },
+    cny: { code: "cny", symbol: "¥" },
+    inr: { code: "inr", symbol: "₹" },
+    krw: { code: "krw", symbol: "₩" },
+    btc: { code: "btc", symbol: "₿" },
+    eth: { code: "eth", symbol: "Ξ" },
+    ltc: { code: "ltc", symbol: "Ł" },
+  };
 
   // Fetch supported currencies
   //   useEffect(() => {
@@ -62,7 +57,10 @@ export const AppContextProvider = ({ children }) => {
 
   // Set initial settings
   useEffect(() => {
-    dispatchAppContext({ type: "setActiveCurrency", payload: "gbp" });
+    dispatchAppContext({
+      type: "setActiveCurrency",
+      payload: supportedCurrencies.gbp,
+    });
   }, []);
 
   return (
