@@ -41,8 +41,8 @@ const Market = () => {
                 maximumSignificantDigits: 12,
               }).format(coin.current_price.toFixed(3))
         }`,
-        "24h": `${coin.price_change_percentage_24h_in_currency.toFixed(2)}%`,
-        "7d": `${coin.price_change_percentage_7d_in_currency.toFixed(2)}%`,
+        "24h": coin.price_change_percentage_24h_in_currency.toFixed(2),
+        "7d": coin.price_change_percentage_7d_in_currency.toFixed(2),
         cap: `${currency.symbol}${Intl.NumberFormat("en-IN", {
           maximumSignificantDigits: 12,
         }).format(coin.market_cap)}`,
@@ -60,31 +60,53 @@ const Market = () => {
     );
   }, [coinData, currency]);
 
-  const isSmallDevice = useMediaQuery(theme.breakpoints.down("md"));
+  // const isSmallDevice = useMediaQuery(theme.breakpoints.down("md"));
 
-  if (isSmallDevice) {
-    return (
-      <Box sx={{ width: "100%", height: "100%" }}>
-        <MarketHeader />
-        <MarketTableMobile marketData={marketData} />
-      </Box>
-    );
-  } else {
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          alignItems: "flex-start",
-          width: "100%",
-        }}
-      >
-        <MarketHeader />
-        <MarketTable marketData={marketData} />
-      </Box>
-    );
-  }
+  // if (isSmallDevice) {
+  //   return (
+  //     <Box sx={{ width: "100%", height: "100%" }}>
+  //       <MarketHeader />
+  //       <MarketTableMobile marketData={marketData} />
+  //     </Box>
+  //   );
+  // } else {
+  //   return (
+  //     <Box
+  //       sx={{
+  //         display: "flex",
+  //         flexDirection: "column",
+  //         justifyContent: "flex-start",
+  //         alignItems: "flex-start",
+  //         width: "100%",
+  //       }}
+  //     >
+  //       <MarketHeader />
+  //       <MarketTable marketData={marketData} />
+  //     </Box>
+  //   );
+  // }
+
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: {
+          xs: "center",
+          md: "flex-start",
+        },
+        alignItems: {
+          xs: "center",
+          md: "flex-start",
+        },
+        width: "100%",
+        height: "100%",
+      }}
+    >
+      <MarketHeader />
+      <MarketTable marketData={marketData} />
+    </Box>
+  );
 };
 
 export default Market;

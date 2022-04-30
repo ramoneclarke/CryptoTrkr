@@ -34,8 +34,14 @@ const MarketHeader = () => {
           xs: 1,
           md: 2,
         },
+        width: {
+          xs: "100%",
+        },
         display: "flex",
-        justifyContent: "center",
+        justifyContent: {
+          xs: "center",
+          md: "flex-start",
+        },
       }}
     >
       <FilterSearchBar placeholder="Filter coins..." />
