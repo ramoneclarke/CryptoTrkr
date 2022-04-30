@@ -9,7 +9,7 @@ export const AppContext = createContext();
 
 const initialState = {
   settings: {
-    activeCurrency: "gbp",
+    activeCurrency: { code: "gbp", symbol: "£" },
   },
 };
 
