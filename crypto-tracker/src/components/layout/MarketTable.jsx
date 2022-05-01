@@ -18,6 +18,8 @@ import {
 import InfoIcon from "@mui/icons-material/Info";
 import AddToWatchlistChip from "../AddToWatchlistChip";
 import AddToPortfolioChip from "../AddToPortfolioChip";
+import { useContext } from "react";
+import { AppContext } from "../../context/AppContext";
 
 function CustomPagination() {
   const apiRef = useGridApiContext();
@@ -37,9 +39,13 @@ function CustomPagination() {
   );
 }
 
-const MarketTable = ({ marketData }) => {
+const MarketTable = ({ marketData, filteredMarketData, filterText }) => {
   const theme = useTheme();
   const isSmallDevice = useMediaQuery(theme.breakpoints.down("md"));
+
+  const useAppContext = useContext(AppContext);
+  const { settings } = useAppContext;
+  const { activeCurrency: currency } = settings;
 
   let columns;
   if (isSmallDevice) {
@@ -175,6 +181,14 @@ const MarketTable = ({ marketData }) => {
         width: 100,
         type: "number",
         headerClassName: "market-table-header",
+        renderCell: (cellValues) => {
+          return (
+            <>
+              {currency.symbol}
+              {cellValues.row.price}
+            </>
+          );
+        },
       },
       {
         field: "24h",
@@ -182,6 +196,9 @@ const MarketTable = ({ marketData }) => {
         width: 100,
         type: "number",
         headerClassName: "market-table-header",
+        renderCell: (cellValues) => {
+          return <>{cellValues.row["24h"]}%</>;
+        },
       },
       {
         field: "7d",
@@ -189,13 +206,16 @@ const MarketTable = ({ marketData }) => {
         width: 100,
         type: "number",
         headerClassName: "market-table-header",
+        renderCell: (cellValues) => {
+          return <>{cellValues.row["7d"]}%</>;
+        },
       },
       {
         field: "cap",
         width: 200,
         type: "number",
-        description:
-          "The total market value of a cryptocurrency's circulating supply. It is analogous to the free-float capitalization in the stock market. Market Cap = Current Price x Circulating Supply.",
+        // description:
+        //   "The total market value of a cryptocurrency's circulating supply. It is analogous to the free-float capitalization in the stock market. Market Cap = Current Price x Circulating Supply.",
         renderHeader: () => (
           <Stack direction="row" alignItems="center">
             <Typography>Market Cap</Typography>
@@ -203,6 +223,14 @@ const MarketTable = ({ marketData }) => {
           </Stack>
         ),
         headerClassName: "market-table-header",
+        renderCell: (cellValues) => {
+          return (
+            <>
+              {currency.symbol}
+              {cellValues.row.cap}
+            </>
+          );
+        },
       },
       {
         field: "volume",
@@ -217,6 +245,14 @@ const MarketTable = ({ marketData }) => {
           </Stack>
         ),
         headerClassName: "market-table-header",
+        renderCell: (cellValues) => {
+          return (
+            <>
+              {currency.symbol}
+              {cellValues.row.volume}
+            </>
+          );
+        },
       },
       {
         field: "supply",
@@ -231,6 +267,14 @@ const MarketTable = ({ marketData }) => {
           </Stack>
         ),
         headerClassName: "market-table-header",
+        renderCell: (cellValues) => {
+          return (
+            <>
+              {currency.symbol}
+              {cellValues.row.supply}
+            </>
+          );
+        },
       },
     ];
   }
@@ -253,7 +297,7 @@ const MarketTable = ({ marketData }) => {
       }}
     >
       <DataGrid
-        rows={marketData}
+        rows={filterText === "" ? marketData : filteredMarketData}
         columns={columns}
         disableColumnMenu
         disableSelectionOnClick

@@ -3,7 +3,7 @@ import React from "react";
 import CurrencySelector from "../CurrencySelector";
 import FilterSearchBar from "../FilterSearchBar";
 
-const MarketHeader = () => {
+const MarketHeader = ({ filterData, filterText, setFilterText }) => {
   return (
     <Box
       sx={{
@@ -25,7 +25,12 @@ const MarketHeader = () => {
         },
       }}
     >
-      <FilterSearchBar placeholder="Filter coins..." />
+      <FilterSearchBar
+        placeholder="Filter coins..."
+        filterData={filterData}
+        filterText={filterText}
+        setFilterText={setFilterText}
+      />
     </Box>
   );
 };

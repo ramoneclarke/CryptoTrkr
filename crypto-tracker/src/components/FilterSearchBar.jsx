@@ -1,8 +1,20 @@
 import { Search } from "@mui/icons-material";
 import { IconButton, InputBase, Paper } from "@mui/material";
 import React from "react";
+import { useState } from "react";
 
-const FilterSearchBar = ({ placeholder }) => {
+const FilterSearchBar = ({ placeholder, setFilterText }) => {
+  const [text, setText] = useState("");
+
+  const handleChange = (event) => {
+    setText(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setFilterText(text);
+  };
+
   return (
     <Paper
       component="form"
@@ -18,6 +30,7 @@ const FilterSearchBar = ({ placeholder }) => {
           md: 3,
         },
       }}
+      onSubmit={handleSubmit}
     >
       <IconButton>
         <Search sx={{ color: "text.secondary" }} />
@@ -25,6 +38,9 @@ const FilterSearchBar = ({ placeholder }) => {
       <InputBase
         sx={{ ml: 1, flex: 1 }}
         placeholder={placeholder}
+        label="Filter"
+        value={text}
+        onChange={handleChange}
         inputProps={{ "aria-label": "filter" }}
       />
     </Paper>
