@@ -278,6 +278,22 @@ const MarketTable = ({ marketData, filteredMarketData, filterText }) => {
       },
     ];
   }
+
+  const CustomNoRowsOverlay = () => {
+    return (
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        height="100%"
+        sx={{ mt: 1 }}
+      >
+        <Typography variant="h4">No results for '{filterText}'</Typography>
+      </Box>
+    );
+  };
+
   return (
     <Box
       sx={{
@@ -299,6 +315,10 @@ const MarketTable = ({ marketData, filteredMarketData, filterText }) => {
       <DataGrid
         rows={filterText === "" ? marketData : filteredMarketData}
         columns={columns}
+        components={{
+          Pagination: CustomPagination,
+          NoRowsOverlay: CustomNoRowsOverlay,
+        }}
         disableColumnMenu
         disableSelectionOnClick
         sx={{
@@ -331,9 +351,6 @@ const MarketTable = ({ marketData, filteredMarketData, filterText }) => {
             {
               outline: "none",
             },
-        }}
-        components={{
-          Pagination: CustomPagination,
         }}
       />
     </Box>
