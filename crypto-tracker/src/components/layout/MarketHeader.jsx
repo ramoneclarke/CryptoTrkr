@@ -27,8 +27,6 @@ const MarketHeader = ({ filterData, filterText, setFilterText }) => {
     >
       <FilterSearchBar
         placeholder="Filter coins..."
-        filterData={filterData}
-        filterText={filterText}
         setFilterText={setFilterText}
       />
     </Box>

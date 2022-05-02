@@ -6,13 +6,14 @@ import { useState } from "react";
 const FilterSearchBar = ({ placeholder, setFilterText }) => {
   const [text, setText] = useState("");
 
-  const handleChange = (event) => {
-    setText(event.target.value);
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    setFilterText(text);
+  };
+
+  const handleChange = (event) => {
+    event.preventDefault();
+    setText(event.target.value);
+    setFilterText(event.target.value);
   };
 
   return (
