@@ -11,6 +11,7 @@ import {
   Pagination,
   PaginationItem,
   Stack,
+  Tooltip,
   Typography,
   useMediaQuery,
   useTheme,
@@ -38,6 +39,13 @@ function CustomPagination() {
     />
   );
 }
+
+const supplyColumnDescription =
+  "The amount of coins that are circulating in the market and are in public hands. It is analogous to the flowing shares in the stock market.";
+const volumeColumnDescription =
+  "A measure of how much of a cryptocurrency was traded in the last 24 hours.";
+const capColumnDescription =
+  "The total market value of a cryptocurrency's circulating supply. It is analogous to the free-float capitalization in the stock market. Market Cap = Current Price x Circulating Supply.";
 
 const MarketTable = ({ marketData, filteredMarketData, filterText }) => {
   const theme = useTheme();
@@ -76,7 +84,6 @@ const MarketTable = ({ marketData, filteredMarketData, filterText }) => {
                 <AddToPortfolioChip />
               </Stack>
             </Stack>
-            //   <Typography>{cellValues.row.name}</Typography>
           );
         },
       },
@@ -119,12 +126,12 @@ const MarketTable = ({ marketData, filteredMarketData, filterText }) => {
         field: "cap",
         width: 150,
         type: "number",
-        description:
-          "The total market value of a cryptocurrency's circulating supply. It is analogous to the free-float capitalization in the stock market. Market Cap = Current Price x Circulating Supply.",
         renderHeader: () => (
           <Stack direction="row" alignItems="center">
             <Typography>Market Cap</Typography>
-            <InfoIcon fontSize="small" />
+            <Tooltip title={capColumnDescription} arrow placement="top">
+              <InfoIcon fontSize="small" />
+            </Tooltip>
           </Stack>
         ),
         headerClassName: "market-table-header",
@@ -141,12 +148,12 @@ const MarketTable = ({ marketData, filteredMarketData, filterText }) => {
         field: "volume",
         width: 150,
         type: "number",
-        description:
-          "A measure of how much of a cryptocurrency was traded in the last 24 hours.",
         renderHeader: () => (
           <Stack direction="row" alignItems="center">
             <Typography>Volume(24h)</Typography>
-            <InfoIcon fontSize="small" />
+            <Tooltip title={volumeColumnDescription} arrow placement="top">
+              <InfoIcon fontSize="small" />
+            </Tooltip>
           </Stack>
         ),
         headerClassName: "market-table-header",
@@ -161,14 +168,14 @@ const MarketTable = ({ marketData, filteredMarketData, filterText }) => {
       },
       {
         field: "supply",
-        width: 150,
+        width: 170,
         type: "number",
-        description:
-          "The amount of coins that are circulating in the market and are in public hands. It is analogous to the flowing shares in the stock market.",
         renderHeader: () => (
           <Stack direction="row" alignItems="center">
             <Typography>Circulating Supply</Typography>
-            <InfoIcon fontSize="small" />
+            <Tooltip title={supplyColumnDescription} arrow placement="top">
+              <InfoIcon fontSize="small" />
+            </Tooltip>
           </Stack>
         ),
         headerClassName: "market-table-header",
@@ -252,12 +259,12 @@ const MarketTable = ({ marketData, filteredMarketData, filterText }) => {
         field: "cap",
         width: 200,
         type: "number",
-        // description:
-        //   "The total market value of a cryptocurrency's circulating supply. It is analogous to the free-float capitalization in the stock market. Market Cap = Current Price x Circulating Supply.",
         renderHeader: () => (
           <Stack direction="row" alignItems="center">
             <Typography>Market Cap</Typography>
-            <InfoIcon fontSize="small" />
+            <Tooltip title={capColumnDescription} arrow placement="top">
+              <InfoIcon fontSize="small" />
+            </Tooltip>
           </Stack>
         ),
         headerClassName: "market-table-header",
@@ -274,12 +281,12 @@ const MarketTable = ({ marketData, filteredMarketData, filterText }) => {
         field: "volume",
         width: 200,
         type: "number",
-        description:
-          "A measure of how much of a cryptocurrency was traded in the last 24 hours.",
         renderHeader: () => (
           <Stack direction="row" alignItems="center">
             <Typography>Volume(24h)</Typography>
-            <InfoIcon fontSize="small" />
+            <Tooltip title={volumeColumnDescription} arrow placement="top">
+              <InfoIcon fontSize="small" />
+            </Tooltip>
           </Stack>
         ),
         headerClassName: "market-table-header",
@@ -296,12 +303,12 @@ const MarketTable = ({ marketData, filteredMarketData, filterText }) => {
         field: "supply",
         width: 200,
         type: "number",
-        description:
-          "The amount of coins that are circulating in the market and are in public hands. It is analogous to the flowing shares in the stock market.",
         renderHeader: () => (
           <Stack direction="row" alignItems="center">
             <Typography>Circulating Supply</Typography>
-            <InfoIcon fontSize="small" />
+            <Tooltip title={supplyColumnDescription} arrow placement="top">
+              <InfoIcon fontSize="small" />
+            </Tooltip>
           </Stack>
         ),
         headerClassName: "market-table-header",
