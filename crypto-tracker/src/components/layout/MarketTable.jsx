@@ -86,6 +86,14 @@ const MarketTable = ({ marketData, filteredMarketData, filterText }) => {
         width: 100,
         type: "number",
         headerClassName: "market-table-header",
+        renderCell: (cellValues) => {
+          return (
+            <>
+              {currency.symbol}
+              {cellValues.row.price}
+            </>
+          );
+        },
       },
       {
         field: "24h",
@@ -93,6 +101,9 @@ const MarketTable = ({ marketData, filteredMarketData, filterText }) => {
         width: 70,
         type: "number",
         headerClassName: "market-table-header",
+        renderCell: (cellValues) => {
+          return <>{cellValues.row["24h"]}%</>;
+        },
       },
       {
         field: "7d",
@@ -100,6 +111,9 @@ const MarketTable = ({ marketData, filteredMarketData, filterText }) => {
         width: 70,
         type: "number",
         headerClassName: "market-table-header",
+        renderCell: (cellValues) => {
+          return <>{cellValues.row["7d"]}%</>;
+        },
       },
       {
         field: "cap",
@@ -114,6 +128,14 @@ const MarketTable = ({ marketData, filteredMarketData, filterText }) => {
           </Stack>
         ),
         headerClassName: "market-table-header",
+        renderCell: (cellValues) => {
+          return (
+            <>
+              {currency.symbol}
+              {cellValues.row.cap}
+            </>
+          );
+        },
       },
       {
         field: "volume",
@@ -128,6 +150,14 @@ const MarketTable = ({ marketData, filteredMarketData, filterText }) => {
           </Stack>
         ),
         headerClassName: "market-table-header",
+        renderCell: (cellValues) => {
+          return (
+            <>
+              {currency.symbol}
+              {cellValues.row.volume}
+            </>
+          );
+        },
       },
       {
         field: "supply",
@@ -142,6 +172,14 @@ const MarketTable = ({ marketData, filteredMarketData, filterText }) => {
           </Stack>
         ),
         headerClassName: "market-table-header",
+        renderCell: (cellValues) => {
+          return (
+            <>
+              {currency.symbol}
+              {cellValues.row.supply}
+            </>
+          );
+        },
       },
     ];
   } else {
