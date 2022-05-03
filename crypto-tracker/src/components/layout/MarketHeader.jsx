@@ -1,9 +1,8 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import React from "react";
-import CurrencySelector from "../CurrencySelector";
 import FilterSearchBar from "../FilterSearchBar";
 
-const MarketHeader = ({ filterData, filterText, setFilterText }) => {
+const MarketHeader = ({ setFilterText }) => {
   return (
     <Box
       sx={{

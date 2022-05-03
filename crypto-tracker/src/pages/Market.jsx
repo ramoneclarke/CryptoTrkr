@@ -1,8 +1,7 @@
-import { Box, useTheme } from "@mui/material";
+import { Box } from "@mui/material";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useCallback } from "react";
 import { useContext } from "react";
 import MarketHeader from "../components/layout/MarketHeader";
 import MarketTable from "../components/layout/MarketTable";
@@ -10,7 +9,6 @@ import { AppContext } from "../context/AppContext";
 import { DataContext } from "../context/DataContext";
 
 const Market = () => {
-  const theme = useTheme();
   const useDataContext = useContext(DataContext);
   const useAppContext = useContext(AppContext);
   const { coinData, isLoading } = useDataContext;

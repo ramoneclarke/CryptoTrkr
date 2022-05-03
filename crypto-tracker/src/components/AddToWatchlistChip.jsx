@@ -1,5 +1,5 @@
-import { Avatar, Chip, IconButton, Badge } from "@mui/material";
-import { Add, Star } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
+import { Star } from "@mui/icons-material";
 import React from "react";
 
 const AddToWatchlistChip = () => {

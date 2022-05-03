@@ -1,10 +1,10 @@
 import React from "react";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect } from "react";
 import axios from "axios";
 import { AppContext } from "./AppContext";
 import { useContext } from "react";
-import useFetch from "../utils/useFetch";
 import { useReducer } from "react";
+import { useCallback } from "react";
 export const DataContext = createContext();
 
 const initialState = {
@@ -44,10 +44,11 @@ const DataContextProvider = ({ children }) => {
   //   `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${settings.activeCurrency}&order=market_cap_desc&per_page=500&page=1&sparkline=false&price_change_percentage=24h%2C7d`
   // );
 
-  // Fetch data
-  useEffect(() => {
-    dispatchDataContext({ type: "setCoinData", payload: [] });
-    dispatchDataContext({ type: "setisLoading", payload: true });
+  const getCoinData = useCallback(() => {
+    if (coinData === []) {
+      dispatchDataContext({ type: "setCoinData", payload: [] });
+      dispatchDataContext({ type: "setisLoading", payload: true });
+    }
     axios
       .get(
         `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${settings.activeCurrency.code}&order=market_cap_desc&per_page=500&page=1&sparkline=false&price_change_percentage=24h%2C7d`
@@ -57,7 +58,17 @@ const DataContextProvider = ({ children }) => {
         dispatchDataContext({ type: "setCoinData", payload: res.data });
       })
       .catch((err) => console.log(err));
-  }, [settings.activeCurrency]);
+  }, [settings.activeCurrency.code, coinData]);
+
+  // Fetch data
+
+  useEffect(() => {
+    const interval = setInterval(getCoinData, 30000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [getCoinData]);
 
   return (
     <DataContext.Provider value={{ coinData, isLoading }}>

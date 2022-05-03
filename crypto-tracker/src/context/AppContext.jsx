@@ -1,8 +1,6 @@
-import axios from "axios";
 import React from "react";
 import { useReducer } from "react";
 import { useEffect } from "react";
-import { useState } from "react";
 import { createContext } from "react";
 
 export const AppContext = createContext();
@@ -44,16 +42,6 @@ export const AppContextProvider = ({ children }) => {
   const [state, dispatchAppContext] = useReducer(reducer, initialState);
 
   const { settings } = state;
-
-  // Fetch supported currencies
-  //   useEffect(() => {
-  //     axios
-  //       .get("https://api.coingecko.com/api/v3/simple/supported_vs_currencies")
-  //       .then((res) => {
-  //         console.log(res.data);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }, []);
 
   // Set initial settings
   useEffect(() => {

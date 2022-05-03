@@ -1,5 +1,5 @@
-import { Avatar, Badge, Chip, IconButton } from "@mui/material";
-import { Add, AccountBalanceWallet } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
+import { AccountBalanceWallet } from "@mui/icons-material";
 import React from "react";
 
 const AddToPortfolioChip = () => {
