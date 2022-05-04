@@ -8,8 +8,10 @@ import {
 } from "@mui/x-data-grid";
 import {
   Box,
+  CircularProgress,
   Pagination,
   PaginationItem,
+  Skeleton,
   Stack,
   Tooltip,
   Typography,
@@ -334,7 +336,11 @@ const MarketTable = ({ marketData, filteredMarketData, filterText }) => {
         height="100%"
         sx={{ mt: 1 }}
       >
-        <Typography variant="h4">No results for '{filterText}'</Typography>
+        {filterText === "" ? (
+          <CircularProgress size={75} sx={{ color: "text.primary" }} />
+        ) : (
+          <Typography variant="h4">No results for '{filterText}'</Typography>
+        )}
       </Box>
     );
   };

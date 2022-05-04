@@ -63,6 +63,7 @@ const DataContextProvider = ({ children }) => {
   // Fetch data
 
   useEffect(() => {
+    getCoinData();
     const interval = setInterval(getCoinData, 30000);
 
     return () => {
