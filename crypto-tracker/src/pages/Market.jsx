@@ -34,8 +34,14 @@ const Market = () => {
             : Intl.NumberFormat("en-IN", {
                 maximumSignificantDigits: 12,
               }).format(coin.current_price.toFixed(3)),
-        "24h": coin.price_change_percentage_24h_in_currency.toFixed(2),
-        "7d": coin.price_change_percentage_7d_in_currency.toFixed(2),
+        "24h":
+          coin.price_change_percentage_24h_in_currency === null
+            ? coin.price_change_percentage_24h_in_currency
+            : coin.price_change_percentage_24h_in_currency.toFixed(2),
+        "7d":
+          coin.price_change_percentage_7d_in_currency === null
+            ? coin.price_change_percentage_7d_in_currency
+            : coin.price_change_percentage_7d_in_currency.toFixed(2),
         cap: Intl.NumberFormat("en-IN", {
           maximumSignificantDigits: 12,
         }).format(coin.market_cap),
