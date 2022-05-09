@@ -317,7 +317,7 @@ const MarketTable = ({ marketData, filteredMarketData, filterText }) => {
         renderCell: (cellValues) => {
           return (
             <>
-              {currency.symbol}
+              {cellValues.row.supply !== "N/A" ? currency.symbol : ""}
               {cellValues.row.supply}
             </>
           );
