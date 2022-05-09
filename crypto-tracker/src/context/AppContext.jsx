@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { useReducer } from "react";
 import { useEffect } from "react";
 import { createContext } from "react";
@@ -40,6 +41,7 @@ const supportedCurrencies = {
 
 export const AppContextProvider = ({ children }) => {
   const [state, dispatchAppContext] = useReducer(reducer, initialState);
+  const [currencies] = useState(supportedCurrencies);
 
   const { settings } = state;
 

@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import React from "react";
+import CurrencySelector from "../CurrencySelector";
 import FilterSearchBar from "../FilterSearchBar";
 
 const MarketHeader = ({ setFilterText }) => {
@@ -28,6 +29,7 @@ const MarketHeader = ({ setFilterText }) => {
         placeholder="Filter coins..."
         setFilterText={setFilterText}
       />
+      <CurrencySelector />
     </Box>
   );
 };
