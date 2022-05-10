@@ -13,6 +13,7 @@ import MobileNavbar from "./components/layout/MobileNavbar";
 import { Outlet } from "react-router-dom";
 import { AppContextProvider } from "./context/AppContext";
 import DataContextProvider from "./context/DataContext";
+import { UserContextProvider } from "./context/UserContext";
 
 const theme = createTheme({
   palette: {
@@ -67,27 +68,29 @@ function App() {
   return (
     <AppContextProvider>
       <DataContextProvider>
-        <ThemeProvider theme={theme}>
-          <Box
-            sx={{
-              width: {
-                xs: "100%",
-                xl: "100%",
-              },
-              margin: "auto",
-              height: "100vh",
-              display: "flex",
-              flexDirection: {
-                xs: "column",
-                md: "row",
-              },
-            }}
-          >
-            <CssBaseline />
-            {isSmallDevice ? <MobileNavbar /> : <Sidebar />}
-            <Outlet />
-          </Box>
-        </ThemeProvider>
+        <UserContextProvider>
+          <ThemeProvider theme={theme}>
+            <Box
+              sx={{
+                width: {
+                  xs: "100%",
+                  xl: "100%",
+                },
+                margin: "auto",
+                height: "100vh",
+                display: "flex",
+                flexDirection: {
+                  xs: "column",
+                  md: "row",
+                },
+              }}
+            >
+              <CssBaseline />
+              {isSmallDevice ? <MobileNavbar /> : <Sidebar />}
+              <Outlet />
+            </Box>
+          </ThemeProvider>
+        </UserContextProvider>
       </DataContextProvider>
     </AppContextProvider>
   );
