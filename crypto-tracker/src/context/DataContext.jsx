@@ -44,7 +44,7 @@ const DataContextProvider = ({ children }) => {
   //   `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${settings.activeCurrency}&order=market_cap_desc&per_page=500&page=1&sparkline=false&price_change_percentage=24h%2C7d`
   // );
 
-  const getCoinData = useCallback(() => {
+  const getCoinData = () => {
     if (coinData === []) {
       dispatchDataContext({ type: "setCoinData", payload: [] });
       dispatchDataContext({ type: "setisLoading", payload: true });
@@ -58,7 +58,7 @@ const DataContextProvider = ({ children }) => {
         dispatchDataContext({ type: "setCoinData", payload: res.data });
       })
       .catch((err) => console.log(err));
-  }, [settings.activeCurrency.code, coinData]);
+  };
 
   // Fetch data
 
@@ -69,7 +69,7 @@ const DataContextProvider = ({ children }) => {
     return () => {
       clearInterval(interval);
     };
-  }, [getCoinData]);
+  }, []);
 
   return (
     <DataContext.Provider value={{ coinData, isLoading }}>
