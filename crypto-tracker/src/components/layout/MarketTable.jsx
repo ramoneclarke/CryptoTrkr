@@ -49,7 +49,7 @@ const volumeColumnDescription =
 const capColumnDescription =
   "The total market value of a cryptocurrency's circulating supply. It is analogous to the free-float capitalization in the stock market. Market Cap = Current Price x Circulating Supply.";
 
-const MarketTable = ({ marketData, filteredMarketData, filterText }) => {
+const MarketTable = ({ data, filteredData, filterText }) => {
   const theme = useTheme();
   const isSmallDevice = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -364,7 +364,7 @@ const MarketTable = ({ marketData, filteredMarketData, filterText }) => {
       }}
     >
       <DataGrid
-        rows={filterText === "" ? marketData : filteredMarketData}
+        rows={filterText === "" ? data : filteredData}
         columns={columns}
         components={{
           Pagination: CustomPagination,

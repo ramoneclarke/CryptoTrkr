@@ -85,8 +85,8 @@ const Market = () => {
     >
       <MarketHeader setFilterText={setFilterText} />
       <MarketTable
-        marketData={marketData}
-        filteredMarketData={filteredMarketData}
+        data={marketData}
+        filteredData={filteredMarketData}
         filterText={filterText}
       />
     </Box>
