@@ -1,5 +1,6 @@
 import { Box, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import React from "react";
+import AddToWatchListHeaderButton from "../AddToWatchListHeaderButton";
 import CurrencySelector from "../CurrencySelector";
 import FilterSearchBar from "../FilterSearchBar";
 import PageTitle from "../PageTitle";
@@ -26,6 +27,10 @@ const MarketHeader = ({ setFilterText }) => {
           xs: "center",
           md: "flex-start",
         },
+        flexWrap: {
+          xs: "wrap",
+          md: "nowrap",
+        },
       }}
     >
       <FilterSearchBar
@@ -33,6 +38,7 @@ const MarketHeader = ({ setFilterText }) => {
         setFilterText={setFilterText}
       />
       <CurrencySelector />
+      <AddToWatchListHeaderButton />
       {!isSmallDevice && (
         <Stack width="600px" alignItems="center" justifyContent="center">
           <PageTitle title="Watch List" />

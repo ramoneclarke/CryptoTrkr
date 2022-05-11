@@ -30,6 +30,10 @@ const FilterSearchBar = ({ placeholder, setFilterText }) => {
         ml: {
           md: 3,
         },
+        mb: {
+          xs: 1,
+          md: 0,
+        },
       }}
       onSubmit={handleSubmit}
     >
