@@ -3,7 +3,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useContext } from "react";
-import MarketHeader from "../components/layout/MarketHeader";
+import WatchListHeader from "../components/layout/WatchListHeader";
 import MarketTable from "../components/layout/MarketTable";
 import { AppContext } from "../context/AppContext";
 import { DataContext } from "../context/DataContext";
@@ -84,11 +84,12 @@ const WatchList = () => {
         height: "100%",
       }}
     >
-      <MarketHeader setFilterText={setFilterText} />
+      <WatchListHeader setFilterText={setFilterText} />
       <MarketTable
         data={watchListData}
         filteredData={filteredWatchListData}
         filterText={filterText}
+        page="watchlist"
       />
     </Box>
   );
