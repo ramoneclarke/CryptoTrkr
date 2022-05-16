@@ -6,7 +6,8 @@ import { createContext } from "react";
 export const UserContext = createContext();
 
 const initialState = {
-  watchList: ["bitcoin", "ethereum"],
+  // watchList: ["bitcoin", "ethereum"],
+  watchList: [],
   portfolio: {},
 };
 

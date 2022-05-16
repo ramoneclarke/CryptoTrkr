@@ -4,16 +4,17 @@ import React from "react";
 
 const WatchListEmptyAddButton = () => {
   return (
-    <Box>
+    <>
       <Button
-        variant="text"
+        variant="contained"
         startIcon={<AddCircle sx={{ color: "secondary.main" }} />}
         size="large"
         sx={{ color: "text.primary" }}
+        onClick={() => alert("clicked")}
       >
         Add to WatchList
       </Button>
-    </Box>
+    </>
   );
 };
 
