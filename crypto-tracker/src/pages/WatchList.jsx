@@ -24,6 +24,19 @@ const WatchList = () => {
   const [filteredWatchListData, setFilteredWatchListData] = useState([]);
   const [filterText, setFilterText] = useState("");
 
+  // for Add to watchlist pop up
+  const [popUpOpen, setPopUpOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("");
+
+  const handleClickOpen = () => {
+    setPopUpOpen(true);
+  };
+
+  const handleClose = (value) => {
+    setPopUpOpen(false);
+    setSelectedValue(false);
+  };
+
   // Fetch coin data from CoinGecko
   useEffect(() => {
     const watchListCoinData = coinData.filter((coin) =>
@@ -84,7 +97,13 @@ const WatchList = () => {
         height: "100%",
       }}
     >
-      <WatchListHeader setFilterText={setFilterText} />
+      <WatchListHeader
+        setFilterText={setFilterText}
+        open={popUpOpen}
+        selectedValue={selectedValue}
+        handleClickOpen={handleClickOpen}
+        handleClose={handleClose}
+      />
       <MarketTable
         data={watchListData}
         filteredData={filteredWatchListData}
