@@ -31,6 +31,12 @@ const MarketHeader = ({ setFilterText }) => {
       <FilterSearchBar
         placeholder="Filter coins..."
         setFilterText={setFilterText}
+        ML={{ md: 3 }}
+        MB={{ xs: 1, md: 0 }}
+        width={{
+          xs: "90%",
+          md: 400,
+        }}
       />
       <CurrencySelector />
       {!isSmallDevice && (
