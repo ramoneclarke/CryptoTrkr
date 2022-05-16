@@ -32,7 +32,7 @@ const DataGridCustomNoRowsOverlay = ({ filterText, page }) => {
         sx={{ mt: 1 }}
       >
         {filterText === "" ? (
-          <WatchListEmptyAddButton />
+          <Typography>Watchlist empty</Typography>
         ) : (
           <Typography variant="h4">No results for '{filterText}'</Typography>
         )}
