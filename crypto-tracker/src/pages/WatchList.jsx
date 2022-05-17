@@ -3,7 +3,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useContext } from "react";
-import MarketHeader from "../components/layout/MarketHeader";
+import WatchListHeader from "../components/layout/WatchListHeader";
 import MarketTable from "../components/layout/MarketTable";
 import { AppContext } from "../context/AppContext";
 import { DataContext } from "../context/DataContext";
@@ -23,6 +23,19 @@ const WatchList = () => {
   const [watchListData, setWatchListData] = useState([]);
   const [filteredWatchListData, setFilteredWatchListData] = useState([]);
   const [filterText, setFilterText] = useState("");
+
+  // for Add to watchlist pop up
+  const [popUpOpen, setPopUpOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("");
+
+  const handleClickOpen = () => {
+    setPopUpOpen(true);
+  };
+
+  const handleClose = (value) => {
+    setPopUpOpen(false);
+    setSelectedValue(false);
+  };
 
   // Fetch coin data from CoinGecko
   useEffect(() => {
@@ -84,11 +97,18 @@ const WatchList = () => {
         height: "100%",
       }}
     >
-      <MarketHeader setFilterText={setFilterText} />
+      <WatchListHeader
+        setFilterText={setFilterText}
+        open={popUpOpen}
+        selectedValue={selectedValue}
+        handleClickOpen={handleClickOpen}
+        handleClose={handleClose}
+      />
       <MarketTable
         data={watchListData}
         filteredData={filteredWatchListData}
         filterText={filterText}
+        page="watchlist"
       />
     </Box>
   );

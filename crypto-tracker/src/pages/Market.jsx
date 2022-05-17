@@ -88,6 +88,7 @@ const Market = () => {
         data={marketData}
         filteredData={filteredMarketData}
         filterText={filterText}
+        page="market"
       />
     </Box>
   );

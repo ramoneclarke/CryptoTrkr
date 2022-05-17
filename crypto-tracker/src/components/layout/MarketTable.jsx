@@ -23,6 +23,7 @@ import AddToWatchlistChip from "../AddToWatchlistChip";
 import AddToPortfolioChip from "../AddToPortfolioChip";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
+import DataGridCustomNoRowsOverlay from "../DataGridCustomNoRowsOverlay";
 
 function CustomPagination() {
   const apiRef = useGridApiContext();
@@ -49,7 +50,7 @@ const volumeColumnDescription =
 const capColumnDescription =
   "The total market value of a cryptocurrency's circulating supply. It is analogous to the free-float capitalization in the stock market. Market Cap = Current Price x Circulating Supply.";
 
-const MarketTable = ({ data, filteredData, filterText }) => {
+const MarketTable = ({ data, filteredData, filterText, page }) => {
   const theme = useTheme();
   const isSmallDevice = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -327,22 +328,7 @@ const MarketTable = ({ data, filteredData, filterText }) => {
   }
 
   const CustomNoRowsOverlay = () => {
-    return (
-      <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        height="100%"
-        sx={{ mt: 1 }}
-      >
-        {filterText === "" ? (
-          <CircularProgress size={75} sx={{ color: "text.primary" }} />
-        ) : (
-          <Typography variant="h4">No results for '{filterText}'</Typography>
-        )}
-      </Box>
-    );
+    return <DataGridCustomNoRowsOverlay filterText={filterText} page={page} />;
   };
 
   return (

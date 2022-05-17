@@ -3,7 +3,7 @@ import { IconButton, InputBase, Paper } from "@mui/material";
 import React from "react";
 import { useState } from "react";
 
-const FilterSearchBar = ({ placeholder, setFilterText }) => {
+const FilterSearchBar = ({ placeholder, setFilterText, ML, MB, width }) => {
   const [text, setText] = useState("");
 
   const handleSubmit = (event) => {
@@ -23,13 +23,9 @@ const FilterSearchBar = ({ placeholder, setFilterText }) => {
         p: "2px 4px",
         display: "flex",
         alignItems: "center",
-        width: {
-          xs: "90%",
-          md: 400,
-        },
-        ml: {
-          md: 3,
-        },
+        width: width,
+        ml: ML,
+        mb: MB,
       }}
       onSubmit={handleSubmit}
     >
