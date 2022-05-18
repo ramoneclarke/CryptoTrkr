@@ -4,11 +4,12 @@ import axios from "axios";
 import { AppContext } from "./AppContext";
 import { useContext } from "react";
 import { useReducer } from "react";
-import { useCallback } from "react";
+import { useState } from "react";
 export const DataContext = createContext();
 
 const initialState = {
   coinData: [],
+  tickers: [],
   isLoading: false,
 };
 
@@ -18,6 +19,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         coinData: action.payload,
+      };
+    case "setTickers":
+      return {
+        ...state,
+        tickers: action.payload,
       };
     case "setIsLoading":
       return {
@@ -32,17 +38,8 @@ const reducer = (state, action) => {
 const DataContextProvider = ({ children }) => {
   const [state, dispatchDataContext] = useReducer(reducer, initialState);
   const { coinData, isLoading } = state;
-
   const useAppContext = useContext(AppContext);
   const { settings } = useAppContext;
-
-  // let {
-  //   data,
-  //   loading: isLoading,
-  //   error,
-  // } = useFetch(
-  //   `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${settings.activeCurrency}&order=market_cap_desc&per_page=500&page=1&sparkline=false&price_change_percentage=24h%2C7d`
-  // );
 
   const getCoinData = () => {
     if (coinData === []) {
@@ -51,7 +48,7 @@ const DataContextProvider = ({ children }) => {
     }
     axios
       .get(
-        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${settings.activeCurrency.code}&order=market_cap_desc&per_page=500&page=1&sparkline=false&price_change_percentage=24h%2C7d`
+        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${settings.activeCurrency.code}&order=market_cap_desc&per_page=250&page=1&sparkline=false&price_change_percentage=24h%2C7d`
       )
       .then((res) => {
         dispatchDataContext({ type: "setisLoading", payload: false });
@@ -65,11 +62,10 @@ const DataContextProvider = ({ children }) => {
   useEffect(() => {
     getCoinData();
     const interval = setInterval(getCoinData, 30000);
-
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [settings.activeCurrency.code]);
 
   return (
     <DataContext.Provider value={{ coinData, isLoading }}>
