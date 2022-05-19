@@ -9,7 +9,6 @@ import PageTitle from "../PageTitle";
 const MarketHeader = ({
   setFilterText,
   open,
-  selectedValue,
   handleClickOpen,
   handleClose,
 }) => {
@@ -53,11 +52,7 @@ const MarketHeader = ({
       />
       <CurrencySelector />
       <AddToWatchListHeaderButton handleClickOpen={handleClickOpen} />
-      <AddToWatchListPopUpBox
-        onClose={handleClose}
-        selectedValue={selectedValue}
-        open={open}
-      />
+      <AddToWatchListPopUpBox onClose={handleClose} open={open} />
       {!isSmallDevice && (
         <Stack width="600px" alignItems="center" justifyContent="center">
           <PageTitle title="Watch List" />

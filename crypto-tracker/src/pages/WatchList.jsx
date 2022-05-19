@@ -26,7 +26,6 @@ const WatchList = () => {
 
   // for Add to watchlist pop up
   const [popUpOpen, setPopUpOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("");
 
   const handleClickOpen = () => {
     setPopUpOpen(true);
@@ -34,7 +33,7 @@ const WatchList = () => {
 
   const handleClose = (value) => {
     setPopUpOpen(false);
-    setSelectedValue(false);
+    dispatchUserContext({ type: "addToWatchList", payload: value });
   };
 
   // Fetch coin data from CoinGecko
@@ -100,7 +99,7 @@ const WatchList = () => {
       <WatchListHeader
         setFilterText={setFilterText}
         open={popUpOpen}
-        selectedValue={selectedValue}
+        // selectedValue={selectedValue}
         handleClickOpen={handleClickOpen}
         handleClose={handleClose}
       />

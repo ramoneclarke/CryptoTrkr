@@ -1,9 +1,30 @@
-import { Box, Dialog, DialogTitle, Divider, List } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Divider,
+  Grid,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemButton,
+  ListItemText,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React from "react";
+import { useContext } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
+import { DataContext } from "../context/DataContext";
 import FilterSearchBar from "./FilterSearchBar";
 
 const AddToWatchListPopUpBox = ({ onClose, selectedValue, open }) => {
+  const useDataContext = useContext(DataContext);
+  const { coinData, isLoading } = useDataContext;
+
   const [filterText, setFilterText] = useState("");
 
   const handleClose = () => {
@@ -18,6 +39,19 @@ const AddToWatchListPopUpBox = ({ onClose, selectedValue, open }) => {
       onClose={handleClose}
       open={open}
       maxWidth="xl"
+      sx={{
+        "& ::-webkit-scrollbar": {
+          width: "0.4em",
+        },
+        "& ::-webkit-scrollbar-track": {
+          boxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+          webkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+        },
+        "& ::-webkit-scrollbar-thumb": {
+          backgroundColor: "rgba(0,0,0,.1)",
+          outline: "1px solid slategrey",
+        },
+      }}
       PaperProps={{
         sx: {
           height: "80vh",
@@ -44,7 +78,47 @@ const AddToWatchListPopUpBox = ({ onClose, selectedValue, open }) => {
         MB={{ xs: 1, md: 0 }}
         width="90%"
       />
-      {/* <List></List> */}
+      <List
+        sx={{
+          width: "100%",
+        }}
+      >
+        {coinData.map((coin, index) => (
+          <ListItem
+            disablePadding
+            key={index}
+            divider
+            sx={{ display: "flex", justifyContent: "flex-end" }}
+          >
+            <ListItemButton onClick={() => handleListItemClick(coin.id)}>
+              <Typography variant="subtitle1">{index + 1}</Typography>
+              <ListItemAvatar>
+                <Avatar
+                  alt={coin.name}
+                  src={coin.image}
+                  sx={{ m: "0 1rem 0 1rem" }}
+                />
+              </ListItemAvatar>
+              <Stack direction="row" width="100%">
+                <Grid container spacing={1}>
+                  <Grid item xs={3}>
+                    <ListItemText
+                      primary={coin.symbol.toUpperCase()}
+                      primaryTypographyProps={{
+                        textAlign: "left",
+                        color: "text.secondary",
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={9}>
+                    <ListItemText primary={coin.name} />
+                  </Grid>
+                </Grid>
+              </Stack>
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
     </Dialog>
   );
 };
