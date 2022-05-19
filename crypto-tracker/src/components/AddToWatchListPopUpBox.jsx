@@ -8,6 +8,7 @@ import {
   Grid,
   List,
   ListItem,
+  ListItemAvatar,
   ListItemButton,
   ListItemText,
   Stack,
@@ -89,13 +90,15 @@ const AddToWatchListPopUpBox = ({ onClose, selectedValue, open }) => {
             divider
             sx={{ display: "flex", justifyContent: "flex-end" }}
           >
-            <ListItemButton>
+            <ListItemButton onClick={() => handleListItemClick(coin.id)}>
               <Typography variant="subtitle1">{index + 1}</Typography>
-              <Avatar
-                alt={coin.name}
-                src={coin.image}
-                sx={{ m: "0 1rem 0 1rem" }}
-              />
+              <ListItemAvatar>
+                <Avatar
+                  alt={coin.name}
+                  src={coin.image}
+                  sx={{ m: "0 1rem 0 1rem" }}
+                />
+              </ListItemAvatar>
               <Stack direction="row" width="100%">
                 <Grid container spacing={1}>
                   <Grid item xs={3}>
