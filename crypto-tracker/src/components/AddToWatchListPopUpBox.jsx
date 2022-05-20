@@ -2,11 +2,9 @@ import {
   Avatar,
   Box,
   Dialog,
-  DialogContent,
   DialogTitle,
   Divider,
   Grid,
-  List,
   ListItem,
   ListItemAvatar,
   ListItemButton,
@@ -14,9 +12,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { FixedSizeList } from "react-window";
 import React from "react";
 import { useContext } from "react";
-import { useEffect } from "react";
 import { useState } from "react";
 import { DataContext } from "../context/DataContext";
 import FilterSearchBar from "./FilterSearchBar";
@@ -26,6 +24,7 @@ const AddToWatchListPopUpBox = ({ onClose, selectedValue, open }) => {
   const { coinData, isLoading } = useDataContext;
 
   const [filterText, setFilterText] = useState("");
+  const [popUpData] = useState([...coinData]);
 
   const handleClose = () => {
     onClose(selectedValue);
@@ -78,47 +77,55 @@ const AddToWatchListPopUpBox = ({ onClose, selectedValue, open }) => {
         MB={{ xs: 1, md: 0 }}
         width="90%"
       />
-      <List
-        sx={{
-          width: "100%",
-        }}
+      <FixedSizeList
+        itemData={popUpData}
+        itemCount={popUpData.length}
+        itemSize={60}
+        overscanCount={5}
+        height={600}
+        width="100%"
       >
-        {coinData.map((coin, index) => (
-          <ListItem
-            disablePadding
-            key={index}
-            divider
-            sx={{ display: "flex", justifyContent: "flex-end" }}
-          >
-            <ListItemButton onClick={() => handleListItemClick(coin.id)}>
-              <Typography variant="subtitle1">{index + 1}</Typography>
-              <ListItemAvatar>
-                <Avatar
-                  alt={coin.name}
-                  src={coin.image}
-                  sx={{ m: "0 1rem 0 1rem" }}
-                />
-              </ListItemAvatar>
-              <Stack direction="row" width="100%">
-                <Grid container spacing={1}>
-                  <Grid item xs={3}>
-                    <ListItemText
-                      primary={coin.symbol.toUpperCase()}
-                      primaryTypographyProps={{
-                        textAlign: "left",
-                        color: "text.secondary",
-                      }}
-                    />
+        {({ data, index, style }) => {
+          return (
+            <ListItem
+              disablePadding
+              key={index}
+              divider
+              sx={{ display: "flex", justifyContent: "flex-end" }}
+              style={style}
+            >
+              <ListItemButton
+                onClick={() => handleListItemClick(data[index].id)}
+              >
+                <Typography variant="subtitle1">{index + 1}</Typography>
+                <ListItemAvatar>
+                  <Avatar
+                    alt={data[index].name}
+                    src={data[index].image}
+                    sx={{ m: "0 1rem 0 1rem" }}
+                  />
+                </ListItemAvatar>
+                <Stack direction="row" width="100%">
+                  <Grid container spacing={1}>
+                    <Grid item xs={3}>
+                      <ListItemText
+                        primary={data[index].symbol.toUpperCase()}
+                        primaryTypographyProps={{
+                          textAlign: "left",
+                          color: "text.secondary",
+                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={9}>
+                      <ListItemText primary={data[index].name} />
+                    </Grid>
                   </Grid>
-                  <Grid item xs={9}>
-                    <ListItemText primary={coin.name} />
-                  </Grid>
-                </Grid>
-              </Stack>
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+                </Stack>
+              </ListItemButton>
+            </ListItem>
+          );
+        }}
+      </FixedSizeList>
     </Dialog>
   );
 };
