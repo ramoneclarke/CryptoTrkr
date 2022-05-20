@@ -78,8 +78,8 @@ const AddToWatchListPopUpBox = ({ onClose, selectedValue, open }) => {
         width="90%"
       />
       <FixedSizeList
-        itemData={popUpData}
-        itemCount={popUpData.length}
+        itemData={coinData}
+        itemCount={coinData.length}
         itemSize={60}
         overscanCount={5}
         height={600}
