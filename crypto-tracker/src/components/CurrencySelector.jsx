@@ -40,7 +40,6 @@ const CurrencySelector = () => {
           md: "80px",
         },
         margin: "0 1rem 0 1rem",
-        borderRadius: "20px",
       }}
     >
       {Object.keys(supportedCurrencies).map((currency, index) => (
