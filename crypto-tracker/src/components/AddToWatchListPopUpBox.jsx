@@ -18,21 +18,33 @@ import { useContext } from "react";
 import { useState } from "react";
 import { DataContext } from "../context/DataContext";
 import FilterSearchBar from "./FilterSearchBar";
+import { useEffect } from "react";
 
 const AddToWatchListPopUpBox = ({ onClose, selectedValue, open }) => {
   const useDataContext = useContext(DataContext);
   const { coinData, isLoading } = useDataContext;
 
   const [filterText, setFilterText] = useState("");
-  const [popUpData] = useState([...coinData]);
+  const [filteredCoinData, setFilteredCoinData] = useState([]);
+
+  // Apply filter search to market data
+  useEffect(() => {
+    let filtered = coinData.filter((coin) =>
+      coin.name.toLowerCase().startsWith(filterText)
+    );
+    setFilteredCoinData(filtered);
+  }, [coinData, filterText]);
 
   const handleClose = () => {
     onClose(selectedValue);
+    setFilterText("");
   };
 
   const handleListItemClick = (value) => {
     onClose(value);
+    setFilterText("");
   };
+
   return (
     <Dialog
       onClose={handleClose}
@@ -78,8 +90,10 @@ const AddToWatchListPopUpBox = ({ onClose, selectedValue, open }) => {
         width="90%"
       />
       <FixedSizeList
-        itemData={coinData}
-        itemCount={coinData.length}
+        itemData={filterText === "" ? coinData : filteredCoinData}
+        itemCount={
+          filterText === "" ? coinData.length : filteredCoinData.length
+        }
         itemSize={60}
         overscanCount={5}
         height={600}
