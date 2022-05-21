@@ -99,7 +99,6 @@ const WatchList = () => {
       <WatchListHeader
         setFilterText={setFilterText}
         open={popUpOpen}
-        // selectedValue={selectedValue}
         handleClickOpen={handleClickOpen}
         handleClose={handleClose}
       />
