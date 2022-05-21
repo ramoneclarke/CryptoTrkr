@@ -58,7 +58,7 @@ const Market = () => {
     );
   }, [coinData, currency]);
 
-  // Apply filter serach to market data
+  // Apply filter search to market data
   useEffect(() => {
     let filtered = marketData.filter((coin) =>
       coin.name.toLowerCase().startsWith(filterText)
