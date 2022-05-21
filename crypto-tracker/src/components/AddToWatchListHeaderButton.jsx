@@ -15,7 +15,6 @@ const AddToWatchListHeaderButton = ({ handleClickOpen }) => {
         sx={{
           color: "text.primary",
           bgColor: "secondary.dark",
-          borderRadius: "20px",
           height: {
             xs: "100%",
             md: "100%",
