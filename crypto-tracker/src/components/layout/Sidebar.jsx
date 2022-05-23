@@ -15,6 +15,7 @@ import {
   Home,
   AccountBalanceWallet,
   Star,
+  Visibility,
   Feed,
   Settings,
 } from "@mui/icons-material";
@@ -59,7 +60,11 @@ const Sidebar = () => {
           <List>
             <SidebarLink text="Dashboard" route="/" Icon={Home} />
             <SidebarLink text="Market" route="/market" Icon={ShowChart} />
-            <SidebarLink text="Watch List" route="/watchlist" Icon={Star} />
+            <SidebarLink
+              text="Watch List"
+              route="/watchlist"
+              Icon={Visibility}
+            />
             <SidebarLink
               text="Portfolio"
               route="/portfolio"
