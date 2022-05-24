@@ -22,7 +22,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         watchList: [
-          ...state.watchList.filter((coinId) => coinId !== action.payload.id),
+          ...state.watchList.filter((coinId) => coinId !== action.payload),
         ],
       };
     default:

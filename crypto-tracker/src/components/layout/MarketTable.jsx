@@ -9,6 +9,7 @@ import {
 import {
   Box,
   CircularProgress,
+  IconButton,
   Pagination,
   PaginationItem,
   Skeleton,
@@ -24,6 +25,8 @@ import AddToPortfolioChip from "../AddToPortfolioChip";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import DataGridCustomNoRowsOverlay from "../DataGridCustomNoRowsOverlay";
+import { UserContext } from "../../context/UserContext";
+import { Visibility } from "@mui/icons-material";
 
 function CustomPagination() {
   const apiRef = useGridApiContext();
@@ -83,7 +86,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
             >
               {cellValues.row.name}
               <Stack direction="row" spacing={0.5}>
-                <AddToWatchlistChip />
+                <AddToWatchlistChip cellValues={cellValues} />
                 <AddToPortfolioChip />
               </Stack>
             </Stack>
@@ -216,7 +219,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
             >
               {cellValues.row.name}
               <Stack direction="row" spacing={0.5}>
-                <AddToWatchlistChip />
+                <AddToWatchlistChip cellValues={cellValues} />
                 <AddToPortfolioChip />
               </Stack>
             </Stack>
