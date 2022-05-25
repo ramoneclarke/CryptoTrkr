@@ -6,14 +6,18 @@ import {
   Box,
   CssBaseline,
   useMediaQuery,
+  IconButton,
 } from "@mui/material";
 import Sidebar from "./components/layout/Sidebar";
 import MobileNavbar from "./components/layout/MobileNavbar";
+import { SnackbarProvider } from "notistack";
 
 import { Outlet } from "react-router-dom";
 import { AppContextProvider } from "./context/AppContext";
 import DataContextProvider from "./context/DataContext";
 import { UserContextProvider } from "./context/UserContext";
+import { createRef } from "react";
+import { Close } from "@mui/icons-material";
 
 const theme = createTheme({
   palette: {
@@ -68,30 +72,49 @@ const theme = createTheme({
 
 function App() {
   const isSmallDevice = useMediaQuery(theme.breakpoints.down("md"));
+  const notistackRef = createRef();
+  const onClickDismiss = (key, message) => () => {
+    notistackRef.current.closeSnackbar(key);
+  };
   return (
     <AppContextProvider>
       <DataContextProvider>
         <UserContextProvider>
           <ThemeProvider theme={theme}>
-            <Box
-              sx={{
-                width: {
-                  xs: "100%",
-                  xl: "100%",
-                },
-                margin: "auto",
-                height: "100vh",
-                display: "flex",
-                flexDirection: {
-                  xs: "column",
-                  md: "row",
-                },
-              }}
+            <SnackbarProvider
+              maxSnack={3}
+              ref={notistackRef}
+              action={(key) => (
+                <IconButton
+                  size="small"
+                  aria-label="close"
+                  color="inherit"
+                  onClick={onClickDismiss(key)}
+                >
+                  <Close fontSize="small" />
+                </IconButton>
+              )}
             >
-              <CssBaseline />
-              {isSmallDevice ? <MobileNavbar /> : <Sidebar />}
-              <Outlet />
-            </Box>
+              <Box
+                sx={{
+                  width: {
+                    xs: "100%",
+                    xl: "100%",
+                  },
+                  margin: "auto",
+                  height: "100vh",
+                  display: "flex",
+                  flexDirection: {
+                    xs: "column",
+                    md: "row",
+                  },
+                }}
+              >
+                <CssBaseline />
+                {isSmallDevice ? <MobileNavbar /> : <Sidebar />}
+                <Outlet />
+              </Box>
+            </SnackbarProvider>
           </ThemeProvider>
         </UserContextProvider>
       </DataContextProvider>
