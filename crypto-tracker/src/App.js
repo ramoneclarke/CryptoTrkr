@@ -50,7 +50,7 @@ const theme = createTheme({
       // default: "#141416",
     },
     action: {
-      hover: colors.cyan[800],
+      hover: colors.blueGrey[700],
     },
     chip: {
       watch: colors.blueGrey[400],
