@@ -6,14 +6,19 @@ import {
   Box,
   CssBaseline,
   useMediaQuery,
+  IconButton,
 } from "@mui/material";
+
 import Sidebar from "./components/layout/Sidebar";
 import MobileNavbar from "./components/layout/MobileNavbar";
+import { SnackbarProvider } from "notistack";
 
 import { Outlet } from "react-router-dom";
 import { AppContextProvider } from "./context/AppContext";
 import DataContextProvider from "./context/DataContext";
 import { UserContextProvider } from "./context/UserContext";
+import { createRef } from "react";
+import { Close } from "@mui/icons-material";
 
 const theme = createTheme({
   palette: {
@@ -22,11 +27,13 @@ const theme = createTheme({
     },
     secondary: {
       main: colors.cyan[500],
-    },
-    tertiary: {
-      main: colors.cyan[500],
       light: colors.cyan[300],
       dark: colors.cyan[700],
+    },
+    tertiary: {
+      main: "#752719",
+      light: "#ff833a",
+      dark: "#ac1900",
     },
     blacks: {
       main: "#141416",
@@ -46,10 +53,11 @@ const theme = createTheme({
       hover: colors.cyan[800],
     },
     chip: {
-      // watch: colors.yellow[600],
       watch: colors.blueGrey[400],
-      // portfolio: "#ff8463",
+      watchActive: colors.yellow[700],
       portfolio: colors.blueGrey[400],
+      portfolioActive: "#ff8463",
+      // portfolioActive: colors.cyan[400],
     },
   },
   breakpoints: {
@@ -68,30 +76,49 @@ const theme = createTheme({
 
 function App() {
   const isSmallDevice = useMediaQuery(theme.breakpoints.down("md"));
+  const notistackRef = createRef();
+  const onClickDismiss = (key, message) => () => {
+    notistackRef.current.closeSnackbar(key);
+  };
   return (
     <AppContextProvider>
       <DataContextProvider>
         <UserContextProvider>
           <ThemeProvider theme={theme}>
-            <Box
-              sx={{
-                width: {
-                  xs: "100%",
-                  xl: "100%",
-                },
-                margin: "auto",
-                height: "100vh",
-                display: "flex",
-                flexDirection: {
-                  xs: "column",
-                  md: "row",
-                },
-              }}
+            <SnackbarProvider
+              maxSnack={3}
+              ref={notistackRef}
+              action={(key) => (
+                <IconButton
+                  size="small"
+                  aria-label="close"
+                  color="inherit"
+                  onClick={onClickDismiss(key)}
+                >
+                  <Close fontSize="small" />
+                </IconButton>
+              )}
             >
-              <CssBaseline />
-              {isSmallDevice ? <MobileNavbar /> : <Sidebar />}
-              <Outlet />
-            </Box>
+              <Box
+                sx={{
+                  width: {
+                    xs: "100%",
+                    xl: "100%",
+                  },
+                  margin: "auto",
+                  height: "100vh",
+                  display: "flex",
+                  flexDirection: {
+                    xs: "column",
+                    md: "row",
+                  },
+                }}
+              >
+                <CssBaseline />
+                {isSmallDevice ? <MobileNavbar /> : <Sidebar />}
+                <Outlet />
+              </Box>
+            </SnackbarProvider>
           </ThemeProvider>
         </UserContextProvider>
       </DataContextProvider>

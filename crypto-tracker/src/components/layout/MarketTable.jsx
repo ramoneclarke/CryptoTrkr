@@ -8,10 +8,8 @@ import {
 } from "@mui/x-data-grid";
 import {
   Box,
-  CircularProgress,
   Pagination,
   PaginationItem,
-  Skeleton,
   Stack,
   Tooltip,
   Typography,
@@ -24,6 +22,7 @@ import AddToPortfolioChip from "../AddToPortfolioChip";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import DataGridCustomNoRowsOverlay from "../DataGridCustomNoRowsOverlay";
+import { useSnackbar } from "notistack";
 
 function CustomPagination() {
   const apiRef = useGridApiContext();
@@ -58,6 +57,8 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
   const { settings } = useAppContext;
   const { activeCurrency: currency } = settings;
 
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
   let columns;
   if (isSmallDevice) {
     columns = [
@@ -83,7 +84,11 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
             >
               {cellValues.row.name}
               <Stack direction="row" spacing={0.5}>
-                <AddToWatchlistChip />
+                <AddToWatchlistChip
+                  cellValues={cellValues}
+                  enqueueSnackbar={enqueueSnackbar}
+                  closeSnackbar={closeSnackbar}
+                />
                 <AddToPortfolioChip />
               </Stack>
             </Stack>
@@ -216,7 +221,11 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
             >
               {cellValues.row.name}
               <Stack direction="row" spacing={0.5}>
-                <AddToWatchlistChip />
+                <AddToWatchlistChip
+                  cellValues={cellValues}
+                  enqueueSnackbar={enqueueSnackbar}
+                  closeSnackbar={closeSnackbar}
+                />
                 <AddToPortfolioChip />
               </Stack>
             </Stack>
