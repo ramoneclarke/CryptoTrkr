@@ -7,13 +7,16 @@ import MarketHeader from "../components/layout/MarketHeader";
 import MarketTable from "../components/layout/MarketTable";
 import { AppContext } from "../context/AppContext";
 import { DataContext } from "../context/DataContext";
+import { UserContext } from "../context/UserContext";
 
 const Market = () => {
   const useDataContext = useContext(DataContext);
   const useAppContext = useContext(AppContext);
+  const useUserContext = useContext(UserContext);
   const { coinData, isLoading } = useDataContext;
   const { settings } = useAppContext;
   const { activeCurrency: currency } = settings;
+  const { watchList } = useUserContext;
 
   const [marketData, setMarketData] = useState([]);
   const [filteredMarketData, setFilteredMarketData] = useState([]);
@@ -24,6 +27,7 @@ const Market = () => {
     setMarketData(
       coinData.map((coin, index) => ({
         id: coin.id,
+        active: watchList.includes(coin.id) ? true : false,
         rank: index + 1,
         name: coin.name,
         price:
@@ -56,7 +60,7 @@ const Market = () => {
               }).format(coin.total_supply),
       }))
     );
-  }, [coinData, currency]);
+  }, [coinData, currency, watchList]);
 
   // Apply filter search to market data
   useEffect(() => {

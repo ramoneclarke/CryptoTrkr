@@ -44,6 +44,7 @@ const WatchList = () => {
     setWatchListData(
       watchListCoinData.map((coin, index) => ({
         id: coin.id,
+        active: true,
         rank: index + 1,
         name: coin.name,
         price:

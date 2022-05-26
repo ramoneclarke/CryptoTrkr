@@ -8,6 +8,7 @@ import {
   useMediaQuery,
   IconButton,
 } from "@mui/material";
+
 import Sidebar from "./components/layout/Sidebar";
 import MobileNavbar from "./components/layout/MobileNavbar";
 import { SnackbarProvider } from "notistack";
@@ -26,11 +27,13 @@ const theme = createTheme({
     },
     secondary: {
       main: colors.cyan[500],
-    },
-    tertiary: {
-      main: colors.cyan[500],
       light: colors.cyan[300],
       dark: colors.cyan[700],
+    },
+    tertiary: {
+      main: "#752719",
+      light: "#ff833a",
+      dark: "#ac1900",
     },
     blacks: {
       main: "#141416",
@@ -50,10 +53,11 @@ const theme = createTheme({
       hover: colors.cyan[800],
     },
     chip: {
-      // watch: colors.yellow[600],
       watch: colors.blueGrey[400],
-      // portfolio: "#ff8463",
+      watchActive: colors.yellow[700],
       portfolio: colors.blueGrey[400],
+      portfolioActive: "#ff8463",
+      // portfolioActive: colors.cyan[400],
     },
   },
   breakpoints: {
