@@ -27,7 +27,7 @@ const SidebarLink = ({ text, Icon, route, toggleDrawer }) => {
               },
             },
             "&.Mui-selected": {
-              backgroundColor: "primary.dark",
+              backgroundColor: "secondary.dark",
               borderRadius: "10px",
             },
           }}
