@@ -23,6 +23,7 @@ import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import DataGridCustomNoRowsOverlay from "../DataGridCustomNoRowsOverlay";
 import { useSnackbar } from "notistack";
+import PriceChangeText from "../PriceChangeText";
 
 function CustomPagination() {
   const apiRef = useGridApiContext();
@@ -117,7 +118,19 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
         type: "number",
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
-          return <>{cellValues.row["24h"]}%</>;
+          return (
+            <Box
+              sx={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+              }}
+            >
+              <PriceChangeText percentageChange={cellValues.row["24h"]} />
+            </Box>
+          );
         },
       },
       {
@@ -127,7 +140,19 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
         type: "number",
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
-          return <>{cellValues.row["7d"]}%</>;
+          return (
+            <Box
+              sx={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+              }}
+            >
+              <PriceChangeText percentageChange={cellValues.row["7d"]} />
+            </Box>
+          );
         },
       },
       {
@@ -254,7 +279,19 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
         type: "number",
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
-          return <>{cellValues.row["24h"]}%</>;
+          return (
+            <Box
+              sx={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+              }}
+            >
+              <PriceChangeText percentageChange={cellValues.row["24h"]} />
+            </Box>
+          );
         },
       },
       {
@@ -264,7 +301,19 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
         type: "number",
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
-          return <>{cellValues.row["7d"]}%</>;
+          return (
+            <Box
+              sx={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+              }}
+            >
+              <PriceChangeText percentageChange={cellValues.row["7d"]} />
+            </Box>
+          );
         },
       },
       {
