@@ -59,6 +59,10 @@ const theme = createTheme({
       portfolioActive: "#ff8463",
       // portfolioActive: colors.cyan[400],
     },
+    change: {
+      gain: colors.green[500],
+      loss: colors.red[600],
+    },
   },
   breakpoints: {
     values: {

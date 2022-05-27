@@ -16,6 +16,12 @@ const FilterSearchBar = ({ placeholder, setFilterText, ML, MB, width }) => {
     setFilterText(event.target.value);
   };
 
+  const focusInputField = (input) => {
+    if (input) {
+      input.focus();
+    }
+  };
+
   return (
     <Paper
       component="form"
@@ -38,6 +44,7 @@ const FilterSearchBar = ({ placeholder, setFilterText, ML, MB, width }) => {
         label="Filter"
         value={text}
         onChange={handleChange}
+        ref={focusInputField}
         inputProps={{ "aria-label": "filter" }}
       />
     </Paper>
