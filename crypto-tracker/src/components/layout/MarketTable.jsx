@@ -255,15 +255,23 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
       {
         field: "price",
         headerName: "Price",
-        width: 100,
+        width: 120,
         type: "number",
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
           return (
-            <>
+            <Box
+              sx={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+              }}
+            >
               {currency.symbol}
-              {cellValues.row.price}
-            </>
+              {cellValues.row.price}{" "}
+            </Box>
           );
         },
       },
@@ -313,7 +321,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
       },
       {
         field: "cap",
-        width: 200,
+        width: 180,
         type: "number",
         renderHeader: () => (
           <Stack direction="row" alignItems="center">
