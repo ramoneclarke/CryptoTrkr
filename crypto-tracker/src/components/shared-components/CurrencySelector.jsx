@@ -2,7 +2,7 @@ import { MenuItem, Select } from "@mui/material";
 import React from "react";
 import { ExpandMore } from "@mui/icons-material";
 import { useContext } from "react";
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "../../context/AppContext";
 
 const CurrencySelector = () => {
   const useAppContext = useContext(AppContext);

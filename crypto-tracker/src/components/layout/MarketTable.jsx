@@ -16,14 +16,14 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { useSnackbar } from "notistack";
 import InfoIcon from "@mui/icons-material/Info";
-import AddToWatchlistChip from "../AddToWatchlistChip";
-import AddToPortfolioChip from "../AddToPortfolioChip";
+import AddToWatchlistChip from "../watchlist-components/AddToWatchlistChip";
+import AddToPortfolioChip from "../portfolio-components/AddToPortfolioChip";
+import DataGridCustomNoRowsOverlay from "../shared-components/DataGridCustomNoRowsOverlay";
+import PriceChangeText from "../shared-components/PriceChangeText";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
-import DataGridCustomNoRowsOverlay from "../DataGridCustomNoRowsOverlay";
-import { useSnackbar } from "notistack";
-import PriceChangeText from "../PriceChangeText";
 
 function CustomPagination() {
   const apiRef = useGridApiContext();

@@ -14,13 +14,12 @@ import {
   ShowChart,
   Home,
   AccountBalanceWallet,
-  Star,
   Visibility,
   Feed,
   Settings,
 } from "@mui/icons-material";
-import Logo from "../Logo";
-import Profile from "../Profile";
+import Logo from "./Logo";
+import Profile from "./Profile";
 import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
