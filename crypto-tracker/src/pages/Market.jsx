@@ -8,6 +8,10 @@ import MarketTable from "../components/layout/MarketTable";
 import { AppContext } from "../context/AppContext";
 import { DataContext } from "../context/DataContext";
 import { UserContext } from "../context/UserContext";
+import {
+  numberFormatter,
+  smallNumberFormatter,
+} from "../utils/numberFormatters";
 
 const Market = () => {
   const useDataContext = useContext(DataContext);
@@ -30,14 +34,7 @@ const Market = () => {
         active: watchList.includes(coin.id) ? true : false,
         rank: index + 1,
         name: coin.name,
-        price:
-          coin.current_price < 0.01
-            ? Intl.NumberFormat("en-IN", {
-                maximumSignificantDigits: 12,
-              }).format(coin.current_price)
-            : Intl.NumberFormat("en-IN", {
-                maximumSignificantDigits: 12,
-              }).format(coin.current_price.toFixed(3)),
+        price: numberFormatter(coin.current_price),
         "24h":
           coin.price_change_percentage_24h_in_currency === null
             ? coin.price_change_percentage_24h_in_currency
