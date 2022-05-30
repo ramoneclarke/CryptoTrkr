@@ -7,8 +7,8 @@ import {
   Link as MuiLink,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Logo from "../Logo";
-import Profile from "../Profile";
+import Logo from "./Logo";
+import Profile from "./Profile";
 import { useState } from "react";
 import MobileDrawer from "./MobileDrawer";
 import { Link } from "react-router-dom";

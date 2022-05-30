@@ -1,10 +1,10 @@
-import { Box, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Stack, useMediaQuery, useTheme } from "@mui/material";
 import React from "react";
-import AddToWatchListHeaderButton from "../AddToWatchListHeaderButton";
-import AddToWatchListPopUpBox from "../AddToWatchListPopUpBox";
-import CurrencySelector from "../CurrencySelector";
-import FilterSearchBar from "../FilterSearchBar";
-import PageTitle from "../PageTitle";
+import AddToWatchListHeaderButton from "../watchlist-components/AddToWatchListHeaderButton";
+import AddToWatchListPopUpBox from "../watchlist-components/AddToWatchListPopUpBox";
+import CurrencySelector from "../shared-components/CurrencySelector";
+import FilterSearchBar from "../shared-components/FilterSearchBar";
+import PageTitle from "./PageTitle";
 
 const MarketHeader = ({
   setFilterText,

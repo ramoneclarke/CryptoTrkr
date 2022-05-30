@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import React from "react";
-import Profile from "../Profile";
+import Profile from "./Profile";
 import SidebarLink from "./SidebarLink";
 import { Link } from "react-router-dom";
 

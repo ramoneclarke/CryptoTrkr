@@ -16,8 +16,8 @@ import { FixedSizeList } from "react-window";
 import React from "react";
 import { useContext } from "react";
 import { useState } from "react";
-import { DataContext } from "../context/DataContext";
-import FilterSearchBar from "./FilterSearchBar";
+import { DataContext } from "../../context/DataContext";
+import FilterSearchBar from "../shared-components/FilterSearchBar";
 import { useEffect } from "react";
 
 const AddToWatchListPopUpBox = ({ onClose, selectedValue, open }) => {
