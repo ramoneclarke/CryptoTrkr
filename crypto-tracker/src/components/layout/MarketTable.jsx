@@ -213,12 +213,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
         ),
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
-          return (
-            <>
-              {currency.symbol}
-              {cellValues.row.supply}
-            </>
-          );
+          return <>{cellValues.row.supply}</>;
         },
       },
     ];
@@ -374,12 +369,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
         ),
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
-          return (
-            <>
-              {cellValues.row.supply !== "N/A" ? currency.symbol : ""}
-              {cellValues.row.supply}
-            </>
-          );
+          return <>{cellValues.row.supply}</>;
         },
       },
     ];
