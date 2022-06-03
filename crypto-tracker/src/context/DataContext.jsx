@@ -4,13 +4,13 @@ import axios from "axios";
 import { AppContext } from "./AppContext";
 import { useContext } from "react";
 import { useReducer } from "react";
-import { useState } from "react";
 export const DataContext = createContext();
 
 const initialState = {
   coinData: [],
   tickers: [],
   isLoading: false,
+  coinPrices: {},
 };
 
 const reducer = (state, action) => {
@@ -30,6 +30,11 @@ const reducer = (state, action) => {
         ...state,
         isLoading: action.payload,
       };
+    case "updateCoinPrices":
+      return {
+        ...state,
+        coinPrices: { ...action.payload },
+      };
     default:
       return state;
   }
@@ -37,7 +42,7 @@ const reducer = (state, action) => {
 
 const DataContextProvider = ({ children }) => {
   const [state, dispatchDataContext] = useReducer(reducer, initialState);
-  const { coinData, isLoading } = state;
+  const { coinData, isLoading, coinPrices } = state;
   const useAppContext = useContext(AppContext);
   const { settings } = useAppContext;
 
@@ -67,8 +72,17 @@ const DataContextProvider = ({ children }) => {
     };
   }, [settings.activeCurrency.code]);
 
+  // Update coin prices
+  useEffect(() => {
+    let updatedPrices = coinData.reduce(
+      (obj, item) => ({ ...obj, [item.id]: item.current_price }),
+      {}
+    );
+    dispatchDataContext({ type: "updateCoinPrices", payload: updatedPrices });
+  }, [coinData]);
+
   return (
-    <DataContext.Provider value={{ coinData, isLoading }}>
+    <DataContext.Provider value={{ coinData, isLoading, coinPrices }}>
       {children}
     </DataContext.Provider>
   );

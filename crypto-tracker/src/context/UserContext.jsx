@@ -1,13 +1,18 @@
 import { AssistantSharp } from "@mui/icons-material";
 import React from "react";
+import { useContext } from "react";
+import { useEffect } from "react";
 import { useReducer } from "react";
 import { createContext } from "react";
+import { DataContext } from "./DataContext";
 
 export const UserContext = createContext();
 
 const initialState = {
   watchList: [], // an array of coin ids
   portfolio: {}, // object containing portfolio item objects -> coinId: {coin id, amount held, transactions}
+  portfolioBalance: 0,
+  portfolioTransactions: {},
   // transactions: [], //  an array of objects. One for each transaction.
   // transaction object -> coin id, buy/sell, quantity, currency bought with, date
   transactionHistory: [], // array of transaction objects, appended after each logged transaction
@@ -29,16 +34,26 @@ const reducer = (state, action) => {
       };
     case "addToPortfolio":
       // takes a coin id
-      let addToPortfolioObj = state.portfolio;
-      addToPortfolioObj[action.payload] = {
-        coinId: action.payload,
-        holdings: 0,
-        transactions: [],
-      };
+      let transactionsArr;
+      if (state.portfolioTransactions[action.payload]) {
+        transactionsArr = [...state.portfolioTransactions[action.payload]];
+      } else {
+        transactionsArr = [];
+      }
 
       return {
         ...state,
-        portfolio: { ...addToPortfolioObj },
+        portfolio: {
+          ...state.portfolio,
+          [action.payload]: {
+            coinId: action.payload,
+            holdings: 0,
+          },
+        },
+        portfolioTransactions: {
+          ...state.portfolioTransactions,
+          [action.payload]: transactionsArr,
+        },
       };
     case "removeFromPortfolio":
       // takes a coin id
@@ -69,13 +84,23 @@ const reducer = (state, action) => {
           [action.payload.id]: {
             coinId: action.payload.id,
             holdings: updatedHoldings,
-            transactions: [
-              ...state.portfolio[action.payload.id].transactions,
-              transactionObj,
-            ],
           },
         },
+        portfolioTransactions: {
+          ...state.portfolioTransactions,
+          [action.payload.id]: [
+            ...state.portfolioTransactions[action.payload.id],
+            transactionObj,
+          ],
+        },
         transactionHistory: [...state.transactionHistory, transactionObj],
+      };
+    case "updateBalance":
+      // takes a number
+
+      return {
+        ...state,
+        portfolioBalance: action.payload,
       };
     default:
       return state;
@@ -84,11 +109,41 @@ const reducer = (state, action) => {
 
 export const UserContextProvider = ({ children }) => {
   const [state, dispatchUserContext] = useReducer(reducer, initialState);
-  const { watchList, portfolio, transactionHistory } = state;
+  const {
+    watchList,
+    portfolio,
+    transactionHistory,
+    portfolioTransactions,
+    portfolioBalance,
+  } = state;
+
+  const useDataContext = useContext(DataContext);
+  const { coinPrices } = useDataContext;
+
+  // update portfolio balance on every update of portfolio transactions, coin
+  // prices and portfolio
+
+  useEffect(() => {
+    let updatedPortfolioBalance = 0;
+    for (let coin in portfolio) {
+      updatedPortfolioBalance += coinPrices[coin] * portfolio[coin].holdings;
+    }
+    dispatchUserContext({
+      type: "updateBalance",
+      payload: updatedPortfolioBalance,
+    });
+  }, [portfolioTransactions, coinPrices, portfolio]);
 
   return (
     <UserContext.Provider
-      value={{ watchList, portfolio, transactionHistory, dispatchUserContext }}
+      value={{
+        watchList,
+        portfolio,
+        transactionHistory,
+        portfolioTransactions,
+        portfolioBalance,
+        dispatchUserContext,
+      }}
     >
       {children}
     </UserContext.Provider>
