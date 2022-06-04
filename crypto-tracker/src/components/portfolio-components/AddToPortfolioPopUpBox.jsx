@@ -12,15 +12,15 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { FixedSizeList } from "react-window";
 import React from "react";
-import { useContext } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
+import { useContext } from "react";
+import { FixedSizeList } from "react-window";
 import { DataContext } from "../../context/DataContext";
 import FilterSearchBar from "../shared-components/FilterSearchBar";
-import { useEffect } from "react";
 
-const AddToWatchListPopUpBox = ({ onClose, selectedValue, open }) => {
+const AddToPortfolioPopUpBox = ({ onClose, selectedValue, open }) => {
   const useDataContext = useContext(DataContext);
   const { coinData, isLoading } = useDataContext;
 
@@ -44,7 +44,6 @@ const AddToWatchListPopUpBox = ({ onClose, selectedValue, open }) => {
     onClose(value);
     setFilterText("");
   };
-
   return (
     <Dialog
       onClose={handleClose}
@@ -75,7 +74,7 @@ const AddToWatchListPopUpBox = ({ onClose, selectedValue, open }) => {
         },
       }}
     >
-      <DialogTitle>Select a coin to add to your Watch list</DialogTitle>
+      <DialogTitle>Add coin to portfolio</DialogTitle>
       <Box width="100%" h="100%">
         <Divider
           variant="middle"
@@ -145,4 +144,4 @@ const AddToWatchListPopUpBox = ({ onClose, selectedValue, open }) => {
   );
 };
 
-export default AddToWatchListPopUpBox;
+export default AddToPortfolioPopUpBox;

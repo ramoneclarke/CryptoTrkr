@@ -15,7 +15,7 @@ const AddToWatchlistChip = ({ cellValues, enqueueSnackbar }) => {
 
   // Refresh table data to change watchlist/portfolio chip colours on every change
   useEffect(() => {
-    if (cellValues.row.active) {
+    if (cellValues.row.watchListActive) {
       setChipColor("chip.watchActive");
     } else {
       setChipColor("chip.watch");

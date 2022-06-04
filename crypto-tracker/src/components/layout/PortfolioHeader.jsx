@@ -5,8 +5,10 @@ import AddToWatchListPopUpBox from "../watchlist-components/AddToWatchListPopUpB
 import CurrencySelector from "../shared-components/CurrencySelector";
 import FilterSearchBar from "../shared-components/FilterSearchBar";
 import PageTitle from "./PageTitle";
+import AddToPortfolioPopUpBox from "../portfolio-components/AddToPortfolioPopUpBox";
+import AddToPortfolioHeaderButton from "../portfolio-components/AddToPortfolioHeaderButton";
 
-const WatchListHeader = ({
+const PortfolioHeader = ({
   setFilterText,
   open,
   handleClickOpen,
@@ -51,15 +53,15 @@ const WatchListHeader = ({
         }}
       />
       <CurrencySelector />
-      <AddToWatchListHeaderButton handleClickOpen={handleClickOpen} />
-      <AddToWatchListPopUpBox onClose={handleClose} open={open} />
+      <AddToPortfolioHeaderButton handleClickOpen={handleClickOpen} />
+      <AddToPortfolioPopUpBox onClose={handleClose} open={open} />
       {!isSmallDevice && (
         <Stack width="600px" alignItems="center" justifyContent="center">
-          <PageTitle title="Watch List" />
+          <PageTitle title="My Portfolio" />
         </Stack>
       )}
     </Box>
   );
 };
 
-export default WatchListHeader;
+export default PortfolioHeader;

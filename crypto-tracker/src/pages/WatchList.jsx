@@ -8,6 +8,11 @@ import MarketTable from "../components/layout/MarketTable";
 import { AppContext } from "../context/AppContext";
 import { DataContext } from "../context/DataContext";
 import { UserContext } from "../context/UserContext";
+import {
+  largeCurrencyFormatter,
+  numberFormatter,
+  percentageFormatter,
+} from "../utils/numberFormatters";
 
 const WatchList = () => {
   const useDataContext = useContext(DataContext);
@@ -44,37 +49,24 @@ const WatchList = () => {
     setWatchListData(
       watchListCoinData.map((coin, index) => ({
         id: coin.id,
-        active: true,
+        watchListActive: true,
         rank: index + 1,
         name: coin.name,
-        price:
-          coin.current_price < 0.01
-            ? Intl.NumberFormat("en-IN", {
-                maximumSignificantDigits: 12,
-              }).format(coin.current_price)
-            : Intl.NumberFormat("en-IN", {
-                maximumSignificantDigits: 12,
-              }).format(coin.current_price.toFixed(3)),
+        price: numberFormatter(coin.current_price),
         "24h":
           coin.price_change_percentage_24h_in_currency === null
             ? coin.price_change_percentage_24h_in_currency
-            : coin.price_change_percentage_24h_in_currency.toFixed(2),
+            : percentageFormatter(coin.price_change_percentage_24h_in_currency),
         "7d":
           coin.price_change_percentage_7d_in_currency === null
             ? coin.price_change_percentage_7d_in_currency
-            : coin.price_change_percentage_7d_in_currency.toFixed(2),
-        cap: Intl.NumberFormat("en-IN", {
-          maximumSignificantDigits: 12,
-        }).format(coin.market_cap),
-        volume: Intl.NumberFormat("en-IN", {
-          maximumSignificantDigits: 12,
-        }).format(coin.total_volume),
+            : percentageFormatter(coin.price_change_percentage_7d_in_currency),
+        cap: largeCurrencyFormatter(coin.market_cap),
+        volume: largeCurrencyFormatter(coin.total_volume),
         supply:
           coin.total_supply === null
             ? "N/A"
-            : Intl.NumberFormat("en-IN", {
-                maximumSignificantDigits: 12,
-              }).format(coin.total_supply),
+            : largeCurrencyFormatter(coin.total_supply),
       }))
     );
   }, [coinData, currency, watchList]);
