@@ -32,7 +32,7 @@ const Market = () => {
     setMarketData(
       coinData.map((coin, index) => ({
         id: coin.id,
-        active: watchList.includes(coin.id) ? true : false,
+        watchListActive: watchList.includes(coin.id) ? true : false,
         rank: index + 1,
         name: coin.name,
         price: numberFormatter(coin.current_price),

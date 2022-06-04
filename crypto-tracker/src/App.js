@@ -53,6 +53,7 @@ const theme = createTheme({
       hover: colors.blueGrey[700],
     },
     chip: {
+      default: colors.blueGrey[400],
       watch: colors.blueGrey[400],
       watchActive: colors.yellow[700],
       portfolio: colors.blueGrey[400],

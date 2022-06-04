@@ -24,6 +24,7 @@ import DataGridCustomNoRowsOverlay from "../shared-components/DataGridCustomNoRo
 import PriceChangeText from "../shared-components/PriceChangeText";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
+import { NotificationAdd, Notifications } from "@mui/icons-material";
 
 function CustomPagination() {
   const apiRef = useGridApiContext();
@@ -43,14 +44,7 @@ function CustomPagination() {
   );
 }
 
-const supplyColumnDescription =
-  "The amount of coins that are circulating in the market and are in public hands. It is analogous to the flowing shares in the stock market.";
-const volumeColumnDescription =
-  "A measure of how much of a cryptocurrency was traded in the last 24 hours.";
-const capColumnDescription =
-  "The total market value of a cryptocurrency's circulating supply. It is analogous to the free-float capitalization in the stock market. Market Cap = Current Price x Circulating Supply.";
-
-const MarketTable = ({ data, filteredData, filterText, page }) => {
+const PortfolioTable = ({ data, filteredData, filterText, page }) => {
   const theme = useTheme();
   const isSmallDevice = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -63,16 +57,16 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
   let columns;
   if (isSmallDevice) {
     columns = [
-      {
-        field: "rank",
-        headerName: "#",
-        width: 20,
-        headerClassName: "market-table-header",
-      },
+      //   {
+      //     field: "rank",
+      //     headerName: "#",
+      //     width: 10,
+      //     headerClassName: "market-table-header",
+      //   },
       {
         field: "name",
         headerName: "Name",
-        width: 200,
+        width: 100,
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
           return (
@@ -83,13 +77,8 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
               justifyContent="space-between"
               alignItems="center"
             >
-              {cellValues.row.name}
+              {cellValues.row.symbol}
               <Stack direction="row" spacing={0.5}>
-                <AddToWatchlistChip
-                  cellValues={cellValues}
-                  enqueueSnackbar={enqueueSnackbar}
-                  closeSnackbar={closeSnackbar}
-                />
                 <AddToPortfolioChip cellValues={cellValues} />
               </Stack>
             </Stack>
@@ -104,116 +93,73 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
           return (
-            <>
-              {currency.symbol}
-              {cellValues.row.price}
-            </>
+            <Stack direction="column">
+              <Stack direction="row" justifyContent="flex-end">
+                {currency.symbol}
+                {cellValues.row.price}
+              </Stack>
+              <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                <PriceChangeText percentageChange={cellValues.row["24h"]} />
+              </Box>
+            </Stack>
           );
         },
       },
       {
-        field: "24h",
-        headerName: "24h %",
-        width: 70,
+        field: "holdings",
+        width: 120,
         type: "number",
+        renderHeader: () => (
+          <Stack direction="row" alignItems="center">
+            <Typography>Holdings</Typography>
+          </Stack>
+        ),
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
           return (
-            <Box
-              sx={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                justifyContent: "flex-start",
-                alignItems: "center",
-              }}
+            <Stack direction="column">
+              <Stack>
+                {currency.symbol}
+                {cellValues.row.value}
+              </Stack>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  color: "text.secondary",
+                }}
+              >
+                {cellValues.row.holdings}
+              </Box>
+            </Stack>
+          );
+        },
+      },
+      {
+        field: "alert",
+        width: 50,
+        headerClassName: "market-table-header",
+        renderHeader: () => (
+          <Stack direction="row" justifyContent="center" width="200px">
+            <Notifications fontSize="small" />
+          </Stack>
+        ),
+        renderCell: (cellValues) => {
+          return (
+            <Stack
+              direction="row"
+              spacing={0.5}
+              width="100%"
+              height="100%"
+              alignItems="center"
+              justifyContent="center"
             >
-              <PriceChangeText percentageChange={cellValues.row["24h"]} />
-            </Box>
+              <NotificationAdd
+                fontSize="small"
+                sx={{ color: "chip.default" }}
+              />
+            </Stack>
           );
-        },
-      },
-      {
-        field: "7d",
-        headerName: "7d %",
-        width: 70,
-        type: "number",
-        headerClassName: "market-table-header",
-        renderCell: (cellValues) => {
-          return (
-            <Box
-              sx={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                justifyContent: "flex-start",
-                alignItems: "center",
-              }}
-            >
-              <PriceChangeText percentageChange={cellValues.row["7d"]} />
-            </Box>
-          );
-        },
-      },
-      {
-        field: "cap",
-        width: 150,
-        type: "number",
-        renderHeader: () => (
-          <Stack direction="row" alignItems="center">
-            <Typography>Market Cap</Typography>
-            <Tooltip title={capColumnDescription} arrow placement="top">
-              <InfoIcon fontSize="small" />
-            </Tooltip>
-          </Stack>
-        ),
-        headerClassName: "market-table-header",
-        renderCell: (cellValues) => {
-          return (
-            <>
-              {currency.symbol}
-              {cellValues.row.cap}
-            </>
-          );
-        },
-      },
-      {
-        field: "volume",
-        width: 150,
-        type: "number",
-        renderHeader: () => (
-          <Stack direction="row" alignItems="center">
-            <Typography>Volume(24h)</Typography>
-            <Tooltip title={volumeColumnDescription} arrow placement="top">
-              <InfoIcon fontSize="small" />
-            </Tooltip>
-          </Stack>
-        ),
-        headerClassName: "market-table-header",
-        renderCell: (cellValues) => {
-          return (
-            <>
-              {currency.symbol}
-              {cellValues.row.volume}
-            </>
-          );
-        },
-      },
-      {
-        field: "supply",
-        width: 170,
-        type: "number",
-        renderHeader: () => (
-          <Stack direction="row" alignItems="center">
-            <Typography>Circulating Supply</Typography>
-            <Tooltip title={supplyColumnDescription} arrow placement="top">
-              <InfoIcon fontSize="small" />
-            </Tooltip>
-          </Stack>
-        ),
-        headerClassName: "market-table-header",
-        renderCell: (cellValues) => {
-          return <>{cellValues.row.supply}</>;
         },
       },
     ];
@@ -228,7 +174,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
       {
         field: "name",
         headerName: "Name",
-        width: 290,
+        width: 320,
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
           return (
@@ -255,7 +201,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
       {
         field: "price",
         headerName: "Price",
-        width: 120,
+        width: 150,
         type: "number",
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
@@ -265,7 +211,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
                 width: "100%",
                 height: "100%",
                 display: "flex",
-                justifyContent: "flex-start",
+                justifyContent: "flex-end",
                 alignItems: "center",
               }}
             >
@@ -278,7 +224,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
       {
         field: "24h",
         headerName: "24h %",
-        width: 100,
+        width: 120,
         type: "number",
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
@@ -288,7 +234,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
                 width: "100%",
                 height: "100%",
                 display: "flex",
-                justifyContent: "flex-start",
+                justifyContent: "flex-end",
                 alignItems: "center",
               }}
             >
@@ -300,7 +246,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
       {
         field: "7d",
         headerName: "7d %",
-        width: 100,
+        width: 120,
         type: "number",
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
@@ -310,7 +256,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
                 width: "100%",
                 height: "100%",
                 display: "flex",
-                justifyContent: "flex-start",
+                justifyContent: "flex-end",
                 alignItems: "center",
               }}
             >
@@ -320,15 +266,26 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
         },
       },
       {
-        field: "cap",
-        width: 180,
+        field: "holdings",
+        width: 200,
         type: "number",
         renderHeader: () => (
           <Stack direction="row" alignItems="center">
-            <Typography>Market Cap</Typography>
-            <Tooltip title={capColumnDescription} arrow placement="top">
-              <InfoIcon fontSize="small" />
-            </Tooltip>
+            <Typography>Holdings</Typography>
+          </Stack>
+        ),
+        headerClassName: "market-table-header",
+        renderCell: (cellValues) => {
+          return <>{cellValues.row.holdings}</>;
+        },
+      },
+      {
+        field: "value",
+        width: 200,
+        type: "number",
+        renderHeader: () => (
+          <Stack direction="row" alignItems="center">
+            <Typography>Value</Typography>
           </Stack>
         ),
         headerClassName: "market-table-header",
@@ -336,48 +293,41 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
           return (
             <>
               {currency.symbol}
-              {cellValues.row.cap}
+              {cellValues.row.value}
             </>
           );
         },
       },
       {
-        field: "volume",
-        width: 200,
-        type: "number",
+        field: "alert",
+        width: 130,
+        headerClassName: "market-table-header",
         renderHeader: () => (
-          <Stack direction="row" alignItems="center">
-            <Typography>Volume(24h)</Typography>
-            <Tooltip title={volumeColumnDescription} arrow placement="top">
-              <InfoIcon fontSize="small" />
-            </Tooltip>
+          <Stack direction="row" justifyContent="flex-end" width="200px">
+            <Typography>Alerts</Typography>
           </Stack>
         ),
-        headerClassName: "market-table-header",
         renderCell: (cellValues) => {
           return (
-            <>
-              {currency.symbol}
-              {cellValues.row.volume}
-            </>
+            <Stack
+              direction="row"
+              spacing={2}
+              width="100%"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Stack
+                direction="row"
+                spacing={2}
+                width="100%"
+                alignItems="center"
+                justifyContent="flex-end"
+              >
+                <NotificationAdd sx={{ color: "chip.default" }} />
+                <Notifications sx={{ color: "chip.default" }} />
+              </Stack>
+            </Stack>
           );
-        },
-      },
-      {
-        field: "supply",
-        width: 200,
-        type: "number",
-        renderHeader: () => (
-          <Stack direction="row" alignItems="center">
-            <Typography>Circulating Supply</Typography>
-            <Tooltip title={supplyColumnDescription} arrow placement="top">
-              <InfoIcon fontSize="small" />
-            </Tooltip>
-          </Stack>
-        ),
-        headerClassName: "market-table-header",
-        renderCell: (cellValues) => {
-          return <>{cellValues.row.supply}</>;
         },
       },
     ];
@@ -450,4 +400,4 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
   );
 };
 
-export default MarketTable;
+export default PortfolioTable;
