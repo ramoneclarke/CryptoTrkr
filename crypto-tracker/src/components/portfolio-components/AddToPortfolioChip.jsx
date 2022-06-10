@@ -5,20 +5,20 @@ import { useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { useEffect } from "react";
-import moment from "moment";
 import { DataContext } from "../../context/DataContext";
+import { AppContext } from "../../context/AppContext";
 
-const AddToPortfolioChip = ({ cellValues, enqueueSnackbar }) => {
+const AddToPortfolioChip = ({
+  cellValues,
+  handleTransactionClickOpen,
+  setSelectedCoin,
+}) => {
   const useUserContext = useContext(UserContext);
-  const {
-    portfolio,
-    transactionHistory,
-    portfolioTransactions,
-    dispatchUserContext,
-    portfolioBalance,
-  } = useUserContext;
+  const { portfolio, dispatchUserContext } = useUserContext;
   const useDataContext = useContext(DataContext);
   const { coinData } = useDataContext;
+  const useAppContext = useContext(AppContext);
+  const { settings } = useAppContext;
 
   const [chipColor, setChipColor] = useState("chip.watch");
 
@@ -32,22 +32,23 @@ const AddToPortfolioChip = ({ cellValues, enqueueSnackbar }) => {
   }, [cellValues]);
 
   const handleCellButtonClick = (event, cellValues) => {
+    console.log(cellValues);
     if (cellValues.id in portfolio) {
       // dispatchUserContext({
-      //   type: "removeFromPortfolio",
-      //   payload: cellValues.id,
+      //   type: "addTransaction",
+      //   payload: {
+      //     id: cellValues.id,
+      //     type: "buy",
+      //     quantity: 30,
+      //     // currency: settings.activeCurrency.code,
+      //     date: new Date(),
+      //   },
       // });
-
-      dispatchUserContext({
-        type: "addTransaction",
-        payload: {
-          id: cellValues.id,
-          type: "buy",
-          quantity: 30,
-          currency: "usd",
-          date: moment(),
-        },
+      setSelectedCoin({
+        id: cellValues.id,
+        name: cellValues.row.name,
       });
+      handleTransactionClickOpen(2);
       dispatchUserContext({
         type: "updateBalance",
         payload: coinData,

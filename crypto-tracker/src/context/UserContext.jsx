@@ -1,4 +1,3 @@
-import { AssistantSharp } from "@mui/icons-material";
 import React from "react";
 import { useContext } from "react";
 import { useEffect } from "react";
@@ -68,14 +67,14 @@ const reducer = (state, action) => {
         coinId: action.payload.id,
         type: action.payload.type,
         quantity: action.payload.quantity,
-        currency: action.payload.currency,
+        // currency: action.payload.currency,
         date: action.payload.date,
       };
 
       let updatedHoldings = state.portfolio[action.payload.id].holdings;
       action.payload.type === "buy"
         ? (updatedHoldings += action.payload.quantity)
-        : (updatedHoldings += action.payload.quantity);
+        : (updatedHoldings -= action.payload.quantity);
 
       return {
         ...state,

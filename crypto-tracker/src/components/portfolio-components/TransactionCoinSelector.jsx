@@ -1,9 +1,5 @@
 import {
   Avatar,
-  Box,
-  Dialog,
-  DialogTitle,
-  Divider,
   Grid,
   ListItem,
   ListItemAvatar,
@@ -13,75 +9,18 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useContext } from "react";
 import { FixedSizeList } from "react-window";
-import { DataContext } from "../../context/DataContext";
 import FilterSearchBar from "../shared-components/FilterSearchBar";
 
-const AddToPortfolioPopUpBox = ({ onClose, selectedValue, open }) => {
-  const useDataContext = useContext(DataContext);
-  const { coinData } = useDataContext;
-
-  const [filterText, setFilterText] = useState("");
-  const [filteredCoinData, setFilteredCoinData] = useState([]);
-
-  // Apply filter search to market data
-  useEffect(() => {
-    let filtered = coinData.filter((coin) =>
-      coin.name.toLowerCase().startsWith(filterText)
-    );
-    setFilteredCoinData(filtered);
-  }, [coinData, filterText]);
-
-  const handleClose = () => {
-    onClose(selectedValue);
-    setFilterText("");
-  };
-
-  const handleListItemClick = (value) => {
-    onClose(value);
-    setFilterText("");
-  };
+const TransactionCoinSelector = ({
+  handleListItemClick,
+  coinData,
+  filteredCoinData,
+  filterText,
+  setFilterText,
+}) => {
   return (
-    <Dialog
-      onClose={handleClose}
-      open={open}
-      maxWidth="xl"
-      sx={{
-        "& ::-webkit-scrollbar": {
-          width: "0.4em",
-        },
-        "& ::-webkit-scrollbar-track": {
-          boxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
-          webkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
-        },
-        "& ::-webkit-scrollbar-thumb": {
-          backgroundColor: "rgba(0,0,0,.1)",
-          outline: "1px solid slategrey",
-        },
-      }}
-      PaperProps={{
-        sx: {
-          height: "80vh",
-          width: "25rem",
-          backgroundColor: "#263238 !important",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          alignItems: "center",
-        },
-      }}
-    >
-      <DialogTitle>Add coin to portfolio</DialogTitle>
-      <Box width="100%" h="100%">
-        <Divider
-          variant="middle"
-          light
-          sx={{ mb: "1rem", bgcolor: "primary.light" }}
-        />
-      </Box>
+    <>
       <FilterSearchBar
         placeholder="Search coins..."
         setFilterText={setFilterText}
@@ -109,7 +48,12 @@ const AddToPortfolioPopUpBox = ({ onClose, selectedValue, open }) => {
               style={style}
             >
               <ListItemButton
-                onClick={() => handleListItemClick(data[index].id)}
+                onClick={() =>
+                  handleListItemClick({
+                    id: data[index].id,
+                    name: data[index].name,
+                  })
+                }
               >
                 <Typography variant="subtitle1">{index + 1}</Typography>
                 <ListItemAvatar>
@@ -140,8 +84,8 @@ const AddToPortfolioPopUpBox = ({ onClose, selectedValue, open }) => {
           );
         }}
       </FixedSizeList>
-    </Dialog>
+    </>
   );
 };
 
-export default AddToPortfolioPopUpBox;
+export default TransactionCoinSelector;

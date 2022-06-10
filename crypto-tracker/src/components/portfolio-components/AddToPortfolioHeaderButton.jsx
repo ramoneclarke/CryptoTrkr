@@ -2,7 +2,7 @@ import { AddCircle } from "@mui/icons-material";
 import { Box, Button, useMediaQuery, useTheme } from "@mui/material";
 import React from "react";
 
-const AddToPortfolioHeaderButton = ({ handleClickOpen }) => {
+const AddToPortfolioHeaderButton = ({ handleTransactionClickOpen }) => {
   const theme = useTheme();
   const isSmallDevice = useMediaQuery(theme.breakpoints.down("md"));
   return (
@@ -11,7 +11,7 @@ const AddToPortfolioHeaderButton = ({ handleClickOpen }) => {
         variant="contained"
         startIcon={<AddCircle sx={{ color: "secondary.main" }} />}
         size={isSmallDevice ? "medium" : "large"}
-        onClick={handleClickOpen}
+        onClick={() => handleTransactionClickOpen(1)}
         sx={{
           color: "text.primary",
           bgColor: "secondary.dark",

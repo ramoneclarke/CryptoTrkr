@@ -31,6 +31,7 @@ const WatchList = () => {
 
   // for Add to watchlist pop up
   const [popUpOpen, setPopUpOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("");
 
   const handleClickOpen = () => {
     setPopUpOpen(true);
@@ -93,6 +94,8 @@ const WatchList = () => {
         open={popUpOpen}
         handleClickOpen={handleClickOpen}
         handleClose={handleClose}
+        selectedValue={selectedValue}
+        setSelectedValue={setSelectedValue}
       />
       <MarketTable
         data={watchListData}
