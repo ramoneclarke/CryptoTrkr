@@ -1,41 +1,19 @@
-import { Dialog, DialogTitle } from "@mui/material";
+import { Dialog } from "@mui/material";
 import React from "react";
 import { useState } from "react";
 import { useContext } from "react";
 import { useEffect } from "react";
 import { DataContext } from "../../context/DataContext";
-import { UserContext } from "../../context/UserContext";
-import BuySellToggleButton from "./BuySellToggleButton";
 import TransactionStep from "./TransactionStep";
 
 const AddTransaction = ({
   onClose,
-  selectedCoin,
-  setSelectedCoin,
   open,
   transactionStepNum,
   setTransactionStepNum,
 }) => {
   const useDataContext = useContext(DataContext);
   const { coinData } = useDataContext;
-  const useUserContext = useContext(UserContext);
-  const { dispatchUserContext, portfolio } = useUserContext;
-
-  const [transactionTitle, setTransactionTitle] = useState("");
-
-  // Change title
-
-  useEffect(() => {
-    if (transactionStepNum === 1) {
-      setTransactionTitle("Add Transaction");
-    } else if (transactionStepNum === 2 || transactionStepNum === 3) {
-      setTransactionTitle(selectedCoin.name);
-    }
-
-    return () => {
-      setTransactionTitle("Add Transaction");
-    };
-  }, [selectedCoin.name, transactionStepNum]);
 
   // For coin selector step
   const [filterText, setFilterText] = useState("");
@@ -50,18 +28,9 @@ const AddTransaction = ({
   }, [coinData, filterText]);
 
   const handleClose = () => {
-    onClose(selectedCoin);
+    onClose();
     setFilterText("");
     // setTransactionStep(1);
-  };
-
-  const handleListItemClick = (value) => {
-    if (portfolio.hasOwnProperty(value.id) === false) {
-      dispatchUserContext({ type: "addToPortfolio", payload: value.id });
-    }
-    setSelectedCoin(value);
-    setFilterText("");
-    setTransactionStepNum(2);
   };
 
   return (
@@ -97,25 +66,14 @@ const AddTransaction = ({
         },
       }}
     >
-      <DialogTitle sx={{ fontSize: "1.8rem", padding: "10px" }}>
-        {transactionTitle}
-      </DialogTitle>
-      {transactionStepNum !== 1 && (
-        <BuySellToggleButton
-          step={transactionStepNum}
-          setStep={setTransactionStepNum}
-        />
-      )}
       <TransactionStep
-        step={transactionStepNum}
-        setStep={setTransactionStepNum}
+        transactionStepNum={transactionStepNum}
+        setTransactionStepNum={setTransactionStepNum}
         handleClose={handleClose}
-        handleListItemClick={handleListItemClick}
         coinData={coinData}
         filteredCoinData={filteredCoinData}
         filterText={filterText}
         setFilterText={setFilterText}
-        selectedCoin={selectedCoin}
       />
     </Dialog>
   );

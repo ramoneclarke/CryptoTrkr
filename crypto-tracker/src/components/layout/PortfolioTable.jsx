@@ -48,8 +48,6 @@ const PortfolioTable = ({
   filteredData,
   filterText,
   page,
-  selectedCoin,
-  setSelectedCoin,
   transactionOpen,
   handleTransactionClickOpen,
   handleTransactionClose,
@@ -87,12 +85,10 @@ const PortfolioTable = ({
                 <AddToPortfolioChip
                   cellValues={cellValues}
                   handleTransactionClickOpen={handleTransactionClickOpen}
-                  setSelectedCoin={setSelectedCoin}
                 />
                 <AddTransaction
                   open={transactionOpen}
                   onClose={handleTransactionClose}
-                  selectedCoin={selectedCoin}
                   transactionStepNum={transactionStepNum}
                   setTransactionStepNum={setTransactionStepNum}
                 />
@@ -211,12 +207,10 @@ const PortfolioTable = ({
                 <AddToPortfolioChip
                   cellValues={cellValues}
                   handleTransactionClickOpen={handleTransactionClickOpen}
-                  setSelectedCoin={setSelectedCoin}
                 />
                 <AddTransaction
                   open={transactionOpen}
                   onClose={handleTransactionClose}
-                  selectedCoin={selectedCoin}
                   transactionStepNum={transactionStepNum}
                   setTransactionStepNum={setTransactionStepNum}
                 />

@@ -1,5 +1,6 @@
 import {
   Avatar,
+  DialogTitle,
   Grid,
   ListItem,
   ListItemAvatar,
@@ -9,18 +10,48 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import { useContext } from "react";
 import { FixedSizeList } from "react-window";
+import { UserContext } from "../../context/UserContext";
 import FilterSearchBar from "../shared-components/FilterSearchBar";
 
 const TransactionCoinSelector = ({
-  handleListItemClick,
   coinData,
   filteredCoinData,
   filterText,
   setFilterText,
+  setTransactionStepNum,
 }) => {
+  const useUserContext = useContext(UserContext);
+  const { dispatchUserContext, portfolio } = useUserContext;
+
+  const handleListItemClick = (value) => {
+    if (value.id in portfolio) {
+      dispatchUserContext({
+        type: "setSelectedCoin",
+        payload: { id: value.id, name: value.name },
+      });
+      setFilterText("");
+      setTransactionStepNum(2);
+    } else {
+      dispatchUserContext({
+        type: "setSelectedCoin",
+        payload: { id: value.id, name: value.name },
+      });
+      dispatchUserContext({
+        type: "addToPortfolio",
+        payload: value.id,
+      });
+      setFilterText("");
+      setTransactionStepNum(2);
+    }
+  };
+
   return (
     <>
+      <DialogTitle sx={{ fontSize: "1.8rem", padding: "10px" }}>
+        Add Transaction
+      </DialogTitle>
       <FilterSearchBar
         placeholder="Search coins..."
         setFilterText={setFilterText}

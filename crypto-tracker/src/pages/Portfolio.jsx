@@ -25,12 +25,11 @@ const Portfolio = () => {
   const { activeCurrency: currency } = settings;
 
   const [portfolioData, setPortfolioData] = useState([]);
-  const [filteredPortfolioData, setFilteredPortfolioData] = useState([]);
+  const [filteredPortfolioData] = useState([]);
   const [filterText, setFilterText] = useState("");
 
   // for Add to portfolio pop up
   const [transactionOpen, setTransactionOpen] = useState(false);
-  const [selectedCoin, setSelectedCoin] = useState({ id: "", name: "" });
   const [transactionStepNum, setTransactionStepNum] = useState(0);
 
   const handleTransactionClickOpen = (setStep) => {
@@ -89,8 +88,6 @@ const Portfolio = () => {
     >
       <PortfolioHeader
         setFilterText={setFilterText}
-        selectedCoin={selectedCoin}
-        setSelectedCoin={setSelectedCoin}
         transactionOpen={transactionOpen}
         handleTransactionClickOpen={handleTransactionClickOpen}
         handleTransactionClose={handleTransactionClose}
@@ -103,8 +100,6 @@ const Portfolio = () => {
         filterText={filterText}
         page="portfolio"
         handleClickOpen={handleTransactionClickOpen}
-        selectedCoin={selectedCoin}
-        setSelectedCoin={setSelectedCoin}
         transactionOpen={transactionOpen}
         handleTransactionClickOpen={handleTransactionClickOpen}
         handleTransactionClose={handleTransactionClose}

@@ -9,12 +9,13 @@ export const UserContext = createContext();
 
 const initialState = {
   watchList: [], // an array of coin ids
-  portfolio: {}, // object containing portfolio item objects -> coinId: {coin id, amount held, transactions}
+  portfolio: {}, // object containing portfolio item objects -> coinId: {coin id, holdings}
   portfolioBalance: 0,
   portfolioTransactions: {},
   // transactions: [], //  an array of objects. One for each transaction.
-  // transaction object -> coin id, buy/sell, quantity, currency bought with, date
-  transactionHistory: [], // array of transaction objects, appended after each logged transaction
+  // transaction object -> coin id, buy/sell, quantity, date
+  transactionHistory: [], // array of transaction objects, appended after each logged transaction,
+  selectedCoin: {},
 };
 
 const reducer = (state, action) => {
@@ -101,6 +102,12 @@ const reducer = (state, action) => {
         ...state,
         portfolioBalance: action.payload,
       };
+    case "setSelectedCoin":
+      // takes an object with 'id' and 'name' keys
+      return {
+        ...state,
+        selectedCoin: action.payload,
+      };
     default:
       return state;
   }
@@ -114,6 +121,7 @@ export const UserContextProvider = ({ children }) => {
     transactionHistory,
     portfolioTransactions,
     portfolioBalance,
+    selectedCoin,
   } = state;
 
   const useDataContext = useContext(DataContext);
@@ -141,6 +149,7 @@ export const UserContextProvider = ({ children }) => {
         transactionHistory,
         portfolioTransactions,
         portfolioBalance,
+        selectedCoin,
         dispatchUserContext,
       }}
     >

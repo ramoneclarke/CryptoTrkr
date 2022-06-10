@@ -8,8 +8,6 @@ import AddTransaction from "../portfolio-components/AddTransaction";
 
 const PortfolioHeader = ({
   setFilterText,
-  selectedCoin,
-  setSelectedCoin,
   transactionOpen,
   handleTransactionClickOpen,
   handleTransactionClose,
@@ -61,8 +59,6 @@ const PortfolioHeader = ({
       <AddTransaction
         open={transactionOpen}
         onClose={handleTransactionClose}
-        selectedCoin={selectedCoin}
-        setSelectedCoin={setSelectedCoin}
         transactionStepNum={transactionStepNum}
         setTransactionStepNum={setTransactionStepNum}
       />

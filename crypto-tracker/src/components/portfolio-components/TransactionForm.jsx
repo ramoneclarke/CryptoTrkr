@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  DialogTitle,
   InputAdornment,
   Stack,
   TextField,
@@ -16,24 +17,32 @@ import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { AppContext } from "../../context/AppContext";
+import BuySellToggleButton from "./BuySellToggleButton";
+import { DataContext } from "../../context/DataContext";
+import { useSnackbar } from "notistack";
+import { AccountBalanceWallet } from "@mui/icons-material";
 
 // const today = new Date()
 
-const TransactionForm = ({ price, id, transactionType, handleClose }) => {
+const TransactionForm = ({
+  transactionType,
+  handleClose,
+  transactionStepNum,
+  setTransactionStepNum,
+}) => {
+  const useDataContext = useContext(DataContext);
+  const { coinPrices } = useDataContext;
   const useUserContext = useContext(UserContext);
-  const {
-    dispatchUserContext,
-    portfolio,
-    portfolioTransactions,
-    transactionHistory,
-  } = useUserContext;
+  const { dispatchUserContext, selectedCoin } = useUserContext;
   const useAppContext = useContext(AppContext);
   const { settings } = useAppContext;
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const [dateValue, setDateValue] = useState(new Date());
   const [formValues, setFormValues] = useState({
-    price: price,
-    quantity: 0,
+    price: coinPrices[selectedCoin.id],
+    quantity: 1,
     date: dateValue,
   });
 
@@ -57,87 +66,134 @@ const TransactionForm = ({ price, id, transactionType, handleClose }) => {
     dispatchUserContext({
       type: "addTransaction",
       payload: {
-        id: id,
+        id: selectedCoin.id,
         type: transactionType,
         quantity: Number(formValues.quantity),
         date: formValues.date,
       },
     });
     handleClose();
-    console.log(portfolio);
-    console.log(portfolioTransactions);
-    console.log(transactionHistory);
+    togglePortfolioSnackbar(transactionType, selectedCoin.name);
   };
+
+  const togglePortfolioSnackbar = (action, coinName) => {
+    let message = "";
+    action === "buy"
+      ? (message = (
+          <Stack direction="row" alignItems="center" justifyContent="center">
+            <AccountBalanceWallet sx={{ mr: "0.5rem" }} />
+            {`${coinName} has been added to your portfolio`}
+          </Stack>
+        ))
+      : (message = (
+          <Stack direction="row" alignItems="center" justifyContent="center">
+            <AccountBalanceWallet sx={{ mr: "0.5rem" }} />
+            {`${coinName} has been removed from your portfolio`}
+          </Stack>
+        ));
+
+    enqueueSnackbar(message, {
+      preventDuplicate: true,
+      sx: {
+        "& .SnackbarContent-root": {
+          color: "text.primary",
+          backgroundColor: "secondary.dark",
+        },
+        "& .SnackbarItem-wrappedRoot": {
+          borderRadius: "22px",
+        },
+      },
+    });
+  };
+
   return (
-    <Box sx={{ width: "90%", mt: "2rem" }}>
-      <form onSubmit={handleSubmit}>
-        <Stack direction="column" spacing={6} w="100%">
-          <TextField
-            variant="standard"
-            fullWidth
-            id="price-input"
-            name="price"
-            label="Price"
-            type="number"
-            value={formValues.price}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  {settings.activeCurrency.symbol}
-                </InputAdornment>
-              ),
-            }}
-            onChange={handleInputChange}
-          />
-          <TextField
-            variant="standard"
-            id="quantity-input"
-            name="quantity"
-            label="Quantity"
-            type="number"
-            value={formValues.quantity}
-            onChange={handleInputChange}
-          />
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            {isSmallDevice ? (
-              <MobileDatePicker
-                label="Date"
-                inputFormat="dd/MM/yyyy"
-                value={dateValue}
-                onChange={handleDateChange}
-                renderInput={(params) => (
-                  <TextField
-                    variant="standard"
-                    {...params}
-                    sx={{
-                      svg: { color: "chip.default" },
-                    }}
-                  />
-                )}
-              />
-            ) : (
-              <DesktopDatePicker
-                label="Date"
-                inputFormat="dd/MM/yyyy"
-                value={dateValue}
-                onChange={handleDateChange}
-                renderInput={(params) => (
-                  <TextField
-                    variant="standard"
-                    {...params}
-                    sx={{
-                      svg: { color: "chip.default" },
-                    }}
-                  />
-                )}
-              />
-            )}
-          </LocalizationProvider>
-          <Button variant="contained" color="secondary" type="submit">
-            Save
-          </Button>
-        </Stack>
-      </form>
+    <Box
+      sx={{
+        width: "inherit",
+        height: "inherit",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-Start",
+        alignItems: "center",
+      }}
+    >
+      <DialogTitle sx={{ fontSize: "1.8rem" }}>{selectedCoin.name}</DialogTitle>
+      {transactionStepNum !== 1 && (
+        <BuySellToggleButton
+          step={transactionStepNum}
+          setStep={setTransactionStepNum}
+        />
+      )}
+      <Box sx={{ width: "80%", mt: "1.5rem" }}>
+        <form onSubmit={handleSubmit}>
+          <Stack direction="column" spacing={5} w="100%">
+            <TextField
+              variant="standard"
+              fullWidth
+              id="price-input"
+              name="price"
+              label="Price"
+              type="number"
+              value={formValues.price}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    {settings.activeCurrency.symbol}
+                  </InputAdornment>
+                ),
+              }}
+              onChange={handleInputChange}
+            />
+            <TextField
+              variant="standard"
+              id="quantity-input"
+              name="quantity"
+              label="Quantity"
+              type="number"
+              value={formValues.quantity}
+              onChange={handleInputChange}
+            />
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              {isSmallDevice ? (
+                <MobileDatePicker
+                  label="Date"
+                  inputFormat="dd/MM/yyyy"
+                  value={dateValue}
+                  onChange={handleDateChange}
+                  renderInput={(params) => (
+                    <TextField
+                      variant="standard"
+                      {...params}
+                      sx={{
+                        svg: { color: "chip.default" },
+                      }}
+                    />
+                  )}
+                />
+              ) : (
+                <DesktopDatePicker
+                  label="Date"
+                  inputFormat="dd/MM/yyyy"
+                  value={dateValue}
+                  onChange={handleDateChange}
+                  renderInput={(params) => (
+                    <TextField
+                      variant="standard"
+                      {...params}
+                      sx={{
+                        svg: { color: "chip.default" },
+                      }}
+                    />
+                  )}
+                />
+              )}
+            </LocalizationProvider>
+            <Button variant="contained" color="secondary" type="submit">
+              Save
+            </Button>
+          </Stack>
+        </form>
+      </Box>
     </Box>
   );
 };
