@@ -20,7 +20,12 @@ import { DataContext } from "../../context/DataContext";
 import FilterSearchBar from "../shared-components/FilterSearchBar";
 import { useEffect } from "react";
 
-const AddToWatchListPopUpBox = ({ onClose, selectedValue, open }) => {
+const AddToWatchListPopUpBox = ({
+  onClose,
+  selectedValue,
+  setSelectedValue,
+  open,
+}) => {
   const useDataContext = useContext(DataContext);
   const { coinData, isLoading } = useDataContext;
 
@@ -41,7 +46,8 @@ const AddToWatchListPopUpBox = ({ onClose, selectedValue, open }) => {
   };
 
   const handleListItemClick = (value) => {
-    onClose(value);
+    setSelectedValue(value);
+    onClose(selectedValue);
     setFilterText("");
   };
 

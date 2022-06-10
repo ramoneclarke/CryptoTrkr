@@ -1,18 +1,18 @@
 import { Box, Stack, useMediaQuery, useTheme } from "@mui/material";
 import React from "react";
-import AddToWatchListHeaderButton from "../watchlist-components/AddToWatchListHeaderButton";
-import AddToWatchListPopUpBox from "../watchlist-components/AddToWatchListPopUpBox";
 import CurrencySelector from "../shared-components/CurrencySelector";
 import FilterSearchBar from "../shared-components/FilterSearchBar";
 import PageTitle from "./PageTitle";
-import AddToPortfolioPopUpBox from "../portfolio-components/AddToPortfolioPopUpBox";
 import AddToPortfolioHeaderButton from "../portfolio-components/AddToPortfolioHeaderButton";
+import AddTransaction from "../portfolio-components/AddTransaction";
 
 const PortfolioHeader = ({
   setFilterText,
-  open,
-  handleClickOpen,
-  handleClose,
+  transactionOpen,
+  handleTransactionClickOpen,
+  handleTransactionClose,
+  transactionStepNum,
+  setTransactionStepNum,
 }) => {
   const theme = useTheme();
   const isSmallDevice = useMediaQuery(theme.breakpoints.down("md"));
@@ -53,8 +53,15 @@ const PortfolioHeader = ({
         }}
       />
       <CurrencySelector />
-      <AddToPortfolioHeaderButton handleClickOpen={handleClickOpen} />
-      <AddToPortfolioPopUpBox onClose={handleClose} open={open} />
+      <AddToPortfolioHeaderButton
+        handleTransactionClickOpen={handleTransactionClickOpen}
+      />
+      <AddTransaction
+        open={transactionOpen}
+        onClose={handleTransactionClose}
+        transactionStepNum={transactionStepNum}
+        setTransactionStepNum={setTransactionStepNum}
+      />
       {!isSmallDevice && (
         <Stack width="600px" alignItems="center" justifyContent="center">
           <PageTitle title="My Portfolio" />

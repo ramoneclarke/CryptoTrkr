@@ -88,7 +88,6 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
                 <AddToWatchlistChip
                   cellValues={cellValues}
                   enqueueSnackbar={enqueueSnackbar}
-                  closeSnackbar={closeSnackbar}
                 />
                 <AddToPortfolioChip cellValues={cellValues} />
               </Stack>

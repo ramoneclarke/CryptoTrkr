@@ -23,7 +23,6 @@ const AddToWatchlistChip = ({ cellValues, enqueueSnackbar }) => {
   }, [cellValues]);
 
   const handleCellButtonClick = (event, cellValues) => {
-    console.log(cellValues);
     watchList.includes(cellValues.id)
       ? toggleWatchCoin("remove", cellValues.id, cellValues.row.name)
       : toggleWatchCoin("add", cellValues.id, cellValues.row.name);

@@ -3,7 +3,6 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useContext } from "react";
-import MarketTable from "../components/layout/MarketTable";
 import PortfolioHeader from "../components/layout/PortfolioHeader";
 import PortfolioTable from "../components/layout/PortfolioTable";
 import { AppContext } from "../context/AppContext";
@@ -19,32 +18,28 @@ const Portfolio = () => {
   const useAppContext = useContext(AppContext);
   const useUserContext = useContext(UserContext);
 
-  const { coinData, isLoading } = useDataContext;
+  const { coinData } = useDataContext;
   const { settings } = useAppContext;
-  const {
-    portfolio,
-    transactionHistory,
-    portfolioTransactions,
-    portfolioBalance,
-    dispatchUserContext,
-  } = useUserContext;
+  const { portfolio } = useUserContext;
 
   const { activeCurrency: currency } = settings;
 
   const [portfolioData, setPortfolioData] = useState([]);
-  const [filteredPortfolioData, setFilteredPortfolioData] = useState([]);
+  const [filteredPortfolioData] = useState([]);
   const [filterText, setFilterText] = useState("");
 
   // for Add to portfolio pop up
-  const [popUpOpen, setPopUpOpen] = useState(false);
+  const [transactionOpen, setTransactionOpen] = useState(false);
+  const [transactionStepNum, setTransactionStepNum] = useState(0);
 
-  const handleClickOpen = () => {
-    setPopUpOpen(true);
+  const handleTransactionClickOpen = (setStep) => {
+    setTransactionOpen(true);
+    setTransactionStepNum(setStep);
   };
 
-  const handleClose = (value) => {
-    setPopUpOpen(false);
-    dispatchUserContext({ type: "addToPortfolio", payload: value });
+  const handleTransactionClose = (value) => {
+    setTransactionOpen(false);
+    setTransactionStepNum(0);
   };
 
   // Fetch coin data from CoinGecko
@@ -93,15 +88,23 @@ const Portfolio = () => {
     >
       <PortfolioHeader
         setFilterText={setFilterText}
-        open={popUpOpen}
-        handleClickOpen={handleClickOpen}
-        handleClose={handleClose}
+        transactionOpen={transactionOpen}
+        handleTransactionClickOpen={handleTransactionClickOpen}
+        handleTransactionClose={handleTransactionClose}
+        transactionStepNum={transactionStepNum}
+        setTransactionStepNum={setTransactionStepNum}
       />
       <PortfolioTable
         data={portfolioData}
         filteredData={filteredPortfolioData}
         filterText={filterText}
         page="portfolio"
+        handleClickOpen={handleTransactionClickOpen}
+        transactionOpen={transactionOpen}
+        handleTransactionClickOpen={handleTransactionClickOpen}
+        handleTransactionClose={handleTransactionClose}
+        transactionStepNum={transactionStepNum}
+        setTransactionStepNum={setTransactionStepNum}
       />
     </Box>
   );
