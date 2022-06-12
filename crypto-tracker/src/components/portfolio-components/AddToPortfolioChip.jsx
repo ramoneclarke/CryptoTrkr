@@ -8,13 +8,15 @@ import { useEffect } from "react";
 import { DataContext } from "../../context/DataContext";
 import { AppContext } from "../../context/AppContext";
 
-const AddToPortfolioChip = ({ cellValues, handleTransactionClickOpen }) => {
+const AddToPortfolioChip = ({ cellValues }) => {
   const useUserContext = useContext(UserContext);
   const { portfolio, dispatchUserContext } = useUserContext;
   const useDataContext = useContext(DataContext);
   const { coinData } = useDataContext;
+  const useAppContext = useContext(AppContext);
+  const { dispatchAppContext } = useAppContext;
 
-  const [chipColor, setChipColor] = useState("chip.watch");
+  const [setChipColor] = useState("chip.watch");
 
   // Refresh table data to change watchlist/portfolio chip colours on every change
   useEffect(() => {
@@ -31,7 +33,7 @@ const AddToPortfolioChip = ({ cellValues, handleTransactionClickOpen }) => {
         type: "setSelectedCoin",
         payload: { id: cellValues.id, name: cellValues.row.name },
       });
-      handleTransactionClickOpen(2);
+      dispatchAppContext({ type: "handleTransactionClickOpen", payload: 2 });
       dispatchUserContext({
         type: "updateBalance",
         payload: coinData,

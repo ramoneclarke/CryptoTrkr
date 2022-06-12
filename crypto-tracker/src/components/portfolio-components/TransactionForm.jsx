@@ -24,18 +24,14 @@ import { AccountBalanceWallet } from "@mui/icons-material";
 
 // const today = new Date()
 
-const TransactionForm = ({
-  transactionType,
-  handleClose,
-  transactionStepNum,
-  setTransactionStepNum,
-}) => {
+const TransactionForm = ({ transactionType, handleClose }) => {
   const useDataContext = useContext(DataContext);
   const { coinPrices } = useDataContext;
   const useUserContext = useContext(UserContext);
   const { dispatchUserContext, selectedCoin } = useUserContext;
   const useAppContext = useContext(AppContext);
-  const { settings } = useAppContext;
+  const { settings, transaction } = useAppContext;
+  const { transactionStepNum } = transaction;
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -118,12 +114,7 @@ const TransactionForm = ({
       }}
     >
       <DialogTitle sx={{ fontSize: "1.8rem" }}>{selectedCoin.name}</DialogTitle>
-      {transactionStepNum !== 1 && (
-        <BuySellToggleButton
-          step={transactionStepNum}
-          setStep={setTransactionStepNum}
-        />
-      )}
+      {transactionStepNum !== 1 && <BuySellToggleButton />}
       <Box sx={{ width: "80%", mt: "1.5rem" }}>
         <form onSubmit={handleSubmit}>
           <Stack direction="column" spacing={5} w="100%">

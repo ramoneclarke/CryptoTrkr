@@ -12,6 +12,7 @@ import {
 import React from "react";
 import { useContext } from "react";
 import { FixedSizeList } from "react-window";
+import { AppContext } from "../../context/AppContext";
 import { UserContext } from "../../context/UserContext";
 import FilterSearchBar from "../shared-components/FilterSearchBar";
 
@@ -20,10 +21,12 @@ const TransactionCoinSelector = ({
   filteredCoinData,
   filterText,
   setFilterText,
-  setTransactionStepNum,
 }) => {
   const useUserContext = useContext(UserContext);
   const { dispatchUserContext, portfolio } = useUserContext;
+
+  const useAppContext = useContext(AppContext);
+  const { dispatchAppContext } = useAppContext;
 
   const handleListItemClick = (value) => {
     if (value.id in portfolio) {
@@ -32,7 +35,10 @@ const TransactionCoinSelector = ({
         payload: { id: value.id, name: value.name },
       });
       setFilterText("");
-      setTransactionStepNum(2);
+      dispatchAppContext({
+        type: "setTransactionStepNum",
+        payload: 2,
+      });
     } else {
       dispatchUserContext({
         type: "setSelectedCoin",
@@ -43,7 +49,10 @@ const TransactionCoinSelector = ({
         payload: value.id,
       });
       setFilterText("");
-      setTransactionStepNum(2);
+      dispatchAppContext({
+        type: "setTransactionStepNum",
+        payload: 2,
+      });
     }
   };
 

@@ -28,20 +28,6 @@ const Portfolio = () => {
   const [filteredPortfolioData] = useState([]);
   const [filterText, setFilterText] = useState("");
 
-  // for Add to portfolio pop up
-  const [transactionOpen, setTransactionOpen] = useState(false);
-  const [transactionStepNum, setTransactionStepNum] = useState(0);
-
-  const handleTransactionClickOpen = (setStep) => {
-    setTransactionOpen(true);
-    setTransactionStepNum(setStep);
-  };
-
-  const handleTransactionClose = (value) => {
-    setTransactionOpen(false);
-    setTransactionStepNum(0);
-  };
-
   // Fetch coin data from CoinGecko
   useEffect(() => {
     const portfolioCoinData = coinData.filter(
@@ -88,25 +74,12 @@ const Portfolio = () => {
         height: "100%",
       }}
     >
-      <PortfolioHeader
-        setFilterText={setFilterText}
-        transactionOpen={transactionOpen}
-        handleTransactionClickOpen={handleTransactionClickOpen}
-        handleTransactionClose={handleTransactionClose}
-        transactionStepNum={transactionStepNum}
-        setTransactionStepNum={setTransactionStepNum}
-      />
+      <PortfolioHeader setFilterText={setFilterText} />
       <PortfolioTable
         data={portfolioData}
         filteredData={filteredPortfolioData}
         filterText={filterText}
         page="portfolio"
-        handleClickOpen={handleTransactionClickOpen}
-        transactionOpen={transactionOpen}
-        handleTransactionClickOpen={handleTransactionClickOpen}
-        handleTransactionClose={handleTransactionClose}
-        transactionStepNum={transactionStepNum}
-        setTransactionStepNum={setTransactionStepNum}
       />
     </Box>
   );

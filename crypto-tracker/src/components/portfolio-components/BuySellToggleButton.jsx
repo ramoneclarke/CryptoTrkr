@@ -6,6 +6,8 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import React from "react";
+import { useContext } from "react";
+import { AppContext } from "../../context/AppContext";
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
   "& .MuiToggleButtonGroup-grouped": {
@@ -23,10 +25,14 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
   },
 }));
 
-const BuySellToggleButton = ({ step, setStep }) => {
+const BuySellToggleButton = () => {
+  const useAppContext = useContext(AppContext);
+  const { dispatchAppContext, transaction } = useAppContext;
+  const { transactionStepNum } = transaction;
+
   const handleType = (event, newStep) => {
     if (newStep !== null) {
-      setStep(newStep);
+      dispatchAppContext({ type: "setTransactionStepNum", payload: newStep });
     }
   };
   return (
@@ -43,7 +49,7 @@ const BuySellToggleButton = ({ step, setStep }) => {
       >
         <StyledToggleButtonGroup
           size="small"
-          value={step}
+          value={transactionStepNum}
           exclusive
           fullWidth
           onChange={handleType}

@@ -3,17 +3,16 @@ import React from "react";
 import { useState } from "react";
 import { useContext } from "react";
 import { useEffect } from "react";
+import { AppContext } from "../../context/AppContext";
 import { DataContext } from "../../context/DataContext";
 import TransactionStep from "./TransactionStep";
 
-const AddTransaction = ({
-  onClose,
-  open,
-  transactionStepNum,
-  setTransactionStepNum,
-}) => {
+const AddTransaction = () => {
   const useDataContext = useContext(DataContext);
   const { coinData } = useDataContext;
+  const useAppContext = useContext(AppContext);
+  const { dispatchAppContext, transaction } = useAppContext;
+  const { transactionOpen, transactionStepNum } = transaction;
 
   // For coin selector step
   const [filterText, setFilterText] = useState("");
@@ -28,15 +27,14 @@ const AddTransaction = ({
   }, [coinData, filterText]);
 
   const handleClose = () => {
-    onClose();
+    dispatchAppContext({ type: "handleTransactionClose" });
     setFilterText("");
-    // setTransactionStep(1);
   };
 
   return (
     <Dialog
       onClose={handleClose}
-      open={open}
+      open={transactionOpen}
       maxWidth="xl"
       sx={{
         "& ::-webkit-scrollbar": {
@@ -68,7 +66,6 @@ const AddTransaction = ({
     >
       <TransactionStep
         transactionStepNum={transactionStepNum}
-        setTransactionStepNum={setTransactionStepNum}
         handleClose={handleClose}
         coinData={coinData}
         filteredCoinData={filteredCoinData}

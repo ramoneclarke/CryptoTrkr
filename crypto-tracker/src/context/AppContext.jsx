@@ -10,15 +10,44 @@ const initialState = {
   settings: {
     activeCurrency: { code: "gbp", symbol: "£" },
   },
+  transaction: {
+    transactionOpen: false,
+    transactionStepNum: 0,
+  },
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "setActiveCurrency":
       return {
+        ...state,
         settings: {
           ...state.settings,
           activeCurrency: action.payload,
+        },
+      };
+    case "handleTransactionClickOpen":
+      return {
+        ...state,
+        transaction: {
+          transactionOpen: true,
+          transactionStepNum: action.payload,
+        },
+      };
+    case "handleTransactionClose":
+      return {
+        ...state,
+        transaction: {
+          transactionOpen: false,
+          transactionStepNum: 0,
+        },
+      };
+    case "setTransactionStepNum":
+      return {
+        ...state,
+        transaction: {
+          ...state.transaction,
+          transactionStepNum: action.payload,
         },
       };
     default:
@@ -43,7 +72,7 @@ export const AppContextProvider = ({ children }) => {
   const [state, dispatchAppContext] = useReducer(reducer, initialState);
   const [currencies] = useState(supportedCurrencies);
 
-  const { settings } = state;
+  const { settings, transaction } = state;
 
   // Set initial settings
   useEffect(() => {
@@ -58,6 +87,7 @@ export const AppContextProvider = ({ children }) => {
       value={{
         settings,
         supportedCurrencies,
+        transaction,
         dispatchAppContext,
       }}
     >
