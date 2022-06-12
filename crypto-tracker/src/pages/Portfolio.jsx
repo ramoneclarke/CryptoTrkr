@@ -44,7 +44,9 @@ const Portfolio = () => {
 
   // Fetch coin data from CoinGecko
   useEffect(() => {
-    const portfolioCoinData = coinData.filter((coin) => coin.id in portfolio);
+    const portfolioCoinData = coinData.filter(
+      (coin) => coin.id in portfolio && portfolio[coin.id].holdings > 0
+    );
     setPortfolioData(
       portfolioCoinData.map((coin, index) => ({
         id: coin.id,
