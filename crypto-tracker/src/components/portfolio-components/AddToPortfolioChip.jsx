@@ -16,16 +16,16 @@ const AddToPortfolioChip = ({ cellValues }) => {
   const useAppContext = useContext(AppContext);
   const { dispatchAppContext } = useAppContext;
 
-  const [setChipColor] = useState("chip.watch");
+  const [chipColor, setChipColor] = useState("chip.watch");
 
   // Refresh table data to change watchlist/portfolio chip colours on every change
   useEffect(() => {
     if (cellValues.row.portfolioActive) {
-      setChipColor("chip.watchActive");
+      setChipColor("chip.portfolioActive");
     } else {
-      setChipColor("chip.watch");
+      setChipColor("chip.portfolio");
     }
-  }, [cellValues]);
+  }, [cellValues, setChipColor]);
 
   const handleCellButtonClick = (event, cellValues) => {
     if (cellValues.id in portfolio) {
@@ -53,7 +53,7 @@ const AddToPortfolioChip = ({ cellValues }) => {
           handleCellButtonClick(event, cellValues);
         }}
       >
-        <AccountBalanceWallet sx={{ color: "chip.portfolio" }} />
+        <AccountBalanceWallet sx={{ color: chipColor }} />
       </IconButton>
     </>
   );
