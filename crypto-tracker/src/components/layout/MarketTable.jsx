@@ -24,6 +24,7 @@ import DataGridCustomNoRowsOverlay from "../shared-components/DataGridCustomNoRo
 import PriceChangeText from "../shared-components/PriceChangeText";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
+import AddTransaction from "../portfolio-components/AddTransaction";
 
 function CustomPagination() {
   const apiRef = useGridApiContext();
@@ -90,6 +91,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
                   enqueueSnackbar={enqueueSnackbar}
                 />
                 <AddToPortfolioChip cellValues={cellValues} />
+                <AddTransaction />
               </Stack>
             </Stack>
           );
@@ -246,6 +248,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
                   closeSnackbar={closeSnackbar}
                 />
                 <AddToPortfolioChip cellValues={cellValues} />
+                <AddTransaction />
               </Stack>
             </Stack>
           );

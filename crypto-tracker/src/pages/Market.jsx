@@ -21,7 +21,7 @@ const Market = () => {
   const { coinData, isLoading } = useDataContext;
   const { settings } = useAppContext;
   const { activeCurrency: currency } = settings;
-  const { watchList } = useUserContext;
+  const { watchList, portfolio } = useUserContext;
 
   const [marketData, setMarketData] = useState([]);
   const [filteredMarketData, setFilteredMarketData] = useState([]);
@@ -33,6 +33,10 @@ const Market = () => {
       coinData.map((coin, index) => ({
         id: coin.id,
         watchListActive: watchList.includes(coin.id) ? true : false,
+        portfolioActive:
+          coin.id in portfolio && portfolio[coin.id].holdings > 0
+            ? true
+            : false,
         rank: index + 1,
         name: coin.name,
         price: numberFormatter(coin.current_price),
@@ -52,7 +56,7 @@ const Market = () => {
             : largeCurrencyFormatter(coin.total_supply),
       }))
     );
-  }, [coinData, currency, watchList]);
+  }, [coinData, currency, watchList, portfolio]);
 
   // Apply filter search to market data
   useEffect(() => {

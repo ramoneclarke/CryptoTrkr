@@ -21,7 +21,7 @@ const WatchList = () => {
 
   const { coinData, isLoading } = useDataContext;
   const { settings } = useAppContext;
-  const { watchList, dispatchUserContext } = useUserContext;
+  const { watchList, portfolio, dispatchUserContext } = useUserContext;
 
   const { activeCurrency: currency } = settings;
 
@@ -51,6 +51,10 @@ const WatchList = () => {
       watchListCoinData.map((coin, index) => ({
         id: coin.id,
         watchListActive: true,
+        portfolioActive:
+          coin.id in portfolio && portfolio[coin.id].holdings > 0
+            ? true
+            : false,
         rank: index + 1,
         name: coin.name,
         price: numberFormatter(coin.current_price),
@@ -70,7 +74,7 @@ const WatchList = () => {
             : largeCurrencyFormatter(coin.total_supply),
       }))
     );
-  }, [coinData, currency, watchList]);
+  }, [coinData, currency, watchList, portfolio]);
 
   return (
     <Box
