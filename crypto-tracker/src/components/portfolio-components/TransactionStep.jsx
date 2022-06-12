@@ -4,7 +4,6 @@ import TransactionCoinSelector from "./TransactionCoinSelector";
 
 const TransactionStep = ({
   transactionStepNum,
-  setTransactionStepNum,
   handleClose,
   coinData,
   filteredCoinData,
@@ -19,27 +18,16 @@ const TransactionStep = ({
           filteredCoinData={filteredCoinData}
           filterText={filterText}
           setFilterText={setFilterText}
-          setTransactionStepNum={setTransactionStepNum}
         />
       );
     case 2:
       return (
-        <TransactionForm
-          transactionType="buy"
-          handleClose={handleClose}
-          transactionStepNum={transactionStepNum}
-          setTransactionStepNum={setTransactionStepNum}
-        />
+        <TransactionForm transactionType="buy" handleClose={handleClose} />
       );
 
     case 3:
       return (
-        <TransactionForm
-          transactionType="sell"
-          handleClose={handleClose}
-          transactionStepNum={transactionStepNum}
-          setTransactionStepNum={setTransactionStepNum}
-        />
+        <TransactionForm transactionType="sell" handleClose={handleClose} />
       );
     default:
       break;

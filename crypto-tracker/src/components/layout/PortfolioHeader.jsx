@@ -6,14 +6,7 @@ import PageTitle from "./PageTitle";
 import AddToPortfolioHeaderButton from "../portfolio-components/AddToPortfolioHeaderButton";
 import AddTransaction from "../portfolio-components/AddTransaction";
 
-const PortfolioHeader = ({
-  setFilterText,
-  transactionOpen,
-  handleTransactionClickOpen,
-  handleTransactionClose,
-  transactionStepNum,
-  setTransactionStepNum,
-}) => {
+const PortfolioHeader = ({ setFilterText }) => {
   const theme = useTheme();
   const isSmallDevice = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -53,15 +46,8 @@ const PortfolioHeader = ({
         }}
       />
       <CurrencySelector />
-      <AddToPortfolioHeaderButton
-        handleTransactionClickOpen={handleTransactionClickOpen}
-      />
-      <AddTransaction
-        open={transactionOpen}
-        onClose={handleTransactionClose}
-        transactionStepNum={transactionStepNum}
-        setTransactionStepNum={setTransactionStepNum}
-      />
+      <AddToPortfolioHeaderButton />
+      <AddTransaction />
       {!isSmallDevice && (
         <Stack width="600px" alignItems="center" justifyContent="center">
           <PageTitle title="My Portfolio" />

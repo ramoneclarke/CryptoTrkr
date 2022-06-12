@@ -43,17 +43,7 @@ function CustomPagination() {
   );
 }
 
-const PortfolioTable = ({
-  data,
-  filteredData,
-  filterText,
-  page,
-  transactionOpen,
-  handleTransactionClickOpen,
-  handleTransactionClose,
-  transactionStepNum,
-  setTransactionStepNum,
-}) => {
+const PortfolioTable = ({ data, filteredData, filterText, page }) => {
   const theme = useTheme();
   const isSmallDevice = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -82,16 +72,8 @@ const PortfolioTable = ({
             >
               {cellValues.row.symbol}
               <Stack direction="row" spacing={0.5}>
-                <AddToPortfolioChip
-                  cellValues={cellValues}
-                  handleTransactionClickOpen={handleTransactionClickOpen}
-                />
-                <AddTransaction
-                  open={transactionOpen}
-                  onClose={handleTransactionClose}
-                  transactionStepNum={transactionStepNum}
-                  setTransactionStepNum={setTransactionStepNum}
-                />
+                <AddToPortfolioChip cellValues={cellValues} />
+                <AddTransaction />
               </Stack>
             </Stack>
           );
@@ -204,16 +186,8 @@ const PortfolioTable = ({
                   enqueueSnackbar={enqueueSnackbar}
                   closeSnackbar={closeSnackbar}
                 />
-                <AddToPortfolioChip
-                  cellValues={cellValues}
-                  handleTransactionClickOpen={handleTransactionClickOpen}
-                />
-                <AddTransaction
-                  open={transactionOpen}
-                  onClose={handleTransactionClose}
-                  transactionStepNum={transactionStepNum}
-                  setTransactionStepNum={setTransactionStepNum}
-                />
+                <AddToPortfolioChip cellValues={cellValues} />
+                <AddTransaction />
               </Stack>
             </Stack>
           );
