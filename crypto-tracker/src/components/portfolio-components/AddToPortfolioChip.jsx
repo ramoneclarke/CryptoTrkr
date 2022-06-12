@@ -42,6 +42,7 @@ const AddToPortfolioChip = ({ cellValues, handleTransactionClickOpen }) => {
         payload: cellValues.id,
       });
     }
+    console.log(portfolio);
   };
 
   return (
