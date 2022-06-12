@@ -43,6 +43,15 @@ const AddToPortfolioChip = ({ cellValues }) => {
         type: "addToPortfolio",
         payload: cellValues.id,
       });
+      dispatchUserContext({
+        type: "setSelectedCoin",
+        payload: { id: cellValues.id, name: cellValues.row.name },
+      });
+      dispatchAppContext({ type: "handleTransactionClickOpen", payload: 2 });
+      dispatchUserContext({
+        type: "updateBalance",
+        payload: coinData,
+      });
     }
   };
 
