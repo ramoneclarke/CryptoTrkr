@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { useEffect } from "react";
 import { useReducer } from "react";
 import { createContext } from "react";
+import { numberFormatter } from "../utils/numberFormatters";
 import { DataContext } from "./DataContext";
 
 export const UserContext = createContext();
@@ -100,7 +101,7 @@ const reducer = (state, action) => {
 
       return {
         ...state,
-        portfolioBalance: action.payload,
+        portfolioBalance: numberFormatter(action.payload),
       };
     case "setSelectedCoin":
       // takes an object with 'id' and 'name' keys

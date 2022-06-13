@@ -26,6 +26,9 @@ const MarketHeader = ({ setFilterText }) => {
           xs: "center",
           md: "flex-start",
         },
+        alignItems: {
+          md: "flex-end",
+        },
       }}
     >
       <FilterSearchBar
