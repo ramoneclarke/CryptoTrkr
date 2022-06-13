@@ -76,6 +76,13 @@ const WatchList = () => {
     );
   }, [coinData, currency, watchList, portfolio]);
 
+  useEffect(() => {
+    let filtered = watchListData.filter((coin) =>
+      coin.name.toLowerCase().startsWith(filterText)
+    );
+    setFilteredWatchListData(filtered);
+  }, [watchListData, filterText]);
+
   return (
     <Box
       sx={{
