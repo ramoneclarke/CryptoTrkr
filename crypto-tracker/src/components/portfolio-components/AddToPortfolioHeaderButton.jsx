@@ -25,7 +25,7 @@ const AddToPortfolioHeaderButton = () => {
           bgColor: "secondary.dark",
           height: {
             xs: "100%",
-            md: "100%",
+            md: "3.5rem",
           },
         }}
       >

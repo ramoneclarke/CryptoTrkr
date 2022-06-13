@@ -39,6 +39,7 @@ const CurrencySelector = () => {
           xs: "20px",
           md: "80px",
         },
+        height: "3.5rem",
         margin: "0 1rem 0 1rem",
       }}
     >

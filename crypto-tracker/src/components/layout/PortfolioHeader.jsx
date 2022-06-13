@@ -5,6 +5,7 @@ import FilterSearchBar from "../shared-components/FilterSearchBar";
 import PageTitle from "./PageTitle";
 import AddToPortfolioHeaderButton from "../portfolio-components/AddToPortfolioHeaderButton";
 import AddTransaction from "../portfolio-components/AddTransaction";
+import PortfolioBalance from "../portfolio-components/PortfolioBalance";
 
 const PortfolioHeader = ({ setFilterText }) => {
   const theme = useTheme();
@@ -48,6 +49,7 @@ const PortfolioHeader = ({ setFilterText }) => {
       <CurrencySelector />
       <AddToPortfolioHeaderButton />
       <AddTransaction />
+      <PortfolioBalance />
       {!isSmallDevice && (
         <Stack width="600px" alignItems="center" justifyContent="center">
           <PageTitle title="My Portfolio" />

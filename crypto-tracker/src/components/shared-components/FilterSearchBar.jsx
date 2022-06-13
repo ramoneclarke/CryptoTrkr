@@ -30,6 +30,7 @@ const FilterSearchBar = ({ placeholder, setFilterText, ML, MB, width }) => {
         display: "flex",
         alignItems: "center",
         width: width,
+        height: "3.5rem",
         ml: ML,
         mb: MB,
       }}
