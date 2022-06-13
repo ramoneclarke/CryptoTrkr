@@ -20,7 +20,7 @@ const Portfolio = () => {
 
   const { coinData } = useDataContext;
   const { settings } = useAppContext;
-  const { portfolio } = useUserContext;
+  const { portfolio, watchList } = useUserContext;
 
   const { activeCurrency: currency } = settings;
 
@@ -36,6 +36,7 @@ const Portfolio = () => {
     setPortfolioData(
       portfolioCoinData.map((coin, index) => ({
         id: coin.id,
+        watchListActive: watchList.includes(coin.id) ? true : false,
         portfolioActive: true,
         rank: index + 1,
         name: coin.name,
@@ -55,7 +56,7 @@ const Portfolio = () => {
         ),
       }))
     );
-  }, [coinData, currency, portfolio]);
+  }, [coinData, currency, portfolio, watchList]);
 
   return (
     <Box
