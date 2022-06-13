@@ -39,7 +39,13 @@ const CurrencySelector = () => {
           xs: "20px",
           md: "80px",
         },
-        margin: "0 1rem 0 1rem",
+        height: {
+          xs: "2rem",
+          md: "3rem",
+        },
+        margin: {
+          md: "0 1rem 0 1rem",
+        },
       }}
     >
       {Object.keys(supportedCurrencies).map((currency, index) => (

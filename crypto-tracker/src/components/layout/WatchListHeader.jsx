@@ -36,6 +36,9 @@ const WatchListHeader = ({
           xs: "center",
           md: "flex-start",
         },
+        alignItems: {
+          md: "flex-end",
+        },
         flexWrap: {
           xs: "wrap",
           md: "nowrap",

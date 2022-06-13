@@ -12,6 +12,7 @@ import Profile from "./Profile";
 import { useState } from "react";
 import MobileDrawer from "./MobileDrawer";
 import { Link } from "react-router-dom";
+import CurrencySelector from "../shared-components/CurrencySelector";
 
 const MobileNavbar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -26,8 +27,9 @@ const MobileNavbar = () => {
           <MuiLink component={Link} to="/" underline="none">
             <Logo />
           </MuiLink>
-          <Box>
-            <Profile />
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <CurrencySelector />
+            {/* <Profile /> */}
             <IconButton
               size="large"
               edge="end"

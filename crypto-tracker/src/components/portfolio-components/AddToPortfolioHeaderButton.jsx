@@ -15,6 +15,7 @@ const AddToPortfolioHeaderButton = () => {
     <Box>
       <Button
         variant="contained"
+        color="primary"
         startIcon={<AddCircle sx={{ color: "secondary.main" }} />}
         size={isSmallDevice ? "medium" : "large"}
         onClick={() =>
@@ -24,8 +25,8 @@ const AddToPortfolioHeaderButton = () => {
           color: "text.primary",
           bgColor: "secondary.dark",
           height: {
-            xs: "100%",
-            md: "100%",
+            xs: "3.5rem",
+            md: "3rem",
           },
         }}
       >
