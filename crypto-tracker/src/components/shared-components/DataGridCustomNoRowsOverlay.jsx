@@ -38,6 +38,23 @@ const DataGridCustomNoRowsOverlay = ({ filterText, page }) => {
         )}
       </Box>
     );
+  } else if (page === "portfolio") {
+    return (
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        height="100%"
+        sx={{ mt: 1 }}
+      >
+        {filterText === "" ? (
+          <Typography>Portfolio empty</Typography>
+        ) : (
+          <Typography variant="h4">No results for '{filterText}'</Typography>
+        )}
+      </Box>
+    );
   }
 };
 

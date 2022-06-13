@@ -25,7 +25,7 @@ const Portfolio = () => {
   const { activeCurrency: currency } = settings;
 
   const [portfolioData, setPortfolioData] = useState([]);
-  const [filteredPortfolioData] = useState([]);
+  const [filteredPortfolioData, setFilteredPortfolioData] = useState([]);
   const [filterText, setFilterText] = useState("");
 
   // Fetch coin data from CoinGecko
@@ -57,6 +57,13 @@ const Portfolio = () => {
       }))
     );
   }, [coinData, currency, portfolio, watchList]);
+
+  useEffect(() => {
+    let filtered = portfolioData.filter((coin) =>
+      coin.name.toLowerCase().startsWith(filterText)
+    );
+    setFilteredPortfolioData(filtered);
+  }, [portfolioData, filterText]);
 
   return (
     <Box
