@@ -240,7 +240,12 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
               justifyContent="space-between"
               alignItems="center"
             >
-              {cellValues.row.name}
+              <Stack direction="row" spacing={1} alignItems="flex-end">
+                <Typography>{cellValues.row.name}</Typography>
+                <Typography variant="caption" sx={{ color: "text.secondary" }}>
+                  {cellValues.row.symbol}
+                </Typography>
+              </Stack>
               <Stack direction="row" spacing={0.5}>
                 <AddToWatchlistChip
                   cellValues={cellValues}
