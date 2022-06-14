@@ -24,7 +24,12 @@ const MobileNavbar = () => {
     <>
       <AppBar position="static" color="inherit">
         <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
-          <MuiLink component={Link} to="/" underline="none">
+          <MuiLink
+            component={Link}
+            to="/"
+            underline="none"
+            sx={{ ml: "0.5rem" }}
+          >
             <Logo />
           </MuiLink>
           <Box sx={{ display: "flex", alignItems: "center" }}>
