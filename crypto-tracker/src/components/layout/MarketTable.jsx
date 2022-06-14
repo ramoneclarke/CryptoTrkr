@@ -67,25 +67,24 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
       {
         field: "rank",
         headerName: "#",
-        width: 20,
+        width: 10,
         headerClassName: "market-table-header",
       },
       {
         field: "name",
         headerName: "Name",
-        width: 200,
+        width: 150,
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
           return (
             <Stack
               direction="row"
-              spacing={2}
               width="100%"
               justifyContent="space-between"
               alignItems="center"
             >
-              {cellValues.row.name}
-              <Stack direction="row" spacing={0.5}>
+              {cellValues.row.symbol}
+              <Stack direction="row">
                 <AddToWatchlistChip
                   cellValues={cellValues}
                   enqueueSnackbar={enqueueSnackbar}
@@ -115,7 +114,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
       {
         field: "24h",
         headerName: "24h %",
-        width: 70,
+        width: 85,
         type: "number",
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
@@ -137,7 +136,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
       {
         field: "7d",
         headerName: "7d %",
-        width: 70,
+        width: 85,
         type: "number",
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {

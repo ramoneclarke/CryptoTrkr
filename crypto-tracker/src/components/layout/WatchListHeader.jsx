@@ -45,28 +45,52 @@ const WatchListHeader = ({
         },
       }}
     >
-      <FilterSearchBar
-        placeholder="Filter coins..."
-        setFilterText={setFilterText}
-        ML={{ md: 3 }}
-        MB={{ xs: 1, md: 0 }}
-        width={{
-          xs: "90%",
-          md: 400,
-        }}
-      />
-      <CurrencySelector />
-      <AddToWatchListHeaderButton handleClickOpen={handleClickOpen} />
-      <AddToWatchListPopUpBox
-        onClose={handleClose}
-        open={open}
-        selectedValue={selectedValue}
-        setSelectedValue={setSelectedValue}
-      />
-      {!isSmallDevice && (
-        <Stack width="600px" alignItems="center" justifyContent="center">
-          <PageTitle title="Watch List" />
-        </Stack>
+      {isSmallDevice ? (
+        <>
+          <Stack direction="row" spacing={1} mt="1rem">
+            <FilterSearchBar
+              placeholder="Filter coins..."
+              setFilterText={setFilterText}
+              ML={{ md: 3 }}
+              MB={{ xs: 1, md: 0 }}
+              width={{
+                xs: "90%",
+                md: 400,
+              }}
+            />
+            <AddToWatchListHeaderButton handleClickOpen={handleClickOpen} />
+            <AddToWatchListPopUpBox
+              onClose={handleClose}
+              open={open}
+              selectedValue={selectedValue}
+              setSelectedValue={setSelectedValue}
+            />
+          </Stack>
+        </>
+      ) : (
+        <>
+          <FilterSearchBar
+            placeholder="Filter coins..."
+            setFilterText={setFilterText}
+            ML={{ md: 3 }}
+            MB={{ xs: 1, md: 0 }}
+            width={{
+              xs: "90%",
+              md: 400,
+            }}
+          />
+          <CurrencySelector />
+          <AddToWatchListHeaderButton handleClickOpen={handleClickOpen} />
+          <AddToWatchListPopUpBox
+            onClose={handleClose}
+            open={open}
+            selectedValue={selectedValue}
+            setSelectedValue={setSelectedValue}
+          />
+          <Stack width="600px" alignItems="center" justifyContent="center">
+            <PageTitle title="Watch List" />
+          </Stack>
+        </>
       )}
     </Box>
   );
