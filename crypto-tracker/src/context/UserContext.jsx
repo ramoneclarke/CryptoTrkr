@@ -17,6 +17,8 @@ const initialState = {
   // transaction object -> coin id, buy/sell, quantity, date
   transactionHistory: [], // array of transaction objects, appended after each logged transaction,
   selectedCoin: {},
+  alerts: [],
+  alertIdCounter: 0,
 };
 
 const reducer = (state, action) => {
@@ -108,6 +110,27 @@ const reducer = (state, action) => {
       return {
         ...state,
         selectedCoin: action.payload,
+      };
+    case "addAlert":
+      // takes an object with 'coinId', 'targetPrice', 'type' (lower/equal/greater)
+
+      const alertObject = Object.assign(
+        { id: state.alertIdCounter + 1 },
+        action.payload
+      );
+
+      return {
+        ...state,
+        alerts: [alertObject, ...state.alerts],
+        alertIdCounter: (state.alertIdCounter += 1),
+      };
+    case "removeAlert":
+      // takes an alert id
+      return {
+        ...state,
+        alerts: [
+          ...state.alerts.filter((alertObj) => alertObj.id !== action.payload),
+        ],
       };
     default:
       return state;
