@@ -17,6 +17,9 @@ const initialState = {
   // transaction object -> coin id, buy/sell, quantity, date
   transactionHistory: [], // array of transaction objects, appended after each logged transaction,
   selectedCoin: {},
+  alerts: [],
+  alertIdCounter: 0,
+  activatedAlerts: [],
 };
 
 const reducer = (state, action) => {
@@ -109,6 +112,46 @@ const reducer = (state, action) => {
         ...state,
         selectedCoin: action.payload,
       };
+    case "addAlert":
+      // takes an object with 'coinId', 'targetPrice', 'type' (lower/higher)
+
+      const alertObject = Object.assign(
+        { id: state.alertIdCounter + 1 },
+        action.payload
+      );
+
+      return {
+        ...state,
+        alerts: [alertObject, ...state.alerts],
+        alertIdCounter: (state.alertIdCounter += 1),
+      };
+    case "removeAlert":
+      // takes an alert id
+      return {
+        ...state,
+        alerts: [
+          ...state.alerts.filter((alertObj) => alertObj.id !== action.payload),
+        ],
+      };
+    case "addActivatedAlert":
+      // takes an alert object when the condition has been met
+      return {
+        ...state,
+        alerts: [
+          ...state.alerts.filter(
+            (alertObj) => alertObj.id !== action.payload.id
+          ),
+        ], // remove alert
+        activatedAlerts: [action.payload, ...state.activatedAlerts],
+      };
+    case "removeActivatedAlert":
+      // used to dismiss activated alerts. takes an alert id
+      return {
+        ...state,
+        activatedAlerts: [
+          ...state.alerts.filter((alertObj) => alertObj.id !== action.payload),
+        ],
+      };
     default:
       return state;
   }
@@ -123,6 +166,9 @@ export const UserContextProvider = ({ children }) => {
     portfolioTransactions,
     portfolioBalance,
     selectedCoin,
+    alerts,
+    alertIdCounter,
+    activatedAlerts,
   } = state;
 
   const useDataContext = useContext(DataContext);
@@ -141,6 +187,25 @@ export const UserContextProvider = ({ children }) => {
       payload: updatedPortfolioBalance,
     });
   }, [portfolioTransactions, coinPrices, portfolio]);
+
+  // scan for alerts
+  useEffect(() => {
+    alerts.forEach((alert) => {
+      switch (alert.type) {
+        case "lower":
+          if (coinPrices[alert.coinId] < alert.targetPrice) {
+            dispatchUserContext({ type: "addActivatedAlert", payload: alert });
+          }
+          return;
+        case "higher":
+          if (coinPrices[alert.coinId] > alert.targetPrice) {
+            dispatchUserContext({ type: "addActivatedAlert", payload: alert });
+          }
+          return;
+        default:
+      }
+    });
+  }, [alerts, coinPrices]);
 
   return (
     <UserContext.Provider
