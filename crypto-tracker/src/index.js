@@ -9,6 +9,7 @@ import News from "./pages/News";
 import Portfolio from "./pages/Portfolio";
 import Settings from "./pages/Settings";
 import WatchList from "./pages/WatchList";
+import Alerts from "./pages/Alerts";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -22,6 +23,7 @@ root.render(
           <Route path="portfolio" element={<Portfolio />} />
           <Route path="settings" element={<Settings />} />
           <Route path="watchlist" element={<WatchList />} />
+          <Route path="alerts" element={<Alerts />} />
           <Route
             path="*"
             element={
