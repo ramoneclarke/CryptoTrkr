@@ -2,7 +2,6 @@ import {
   Avatar,
   Box,
   Button,
-  Container,
   FormControl,
   InputLabel,
   MenuItem,
@@ -17,7 +16,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useContext } from "react";
 import { DataContext } from "../../context/DataContext";
-import { UserContext } from "../../context/UserContext";
 import AlertsCoinSelector from "./AlertsCoinSelector";
 
 const AddAlertSidebar = ({
@@ -27,8 +25,6 @@ const AddAlertSidebar = ({
   handleSubmit,
 }) => {
   const theme = useTheme();
-  const useUserContext = useContext(UserContext);
-  const { dispatchUserContext, alerts } = useUserContext;
   const useDataContext = useContext(DataContext);
   const { coinData } = useDataContext;
 
@@ -42,7 +38,7 @@ const AddAlertSidebar = ({
     setPopUpOpen(true);
   };
 
-  const handleClose = (value) => {
+  const handleClose = () => {
     setPopUpOpen(false);
   };
 
@@ -112,7 +108,6 @@ const AddAlertSidebar = ({
                       size="small"
                       onClick={handleClickOpen}
                       sx={{
-                        // bgColor: "secondary.dark",
                         width: "100%",
                       }}
                     >

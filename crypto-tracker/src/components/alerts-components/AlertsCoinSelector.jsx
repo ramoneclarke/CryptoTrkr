@@ -1,7 +1,6 @@
 import {
   Avatar,
   Dialog,
-  DialogTitle,
   Grid,
   ListItem,
   ListItemAvatar,
@@ -11,10 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { useContext } from "react";
 import { FixedSizeList } from "react-window";
-import { AppContext } from "../../context/AppContext";
-import { UserContext } from "../../context/UserContext";
 import FilterSearchBar from "../shared-components/FilterSearchBar";
 
 const AlertsCoinSelector = ({
@@ -28,13 +24,12 @@ const AlertsCoinSelector = ({
   newAlert,
   setSelectedCoin,
 }) => {
-  const useUserContext = useContext(UserContext);
-  const { dispatchUserContext, portfolio } = useUserContext;
-
   const handleListItemClick = (value) => {
     setNewAlert({
       ...newAlert,
       coinId: value.id,
+      coinName: value.name,
+      coinSymbol: value.symbol,
     });
     setSelectedCoin({ name: value.name, image: value.image });
     handleClose();
@@ -101,6 +96,7 @@ const AlertsCoinSelector = ({
                   handleListItemClick({
                     id: data[index].id,
                     name: data[index].name,
+                    symbol: data[index].symbol,
                     image: data[index].image,
                   })
                 }

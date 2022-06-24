@@ -1,39 +1,151 @@
-import { ListItem, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  Paper,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import { Close } from "@mui/icons-material/";
 import React from "react";
 import { useContext } from "react";
-import { FixedSizeList } from "react-window";
+import { AppContext } from "../../context/AppContext";
+import { DataContext } from "../../context/DataContext";
 import { UserContext } from "../../context/UserContext";
+import { numberFormatter } from "../../utils/numberFormatters";
 
 const ManageAlertsPage = () => {
   const useUserContext = useContext(UserContext);
-  const { dispatchUserContext, alerts, portfolio } = useUserContext;
+  const { alerts, dispatchUserContext } = useUserContext;
+  const useDataContext = useContext(DataContext);
+  const { coinPrices } = useDataContext;
+  const useAppContext = useContext(AppContext);
+  const { settings } = useAppContext;
+
+  const theme = useTheme();
+  const isSmallDevice = useMediaQuery(theme.breakpoints.down("md"));
+
+  const handleCancelAlert = (alertId) => {
+    dispatchUserContext({
+      type: "removeAlert",
+      payload: alertId,
+    });
+  };
   return (
-    <>
-      <FixedSizeList
-        itemData={alerts}
-        itemCount={alerts.length}
-        itemSize={60}
-        overscanCount={5}
-        height={600}
-        width="100%"
-      >
-        {({ data, index, style }) => {
-          return (
-            <ListItem
-              disablePadding
-              key={index}
-              divider
-              sx={{ display: "flex", justifyContent: "flex-start" }}
-              style={style}
+    <Box
+      sx={{
+        width: "100%",
+        height: "100%",
+        "& ::-webkit-scrollbar": {
+          width: "0.4em",
+        },
+        "& ::-webkit-scrollbar-track": {
+          boxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+          webkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+        },
+        "& ::-webkit-scrollbar-thumb": {
+          backgroundColor: "rgba(0,0,0,.1)",
+          outline: "1px solid slategrey",
+          borderRadius: "5px",
+        },
+      }}
+    >
+      <TableContainer component={Paper} sx={{ width: "100%", height: "100%" }}>
+        <Table
+          stickyHeader
+          sx={{ width: "100%", maxHeight: "100%", borderCollapse: "collapse" }}
+        >
+          <TableHead>
+            <TableRow
+              sx={{
+                "& th": {
+                  borderColor: "text.secondary",
+                  bgcolor: "primary.main",
+                },
+              }}
             >
-              <Stack direction="row">
-                <Typography>{data[index].coinId}</Typography>
-              </Stack>
-            </ListItem>
-          );
-        }}
-      </FixedSizeList>
-    </>
+              {!isSmallDevice && <TableCell sx={{ width: "2rem" }}></TableCell>}
+              <TableCell
+                sx={{
+                  color: "text.secondary",
+                  textAlign: { xs: "right", md: "left" },
+                }}
+              >
+                Coin
+              </TableCell>
+              <TableCell sx={{ color: "text.secondary" }}>
+                {isSmallDevice ? "Type" : "Alert Type"}
+              </TableCell>
+              <TableCell sx={{ color: "text.secondary" }}>
+                {isSmallDevice ? "Target" : "Target Price"}
+              </TableCell>
+              <TableCell sx={{ color: "text.secondary" }}>
+                {isSmallDevice ? "Price" : "Current Price"}
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {alerts.map((coin) => (
+              <TableRow
+                key={coin.id}
+                sx={{
+                  "&:last-child td, &:last-child th": { border: 0 },
+                  borderBottom: "1.2px solid",
+                  borderBottomColor: "primary.dark",
+                }}
+              >
+                {!isSmallDevice && (
+                  <TableCell>
+                    <IconButton
+                      size="small"
+                      color="inherit"
+                      onClick={() => handleCancelAlert(coin.id)}
+                    >
+                      <Close color="warning" />
+                    </IconButton>
+                  </TableCell>
+                )}
+                <TableCell>
+                  <Stack
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="space-between"
+                  >
+                    {isSmallDevice && (
+                      <IconButton
+                        size="small"
+                        color="inherit"
+                        onClick={() => handleCancelAlert(coin.id)}
+                      >
+                        <Close color="warning" />
+                      </IconButton>
+                    )}
+                    {isSmallDevice
+                      ? coin.coinSymbol.toUpperCase()
+                      : coin.coinName}
+                  </Stack>
+                </TableCell>
+                <TableCell>{coin.type}</TableCell>
+                <TableCell>
+                  {settings.activeCurrency.symbol}
+                  {numberFormatter(coin.targetPrice)}
+                </TableCell>
+                <TableCell>
+                  {settings.activeCurrency.symbol}
+                  {numberFormatter(coinPrices[coin.coinId])}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
   );
 };
 

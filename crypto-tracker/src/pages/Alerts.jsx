@@ -1,30 +1,28 @@
-import { Box, Button, Grid, Stack, TextField } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import React from "react";
 import { useContext } from "react";
 import { useState } from "react";
 import AddAlertSidebar from "../components/alerts-components/AddAlertSidebar";
 import AlertsDisplay from "../components/alerts-components/AlertsDisplay";
 import AlertsHeader from "../components/layout/AlertsHeader";
-import { DataContext } from "../context/DataContext";
 import { UserContext } from "../context/UserContext";
 
 const Alerts = () => {
   const useUserContext = useContext(UserContext);
-  const { dispatchUserContext, alerts, portfolio } = useUserContext;
-  const useDataContext = useContext(DataContext);
-  const { coinPrices } = useDataContext;
+  const { dispatchUserContext } = useUserContext;
 
   const [alertsStep, setAlertsStep] = useState(1);
 
   const [newAlert, setNewAlert] = useState({
     coinId: "",
+    coinName: "",
+    coinSymbol: "",
     targetPrice: "",
     type: "Higher",
   });
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    console.log(newAlert);
     setNewAlert({
       ...newAlert,
       [name]: value,
@@ -37,7 +35,8 @@ const Alerts = () => {
       type: "addAlert",
       payload: {
         coinId: newAlert.coinId,
-        // targetPrice: coinPrices["bitcoin"] - 10,
+        coinName: newAlert.coinName,
+        coinSymbol: newAlert.coinSymbol,
         targetPrice: newAlert.targetPrice,
         type: newAlert.type,
       },

@@ -113,17 +113,15 @@ const reducer = (state, action) => {
         selectedCoin: action.payload,
       };
     case "addAlert":
-      // takes an object with 'coinId', 'targetPrice', 'type' (lower/higher)
+      // takes an object with 'coinId', 'coinName', 'coinSymbol', 'targetPrice', 'type' (lower/higher)
 
-      const alertObject = Object.assign(
-        { id: state.alertIdCounter + 1 },
-        action.payload
-      );
+      const nextAlertId = state.alertIdCounter + 1;
+      const alertObject = Object.assign({ id: nextAlertId }, action.payload);
 
       return {
         ...state,
-        alerts: [alertObject, ...state.alerts],
-        alertIdCounter: (state.alertIdCounter += 1),
+        alerts: [...state.alerts, alertObject],
+        alertIdCounter: nextAlertId,
       };
     case "removeAlert":
       // takes an alert id
@@ -149,7 +147,9 @@ const reducer = (state, action) => {
       return {
         ...state,
         activatedAlerts: [
-          ...state.alerts.filter((alertObj) => alertObj.id !== action.payload),
+          ...state.activatedAlerts.filter(
+            (alertObj) => alertObj.id !== action.payload
+          ),
         ],
       };
     default:
@@ -167,7 +167,6 @@ export const UserContextProvider = ({ children }) => {
     portfolioBalance,
     selectedCoin,
     alerts,
-    alertIdCounter,
     activatedAlerts,
   } = state;
 
@@ -192,12 +191,12 @@ export const UserContextProvider = ({ children }) => {
   useEffect(() => {
     alerts.forEach((alert) => {
       switch (alert.type) {
-        case "lower":
+        case "Lower":
           if (coinPrices[alert.coinId] < alert.targetPrice) {
             dispatchUserContext({ type: "addActivatedAlert", payload: alert });
           }
           return;
-        case "higher":
+        case "Higher":
           if (coinPrices[alert.coinId] > alert.targetPrice) {
             dispatchUserContext({ type: "addActivatedAlert", payload: alert });
           }
@@ -205,7 +204,7 @@ export const UserContextProvider = ({ children }) => {
         default:
       }
     });
-  }, [alerts, coinPrices]);
+  }, [alerts, coinPrices, activatedAlerts]);
 
   return (
     <UserContext.Provider
@@ -216,6 +215,8 @@ export const UserContextProvider = ({ children }) => {
         portfolioTransactions,
         portfolioBalance,
         selectedCoin,
+        alerts,
+        activatedAlerts,
         dispatchUserContext,
       }}
     >
