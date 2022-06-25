@@ -15,7 +15,7 @@ import {
   Home,
   AccountBalanceWallet,
   Visibility,
-  Feed,
+  Notifications,
   Settings,
 } from "@mui/icons-material";
 import Logo from "./Logo";
@@ -69,7 +69,7 @@ const Sidebar = () => {
               route="/portfolio"
               Icon={AccountBalanceWallet}
             />
-            <SidebarLink text="News" route="/news" Icon={Feed} />
+            <SidebarLink text="Alerts" route="/alerts" Icon={Notifications} />
           </List>
         </Box>
         <Box
