@@ -19,7 +19,6 @@ root.render(
         <Route path="/" element={<App />}>
           <Route index element={<Dashboard />} />
           <Route path="market" element={<Market />} />
-          <Route path="news" element={<News />} />
           <Route path="portfolio" element={<Portfolio />} />
           <Route path="settings" element={<Settings />} />
           <Route path="watchlist" element={<WatchList />} />

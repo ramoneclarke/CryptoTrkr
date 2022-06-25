@@ -1,6 +1,6 @@
 import {
   AccountBalanceWallet,
-  Feed,
+  Notifications,
   Home,
   Settings,
   ShowChart,
@@ -91,9 +91,9 @@ const MobileDrawer = ({ drawerOpen, toggleDrawer }) => {
             toggleDrawer={toggleDrawer}
           />
           <SidebarLink
-            text="News"
-            route="/news"
-            Icon={Feed}
+            text="Alerts"
+            route="/alerts"
+            Icon={Notifications}
             toggleDrawer={toggleDrawer}
           />
         </List>
