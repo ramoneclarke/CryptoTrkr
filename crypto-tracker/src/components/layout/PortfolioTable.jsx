@@ -66,7 +66,7 @@ const PortfolioTable = ({ data, filteredData, filterText, page }) => {
   // const [alertFilterText, setAlertFilterText] = useState("");
   // const [alertFilteredData, setAlertFilteredData] = useState([]);
   const [popUpOpen, setPopUpOpen] = useState(false);
-  // const [selectedCoin, setSelectedCoin] = useState({});
+  const [selectedCoinImage, setSelectedCoinImage] = useState("");
 
   const handleAlertClickOpen = (cellValues) => {
     setPopUpOpen(true);
@@ -76,6 +76,7 @@ const PortfolioTable = ({ data, filteredData, filterText, page }) => {
       coinName: cellValues.row.name,
       coinSymbol: cellValues.row.symbol,
     });
+    setSelectedCoinImage(cellValues.row.image);
   };
 
   const handleAlertClose = () => {
@@ -444,8 +445,8 @@ const PortfolioTable = ({ data, filteredData, filterText, page }) => {
                   setNewAlert={setNewAlert}
                   handleInputChange={handleAlertInputChange}
                   handleSubmit={handleAlertSubmit}
-                  selectedCoinName={cellValues.row.name}
-                  selectedCoinImage={cellValues.row.image}
+                  selectedCoinName={newAlert.coinName}
+                  selectedCoinImage={selectedCoinImage}
                 />
               </Dialog>
             </Stack>
