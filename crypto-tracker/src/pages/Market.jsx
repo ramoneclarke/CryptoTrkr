@@ -40,6 +40,7 @@ const Market = () => {
         rank: index + 1,
         name: coin.name,
         symbol: coin.symbol.toUpperCase(),
+        image: coin.image,
         price: numberFormatter(coin.current_price),
         "24h":
           coin.price_change_percentage_24h_in_currency === null
