@@ -63,8 +63,6 @@ const PortfolioTable = ({ data, filteredData, filterText, page }) => {
 
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  // const [alertFilterText, setAlertFilterText] = useState("");
-  // const [alertFilteredData, setAlertFilteredData] = useState([]);
   const [popUpOpen, setPopUpOpen] = useState(false);
   const [selectedCoinImage, setSelectedCoinImage] = useState("");
 
@@ -82,13 +80,6 @@ const PortfolioTable = ({ data, filteredData, filterText, page }) => {
   const handleAlertClose = () => {
     setPopUpOpen(false);
   };
-
-  // useEffect(() => {
-  //   let filtered = data.filter((coin) =>
-  //     coin.name.toLowerCase().startsWith(alertFilterText)
-  //   );
-  //   setAlertFilteredData(filtered);
-  // }, [data, alertFilterText]);
 
   const [newAlert, setNewAlert] = useState({
     coinId: "",
@@ -270,8 +261,8 @@ const PortfolioTable = ({ data, filteredData, filterText, page }) => {
                   setNewAlert={setNewAlert}
                   handleInputChange={handleAlertInputChange}
                   handleSubmit={handleAlertSubmit}
-                  selectedCoinName={cellValues.row.name}
-                  selectedCoinImage={cellValues.row.image}
+                  selectedCoinName={newAlert.coinName}
+                  selectedCoinImage={selectedCoinImage}
                 />
               </Dialog>
             </Stack>

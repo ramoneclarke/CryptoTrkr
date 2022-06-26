@@ -8,6 +8,8 @@ import {
 } from "@mui/x-data-grid";
 import {
   Box,
+  Dialog,
+  IconButton,
   Pagination,
   PaginationItem,
   Stack,
@@ -25,6 +27,10 @@ import PriceChangeText from "../shared-components/PriceChangeText";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import AddTransaction from "../portfolio-components/AddTransaction";
+import { useState } from "react";
+import { NotificationAdd } from "@mui/icons-material";
+import AddAlertPopup from "../alerts-components/AddAlertPopup";
+import { UserContext } from "../../context/UserContext";
 
 function CustomPagination() {
   const apiRef = useGridApiContext();
@@ -58,8 +64,79 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
   const useAppContext = useContext(AppContext);
   const { settings } = useAppContext;
   const { activeCurrency: currency } = settings;
+  const useUserContext = useContext(UserContext);
+  const { dispatchUserContext } = useUserContext;
 
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+  const [popUpOpen, setPopUpOpen] = useState(false);
+  const [selectedCoinImage, setSelectedCoinImage] = useState("");
+
+  const handleAlertClickOpen = (cellValues) => {
+    setPopUpOpen(true);
+    setNewAlert({
+      ...newAlert,
+      coinId: cellValues.row.id,
+      coinName: cellValues.row.name,
+      coinSymbol: cellValues.row.symbol,
+    });
+    setSelectedCoinImage(cellValues.row.image);
+  };
+
+  const handleAlertClose = () => {
+    setPopUpOpen(false);
+  };
+
+  const [newAlert, setNewAlert] = useState({
+    coinId: "",
+    coinName: "",
+    coinSymbol: "",
+    targetPrice: "",
+    type: "Higher",
+  });
+
+  const handleAlertInputChange = (event) => {
+    const { name, value } = event.target;
+    setNewAlert({
+      ...newAlert,
+      [name]: value,
+    });
+  };
+
+  const handleAlertSubmit = (event) => {
+    event.preventDefault();
+    dispatchUserContext({
+      type: "addAlert",
+      payload: {
+        coinId: newAlert.coinId,
+        coinName: newAlert.coinName,
+        coinSymbol: newAlert.coinSymbol,
+        targetPrice: newAlert.targetPrice,
+        type: newAlert.type,
+      },
+    });
+    let message = (
+      <Stack direction="row" alignItems="center" justifyContent="center">
+        <NotificationAdd sx={{ mr: "0.5rem" }} />
+        {`Alert created for ${newAlert.coinId}`}
+      </Stack>
+    );
+
+    enqueueSnackbar(message, {
+      // TransitionComponent: Zoom,
+      preventDuplicate: true,
+      sx: {
+        "& .SnackbarContent-root": {
+          color: "text.primary",
+          backgroundColor: "secondary.dark",
+        },
+        "& .SnackbarItem-wrappedRoot": {
+          borderRadius: "22px",
+        },
+      },
+    });
+    handleAlertClose();
+  };
 
   let columns;
   if (isSmallDevice) {
@@ -214,6 +291,67 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
           return <>{cellValues.row.supply}</>;
+        },
+      },
+      {
+        field: "alert",
+        width: 50,
+        headerClassName: "market-table-header",
+        renderHeader: (cellValues) => (
+          <>
+            <Stack direction="row" justifyContent="center" width="200px">
+              <NotificationAdd fontSize="small" />
+            </Stack>
+          </>
+        ),
+        renderCell: (cellValues) => {
+          return (
+            <Stack
+              direction="row"
+              width="100%"
+              height="100%"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <IconButton
+                size="small"
+                color="inherit"
+                onClick={() => handleAlertClickOpen(cellValues)}
+              >
+                <NotificationAdd
+                  fontSize="medium"
+                  sx={{ color: "chip.default" }}
+                />
+              </IconButton>
+              <Dialog
+                onClose={handleAlertClose}
+                open={popUpOpen}
+                maxWidth="xl"
+                PaperProps={{
+                  sx: {
+                    width: {
+                      xs: "90%",
+                      md: "30rem",
+                    },
+                    backgroundColor: "#263238 !important",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                  },
+                }}
+              >
+                <AddAlertPopup
+                  newAlert={newAlert}
+                  setNewAlert={setNewAlert}
+                  handleInputChange={handleAlertInputChange}
+                  handleSubmit={handleAlertSubmit}
+                  selectedCoinName={newAlert.coinName}
+                  selectedCoinImage={selectedCoinImage}
+                />
+              </Dialog>
+            </Stack>
+          );
         },
       },
     ];
@@ -384,6 +522,64 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
           return <>{cellValues.row.supply}</>;
+        },
+      },
+      {
+        field: "alert",
+        width: 130,
+        headerClassName: "market-table-header",
+        renderHeader: () => (
+          <Stack direction="row" justifyContent="flex-end" width="200px">
+            <Typography>Alerts</Typography>
+          </Stack>
+        ),
+        renderCell: (cellValues) => {
+          return (
+            <Stack
+              direction="row"
+              spacing={2}
+              width="100%"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <IconButton
+                color="inherit"
+                onClick={() => handleAlertClickOpen(cellValues)}
+              >
+                <NotificationAdd
+                  fontSize="medium"
+                  sx={{ color: "chip.default" }}
+                />
+              </IconButton>
+              <Dialog
+                onClose={handleAlertClose}
+                open={popUpOpen}
+                maxWidth="xl"
+                PaperProps={{
+                  sx: {
+                    width: {
+                      xs: "90%",
+                      md: "30rem",
+                    },
+                    backgroundColor: "#263238 !important",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                  },
+                }}
+              >
+                <AddAlertPopup
+                  newAlert={newAlert}
+                  setNewAlert={setNewAlert}
+                  handleInputChange={handleAlertInputChange}
+                  handleSubmit={handleAlertSubmit}
+                  selectedCoinName={newAlert.coinName}
+                  selectedCoinImage={selectedCoinImage}
+                />
+              </Dialog>
+            </Stack>
+          );
         },
       },
     ];
