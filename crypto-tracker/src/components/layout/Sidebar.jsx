@@ -1,11 +1,13 @@
 import React from "react";
 import {
+  Badge,
   Box,
   Divider,
   Drawer,
   IconButton,
   Link as MuiLink,
   List,
+  Stack,
   Toolbar,
   Tooltip,
 } from "@mui/material";
@@ -69,7 +71,12 @@ const Sidebar = () => {
               route="/portfolio"
               Icon={AccountBalanceWallet}
             />
-            <SidebarLink text="Alerts" route="/alerts" Icon={Notifications} />
+            <SidebarLink
+              text="Alerts"
+              route="/alerts"
+              Icon={Notifications}
+              alerts="true"
+            />
           </List>
         </Box>
         <Box
