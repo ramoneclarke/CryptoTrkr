@@ -54,3 +54,7 @@ export const numberFormatter = (number) => {
     return extraSmallNumberFormatter.format(number);
   }
 };
+
+export const currencyFormatter = (number) => {
+  return largeNumberFormatter.format(number);
+};

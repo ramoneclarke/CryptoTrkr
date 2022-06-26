@@ -8,6 +8,8 @@ import {
 } from "@mui/x-data-grid";
 import {
   Box,
+  Dialog,
+  IconButton,
   Pagination,
   PaginationItem,
   Stack,
@@ -22,8 +24,14 @@ import DataGridCustomNoRowsOverlay from "../shared-components/DataGridCustomNoRo
 import PriceChangeText from "../shared-components/PriceChangeText";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
-import { NotificationAdd, Notifications } from "@mui/icons-material";
+import { NotificationAdd } from "@mui/icons-material";
 import AddTransaction from "../portfolio-components/AddTransaction";
+import AddAlertSidebar from "../alerts-components/AddAlertSidebar";
+
+import { useState } from "react";
+import { useEffect } from "react";
+import { UserContext } from "../../context/UserContext";
+import AddAlertPopup from "../alerts-components/AddAlertPopup";
 
 function CustomPagination() {
   const apiRef = useGridApiContext();
@@ -50,8 +58,67 @@ const PortfolioTable = ({ data, filteredData, filterText, page }) => {
   const useAppContext = useContext(AppContext);
   const { settings } = useAppContext;
   const { activeCurrency: currency } = settings;
+  const useUserContext = useContext(UserContext);
+  const { dispatchUserContext } = useUserContext;
 
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+  // const [alertFilterText, setAlertFilterText] = useState("");
+  // const [alertFilteredData, setAlertFilteredData] = useState([]);
+  const [popUpOpen, setPopUpOpen] = useState(false);
+  // const [selectedCoin, setSelectedCoin] = useState({});
+
+  const handleAlertClickOpen = (cellValues) => {
+    setPopUpOpen(true);
+    setNewAlert({
+      ...newAlert,
+      coinId: cellValues.row.id,
+      coinName: cellValues.row.name,
+      coinSymbol: cellValues.row.symbol,
+    });
+  };
+
+  const handleAlertClose = () => {
+    setPopUpOpen(false);
+  };
+
+  // useEffect(() => {
+  //   let filtered = data.filter((coin) =>
+  //     coin.name.toLowerCase().startsWith(alertFilterText)
+  //   );
+  //   setAlertFilteredData(filtered);
+  // }, [data, alertFilterText]);
+
+  const [newAlert, setNewAlert] = useState({
+    coinId: "",
+    coinName: "",
+    coinSymbol: "",
+    targetPrice: "",
+    type: "Higher",
+  });
+
+  const handleAlertInputChange = (event) => {
+    const { name, value } = event.target;
+    setNewAlert({
+      ...newAlert,
+      [name]: value,
+    });
+  };
+
+  const handleAlertSubmit = (event) => {
+    event.preventDefault();
+    dispatchUserContext({
+      type: "addAlert",
+      payload: {
+        coinId: newAlert.coinId,
+        coinName: newAlert.coinName,
+        coinSymbol: newAlert.coinSymbol,
+        targetPrice: newAlert.targetPrice,
+        type: newAlert.type,
+      },
+    });
+    handleAlertClose();
+  };
 
   let columns;
   if (isSmallDevice) {
@@ -133,25 +200,59 @@ const PortfolioTable = ({ data, filteredData, filterText, page }) => {
         field: "alert",
         width: 50,
         headerClassName: "market-table-header",
-        renderHeader: () => (
-          <Stack direction="row" justifyContent="center" width="200px">
-            <Notifications fontSize="small" />
-          </Stack>
+        renderHeader: (cellValues) => (
+          <>
+            <Stack direction="row" justifyContent="center" width="200px">
+              <NotificationAdd fontSize="small" />
+            </Stack>
+          </>
         ),
-        renderCell: () => {
+        renderCell: (cellValues) => {
           return (
             <Stack
               direction="row"
-              spacing={0.5}
               width="100%"
               height="100%"
               alignItems="center"
               justifyContent="center"
             >
-              <NotificationAdd
-                fontSize="small"
-                sx={{ color: "chip.default" }}
-              />
+              <IconButton
+                size="small"
+                color="inherit"
+                onClick={() => handleAlertClickOpen(cellValues)}
+              >
+                <NotificationAdd
+                  fontSize="medium"
+                  sx={{ color: "chip.default" }}
+                />
+              </IconButton>
+              <Dialog
+                onClose={handleAlertClose}
+                open={popUpOpen}
+                maxWidth="xl"
+                PaperProps={{
+                  sx: {
+                    width: {
+                      xs: "90%",
+                      md: "30rem",
+                    },
+                    backgroundColor: "#263238 !important",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                  },
+                }}
+              >
+                <AddAlertPopup
+                  newAlert={newAlert}
+                  setNewAlert={setNewAlert}
+                  handleInputChange={handleAlertInputChange}
+                  handleSubmit={handleAlertSubmit}
+                  selectedCoinName={cellValues.row.name}
+                  selectedCoinImage={cellValues.row.image}
+                />
+              </Dialog>
             </Stack>
           );
         },
@@ -302,25 +403,51 @@ const PortfolioTable = ({ data, filteredData, filterText, page }) => {
             <Typography>Alerts</Typography>
           </Stack>
         ),
-        renderCell: () => {
+        renderCell: (cellValues) => {
           return (
             <Stack
               direction="row"
               spacing={2}
               width="100%"
-              justifyContent="space-between"
+              justifyContent="center"
               alignItems="center"
             >
-              <Stack
-                direction="row"
-                spacing={2}
-                width="100%"
-                alignItems="center"
-                justifyContent="flex-end"
+              <IconButton
+                color="inherit"
+                onClick={() => handleAlertClickOpen(cellValues)}
               >
-                <NotificationAdd sx={{ color: "chip.default" }} />
-                <Notifications sx={{ color: "chip.default" }} />
-              </Stack>
+                <NotificationAdd
+                  fontSize="medium"
+                  sx={{ color: "chip.default" }}
+                />
+              </IconButton>
+              <Dialog
+                onClose={handleAlertClose}
+                open={popUpOpen}
+                maxWidth="xl"
+                PaperProps={{
+                  sx: {
+                    width: {
+                      xs: "90%",
+                      md: "30rem",
+                    },
+                    backgroundColor: "#263238 !important",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                  },
+                }}
+              >
+                <AddAlertPopup
+                  newAlert={newAlert}
+                  setNewAlert={setNewAlert}
+                  handleInputChange={handleAlertInputChange}
+                  handleSubmit={handleAlertSubmit}
+                  selectedCoinName={cellValues.row.name}
+                  selectedCoinImage={cellValues.row.image}
+                />
+              </Dialog>
             </Stack>
           );
         },

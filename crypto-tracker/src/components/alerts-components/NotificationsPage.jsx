@@ -13,7 +13,10 @@ import { FixedSizeList } from "react-window";
 import { AppContext } from "../../context/AppContext";
 import { DataContext } from "../../context/DataContext";
 import { UserContext } from "../../context/UserContext";
-import { numberFormatter } from "../../utils/numberFormatters";
+import {
+  currencyFormatter,
+  numberFormatter,
+} from "../../utils/numberFormatters";
 
 const NotificationsPage = () => {
   const useUserContext = useContext(UserContext);
@@ -103,11 +106,11 @@ const NotificationsPage = () => {
                   <Typography variant="body2">
                     {`${data[index].coinName} is now ${data[index].type} than ${
                       settings.activeCurrency.symbol
-                    }${numberFormatter(
+                    }${currencyFormatter(
                       data[index].targetPrice
                     )}. The current price is ${
                       settings.activeCurrency.symbol
-                    }${numberFormatter(coinPrices[data[index].coinId])}`}
+                    }${currencyFormatter(coinPrices[data[index].coinId])}`}
                   </Typography>
                 </Stack>
                 <Divider variant="middle" sx={{ bgcolor: "text.secondary" }} />
