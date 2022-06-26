@@ -3,13 +3,18 @@ import {
   ListItemText,
   ListItemIcon,
   ListItemButton,
+  Badge,
 } from "@mui/material";
 import React from "react";
+import { useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
 
-const SidebarLink = ({ text, Icon, route, toggleDrawer }) => {
+const SidebarLink = ({ text, Icon, route, toggleDrawer, alerts }) => {
   const location = useLocation();
+  const useUserContext = useContext(UserContext);
+  const { unopenedAlerts } = useUserContext;
 
   return (
     <>
@@ -34,7 +39,13 @@ const SidebarLink = ({ text, Icon, route, toggleDrawer }) => {
           onClick={toggleDrawer}
         >
           <ListItemIcon>
-            <Icon sx={{ color: "text.secondary" }} />
+            {alerts ? (
+              <Badge badgeContent={unopenedAlerts} color="warning">
+                <Icon sx={{ color: "text.secondary" }} />
+              </Badge>
+            ) : (
+              <Icon sx={{ color: "text.secondary" }} />
+            )}
           </ListItemIcon>
           <ListItemText primary={text} />
         </ListItemButton>

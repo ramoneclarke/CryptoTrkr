@@ -20,6 +20,7 @@ const initialState = {
   alerts: [],
   alertIdCounter: 0,
   activatedAlerts: [],
+  unopenedAlerts: 0,
 };
 
 const reducer = (state, action) => {
@@ -152,6 +153,16 @@ const reducer = (state, action) => {
           ),
         ],
       };
+    case "addUnopenedAlert":
+      return {
+        ...state,
+        unopenedAlerts: state.unopenedAlerts + 1,
+      };
+    case "refreshUnopenedAlerts":
+      return {
+        ...state,
+        unopenedAlerts: 0,
+      };
     default:
       return state;
   }
@@ -168,6 +179,7 @@ export const UserContextProvider = ({ children }) => {
     selectedCoin,
     alerts,
     activatedAlerts,
+    unopenedAlerts,
   } = state;
 
   const useDataContext = useContext(DataContext);
@@ -194,11 +206,13 @@ export const UserContextProvider = ({ children }) => {
         case "Lower":
           if (coinPrices[alert.coinId] < alert.targetPrice) {
             dispatchUserContext({ type: "addActivatedAlert", payload: alert });
+            dispatchUserContext({ type: "addUnopenedAlert", payload: "" });
           }
           return;
         case "Higher":
           if (coinPrices[alert.coinId] > alert.targetPrice) {
             dispatchUserContext({ type: "addActivatedAlert", payload: alert });
+            dispatchUserContext({ type: "addUnopenedAlert", payload: "" });
           }
           return;
         default:
@@ -217,6 +231,7 @@ export const UserContextProvider = ({ children }) => {
         selectedCoin,
         alerts,
         activatedAlerts,
+        unopenedAlerts,
         dispatchUserContext,
       }}
     >

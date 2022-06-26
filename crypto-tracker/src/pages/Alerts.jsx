@@ -1,6 +1,7 @@
 import { Box, Grid } from "@mui/material";
 import React from "react";
 import { useContext } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import AddAlertSidebar from "../components/alerts-components/AddAlertSidebar";
 import AlertsDisplay from "../components/alerts-components/AlertsDisplay";
@@ -42,6 +43,12 @@ const Alerts = () => {
       },
     });
   };
+
+  // Refresh unopened alerts badge upon loading the alerts page
+  useEffect(() => {
+    dispatchUserContext({ type: "refreshUnopenedAlerts", payload: "" });
+  }, [dispatchUserContext]);
+
   return (
     <Box sx={{ width: "100%", height: "100%" }}>
       <Grid container sx={{ height: "100%" }}>
