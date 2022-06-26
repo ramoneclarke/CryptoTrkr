@@ -118,6 +118,26 @@ const PortfolioTable = ({ data, filteredData, filterText, page }) => {
         type: newAlert.type,
       },
     });
+    let message = (
+      <Stack direction="row" alignItems="center" justifyContent="center">
+        <NotificationAdd sx={{ mr: "0.5rem" }} />
+        {`Alert created for ${newAlert.coinId}`}
+      </Stack>
+    );
+
+    enqueueSnackbar(message, {
+      // TransitionComponent: Zoom,
+      preventDuplicate: true,
+      sx: {
+        "& .SnackbarContent-root": {
+          color: "text.primary",
+          backgroundColor: "secondary.dark",
+        },
+        "& .SnackbarItem-wrappedRoot": {
+          borderRadius: "22px",
+        },
+      },
+    });
     handleAlertClose();
   };
 
