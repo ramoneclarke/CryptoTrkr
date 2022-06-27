@@ -360,13 +360,13 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
       {
         field: "rank",
         headerName: "#",
-        width: 50,
+        flex: 1,
         headerClassName: "market-table-header",
       },
       {
         field: "name",
         headerName: "Name",
-        width: 290,
+        flex: 7,
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
           return (
@@ -399,7 +399,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
       {
         field: "price",
         headerName: "Price",
-        width: 120,
+        flex: 3,
         type: "number",
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
@@ -422,7 +422,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
       {
         field: "24h",
         headerName: "24h %",
-        width: 100,
+        flex: 2,
         type: "number",
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
@@ -444,7 +444,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
       {
         field: "7d",
         headerName: "7d %",
-        width: 100,
+        flex: 2,
         type: "number",
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
@@ -465,7 +465,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
       },
       {
         field: "cap",
-        width: 180,
+        flex: 4,
         type: "number",
         renderHeader: () => (
           <Stack direction="row" alignItems="center">
@@ -487,7 +487,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
       },
       {
         field: "volume",
-        width: 200,
+        flex: 4,
         type: "number",
         renderHeader: () => (
           <Stack direction="row" alignItems="center">
@@ -509,7 +509,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
       },
       {
         field: "supply",
-        width: 200,
+        flex: 4,
         type: "number",
         renderHeader: () => (
           <Stack direction="row" alignItems="center">
@@ -526,7 +526,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
       },
       {
         field: "alert",
-        width: 130,
+        flex: 1.5,
         headerClassName: "market-table-header",
         renderHeader: () => (
           <Stack direction="row" justifyContent="flex-end" width="200px">
