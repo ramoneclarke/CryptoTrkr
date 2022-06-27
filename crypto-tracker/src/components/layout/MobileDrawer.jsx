@@ -67,14 +67,8 @@ const MobileDrawer = ({ drawerOpen, toggleDrawer }) => {
         <Divider variant="middle" sx={{ bgcolor: "text.secondary" }} />
         <List>
           <SidebarLink
-            text="Dashboard"
-            route="/"
-            Icon={Home}
-            toggleDrawer={toggleDrawer}
-          />
-          <SidebarLink
             text="Market"
-            route="/market"
+            route="/"
             Icon={ShowChart}
             toggleDrawer={toggleDrawer}
           />

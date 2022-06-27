@@ -59,8 +59,7 @@ const Sidebar = () => {
           </Toolbar>
           <Divider variant="middle" sx={{ bgcolor: "text.secondary" }} />
           <List>
-            <SidebarLink text="Dashboard" route="/" Icon={Home} />
-            <SidebarLink text="Market" route="/market" Icon={ShowChart} />
+            <SidebarLink text="Market" route="/" Icon={ShowChart} />
             <SidebarLink
               text="Watch List"
               route="/watchlist"
