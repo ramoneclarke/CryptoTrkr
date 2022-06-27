@@ -27,7 +27,7 @@ const MarketHeader = ({ setFilterText }) => {
           md: "flex-start",
         },
         alignItems: {
-          md: "flex-end",
+          md: "center",
         },
       }}
     >
