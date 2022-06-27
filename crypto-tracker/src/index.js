@@ -17,8 +17,7 @@ root.render(
     <React.StrictMode>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route index element={<Dashboard />} />
-          <Route path="market" element={<Market />} />
+          <Route index element={<Market />} />
           <Route path="portfolio" element={<Portfolio />} />
           <Route path="settings" element={<Settings />} />
           <Route path="watchlist" element={<WatchList />} />
