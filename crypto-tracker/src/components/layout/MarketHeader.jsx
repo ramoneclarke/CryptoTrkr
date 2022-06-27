@@ -42,11 +42,6 @@ const MarketHeader = ({ setFilterText }) => {
         }}
       />
       {!isSmallDevice && <CurrencySelector />}
-      {!isSmallDevice && (
-        <Stack width="600px" alignItems="center" justifyContent="center">
-          <PageTitle title="Live Market" />
-        </Stack>
-      )}
     </Box>
   );
 };

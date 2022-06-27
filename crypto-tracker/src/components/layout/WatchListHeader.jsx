@@ -87,9 +87,6 @@ const WatchListHeader = ({
             selectedValue={selectedValue}
             setSelectedValue={setSelectedValue}
           />
-          <Stack width="600px" alignItems="center" justifyContent="center">
-            <PageTitle title="Watch List" />
-          </Stack>
         </>
       )}
     </Box>

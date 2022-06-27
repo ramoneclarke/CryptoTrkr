@@ -77,11 +77,6 @@ const PortfolioHeader = ({ setFilterText }) => {
           <PortfolioBalance />
         </>
       )}
-      {/* {!isSmallDevice && (
-        <Stack width="600px" alignItems="center" justifyContent="center">
-          <PageTitle title="My Portfolio" />
-        </Stack>
-      )} */}
     </Box>
   );
 };
