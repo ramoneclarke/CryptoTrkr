@@ -9,7 +9,6 @@ const AddToWatchListHeaderButton = ({ handleClickOpen }) => {
     <Box>
       <Button
         variant="contained"
-        startIcon={<AddCircle sx={{ color: "secondary.main" }} />}
         size={isSmallDevice ? "medium" : "large"}
         onClick={handleClickOpen}
         sx={{
@@ -21,7 +20,7 @@ const AddToWatchListHeaderButton = ({ handleClickOpen }) => {
           },
         }}
       >
-        Watch
+        <AddCircle sx={{ color: "secondary.main" }} />
       </Button>
     </Box>
   );

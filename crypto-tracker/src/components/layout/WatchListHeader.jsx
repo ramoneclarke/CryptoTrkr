@@ -68,7 +68,7 @@ const WatchListHeader = ({
           </Stack>
         </>
       ) : (
-        <>
+        <Stack direction="row" alignItems="center">
           <FilterSearchBar
             placeholder="Filter coins..."
             setFilterText={setFilterText}
@@ -87,7 +87,7 @@ const WatchListHeader = ({
             selectedValue={selectedValue}
             setSelectedValue={setSelectedValue}
           />
-        </>
+        </Stack>
       )}
     </Box>
   );

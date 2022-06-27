@@ -16,7 +16,6 @@ const AddToPortfolioHeaderButton = () => {
       <Button
         variant="contained"
         color="primary"
-        startIcon={<AddCircle sx={{ color: "secondary.main" }} />}
         size={isSmallDevice ? "medium" : "large"}
         onClick={() =>
           dispatchAppContext({ type: "handleTransactionClickOpen", payload: 1 })
@@ -30,7 +29,7 @@ const AddToPortfolioHeaderButton = () => {
           },
         }}
       >
-        Add
+        <AddCircle sx={{ color: "secondary.main" }} />
       </Button>
     </Box>
   );

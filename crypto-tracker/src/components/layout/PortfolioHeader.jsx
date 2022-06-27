@@ -58,7 +58,7 @@ const PortfolioHeader = ({ setFilterText }) => {
           </Stack>
         </>
       ) : (
-        <>
+        <Stack direction="row" alignItems="center">
           <FilterSearchBar
             placeholder="Filter coins..."
             setFilterText={setFilterText}
@@ -75,7 +75,7 @@ const PortfolioHeader = ({ setFilterText }) => {
             <AddTransaction />
           </Stack>
           <PortfolioBalance />
-        </>
+        </Stack>
       )}
     </Box>
   );
