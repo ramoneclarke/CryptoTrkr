@@ -23,6 +23,8 @@ const AddAlertSidebar = ({
   setNewAlert,
   handleInputChange,
   handleSubmit,
+  priceError,
+  priceHelperText,
 }) => {
   const theme = useTheme();
   const useDataContext = useContext(DataContext);
@@ -68,65 +70,65 @@ const AddAlertSidebar = ({
             justifyContent="center"
             sx={{ width: "100%" }}
           >
-            <form onSubmit={handleSubmit}>
-              <Stack
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
-                px={2}
-              >
-                {newAlert.coinId && (
-                  <Avatar
-                    alt={selectedCoin.name}
-                    src={selectedCoin.image}
-                    sx={{ m: "0 1rem 0 1rem" }}
-                  />
-                )}
-                <Box sx={{ width: "100%" }}>
-                  {newAlert.coinId ? (
-                    <Stack
-                      direction="row"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Typography variant="h6" component="div" align="center">
-                        {selectedCoin.name}
-                      </Typography>
-                      <Button
-                        variant="outlined"
-                        color="secondary"
-                        size="small"
-                        onClick={handleClickOpen}
-                      >
-                        Select coin
-                      </Button>
-                    </Stack>
-                  ) : (
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              px={2}
+            >
+              {newAlert.coinId && (
+                <Avatar
+                  alt={selectedCoin.name}
+                  src={selectedCoin.image}
+                  sx={{ m: "0 1rem 0 1rem" }}
+                />
+              )}
+              <Box sx={{ width: "100%" }}>
+                {newAlert.coinId ? (
+                  <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                  >
+                    <Typography variant="h6" component="div" align="center">
+                      {selectedCoin.name}
+                    </Typography>
                     <Button
                       variant="outlined"
                       color="secondary"
                       size="small"
                       onClick={handleClickOpen}
-                      sx={{
-                        width: "100%",
-                      }}
                     >
                       Select coin
                     </Button>
-                  )}
-                </Box>
-                <AlertsCoinSelector
-                  handleClose={handleClose}
-                  open={popUpOpen}
-                  coinData={coinData}
-                  filteredCoinData={filteredCoinData}
-                  filterText={filterText}
-                  setFilterText={setFilterText}
-                  setNewAlert={setNewAlert}
-                  newAlert={newAlert}
-                  setSelectedCoin={setSelectedCoin}
-                />
-              </Stack>
+                  </Stack>
+                ) : (
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    size="small"
+                    onClick={handleClickOpen}
+                    sx={{
+                      width: "100%",
+                    }}
+                  >
+                    Select coin
+                  </Button>
+                )}
+              </Box>
+              <AlertsCoinSelector
+                handleClose={handleClose}
+                open={popUpOpen}
+                coinData={coinData}
+                filteredCoinData={filteredCoinData}
+                filterText={filterText}
+                setFilterText={setFilterText}
+                setNewAlert={setNewAlert}
+                newAlert={newAlert}
+                setSelectedCoin={setSelectedCoin}
+              />
+            </Stack>
+            <form onSubmit={handleSubmit}>
               <Stack direction="column" spacing={5} w="100%" p={3}>
                 <TextField
                   variant="filled"
@@ -136,6 +138,8 @@ const AddAlertSidebar = ({
                   type="number"
                   value={newAlert.targetPrice}
                   onChange={handleInputChange}
+                  error={priceError}
+                  helperText={priceHelperText}
                 />
                 <FormControl fullWidth>
                   <InputLabel id="alert-type">Alert Type</InputLabel>
