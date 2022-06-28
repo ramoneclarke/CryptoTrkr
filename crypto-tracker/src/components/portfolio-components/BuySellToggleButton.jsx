@@ -25,7 +25,7 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
   },
 }));
 
-const BuySellToggleButton = () => {
+const BuySellToggleButton = ({ validateForm, quantity }) => {
   const useAppContext = useContext(AppContext);
   const { dispatchAppContext, transaction } = useAppContext;
   const { transactionStepNum } = transaction;
@@ -33,6 +33,10 @@ const BuySellToggleButton = () => {
   const handleType = (event, newStep) => {
     if (newStep !== null) {
       dispatchAppContext({ type: "setTransactionStepNum", payload: newStep });
+      // re-validate form on change from buy/sell page
+      let step;
+      transactionStepNum === 2 ? (step = 3) : (step = 2);
+      validateForm("quantity", quantity, step);
     }
   };
   return (

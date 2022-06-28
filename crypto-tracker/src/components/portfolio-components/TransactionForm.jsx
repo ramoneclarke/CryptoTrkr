@@ -21,14 +21,15 @@ import BuySellToggleButton from "./BuySellToggleButton";
 import { DataContext } from "../../context/DataContext";
 import { useSnackbar } from "notistack";
 import { AccountBalanceWallet } from "@mui/icons-material";
+import { useEffect } from "react";
 
-// const today = new Date()
+const priceRegex = /^[1-9]\d*(\.\d+)?$|^0\.\d+?$/;
 
 const TransactionForm = ({ transactionType, handleClose }) => {
   const useDataContext = useContext(DataContext);
   const { coinPrices } = useDataContext;
   const useUserContext = useContext(UserContext);
-  const { dispatchUserContext, selectedCoin } = useUserContext;
+  const { dispatchUserContext, selectedCoin, portfolio } = useUserContext;
   const useAppContext = useContext(AppContext);
   const { settings, transaction } = useAppContext;
   const { transactionStepNum } = transaction;
@@ -38,15 +39,57 @@ const TransactionForm = ({ transactionType, handleClose }) => {
   const [dateValue, setDateValue] = useState(new Date());
   const [formValues, setFormValues] = useState({
     price: coinPrices[selectedCoin.id],
-    quantity: 1,
+    quantity: "",
     date: dateValue,
   });
+  const [priceHelperText, setPriceHelperText] = useState("");
+  const [quantityHelperText, setQuantityHelperText] =
+    useState("Enter the quantity");
+  const [priceError, setPriceError] = useState(false);
+  const [quantityError, setQuantityError] = useState(true);
 
   const theme = useTheme();
   const isSmallDevice = useMediaQuery(theme.breakpoints.down("md"));
 
+  const validateForm = (name, value, stepNum) => {
+    if (name === "price") {
+      if (value === "") {
+        setPriceError(true);
+        setPriceHelperText("Enter the quantity");
+      } else if (!priceRegex.test(value)) {
+        setPriceError(true);
+        setPriceHelperText("Invalid format");
+      } else {
+        setPriceError(false);
+        setPriceHelperText("");
+      }
+    } else if (name === "quantity") {
+      if (
+        portfolio[selectedCoin.id] &&
+        stepNum === 3 &&
+        value > portfolio[selectedCoin.id].holdings
+      ) {
+        // if a sell transaction, check to ensure the sell quantity is not more than the held quantity
+        setQuantityError(true);
+        setQuantityHelperText(
+          `You are unable to sell more ${selectedCoin.name} than you hold`
+        );
+      } else if (value === "") {
+        setQuantityError(true);
+        setQuantityHelperText("Enter the quantity");
+      } else if (!priceRegex.test(value)) {
+        setQuantityError(true);
+        setQuantityHelperText("Invalid format");
+      } else {
+        setQuantityError(false);
+        setQuantityHelperText("");
+      }
+    }
+  };
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+    validateForm(name, value, transactionStepNum);
     setFormValues({
       ...formValues,
       [name]: value,
@@ -59,17 +102,19 @@ const TransactionForm = ({ transactionType, handleClose }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatchUserContext({
-      type: "addTransaction",
-      payload: {
-        id: selectedCoin.id,
-        type: transactionType,
-        quantity: Number(formValues.quantity),
-        date: formValues.date,
-      },
-    });
-    handleClose();
-    togglePortfolioSnackbar(transactionType, selectedCoin.name);
+    if (!priceError && !quantityError) {
+      dispatchUserContext({
+        type: "addTransaction",
+        payload: {
+          id: selectedCoin.id,
+          type: transactionType,
+          quantity: Number(formValues.quantity),
+          date: formValues.date,
+        },
+      });
+      handleClose();
+      togglePortfolioSnackbar(transactionType, selectedCoin.name);
+    }
   };
 
   const togglePortfolioSnackbar = (action, coinName) => {
@@ -114,7 +159,12 @@ const TransactionForm = ({ transactionType, handleClose }) => {
       }}
     >
       <DialogTitle sx={{ fontSize: "1.8rem" }}>{selectedCoin.name}</DialogTitle>
-      {transactionStepNum !== 1 && <BuySellToggleButton />}
+      {transactionStepNum !== 1 && (
+        <BuySellToggleButton
+          validateForm={validateForm}
+          quantity={formValues.quantity}
+        />
+      )}
       <Box sx={{ width: "80%", mt: "1.5rem" }}>
         <form onSubmit={handleSubmit}>
           <Stack direction="column" spacing={5} w="100%">
@@ -134,6 +184,8 @@ const TransactionForm = ({ transactionType, handleClose }) => {
                 ),
               }}
               onChange={handleInputChange}
+              error={priceError}
+              helperText={priceHelperText}
             />
             <TextField
               variant="standard"
@@ -143,6 +195,8 @@ const TransactionForm = ({ transactionType, handleClose }) => {
               type="number"
               value={formValues.quantity}
               onChange={handleInputChange}
+              error={quantityError}
+              helperText={quantityHelperText}
             />
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               {isSmallDevice ? (
