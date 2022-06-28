@@ -22,8 +22,7 @@ import { DataContext } from "../../context/DataContext";
 import { useSnackbar } from "notistack";
 import { AccountBalanceWallet } from "@mui/icons-material";
 import { useEffect } from "react";
-
-const priceRegex = /^[1-9]\d*(\.\d+)?$|^0\.\d+?$/;
+import { priceRegex } from "../../utils/priceRegex";
 
 const TransactionForm = ({ transactionType, handleClose }) => {
   const useDataContext = useContext(DataContext);
@@ -55,7 +54,7 @@ const TransactionForm = ({ transactionType, handleClose }) => {
     if (name === "price") {
       if (value === "") {
         setPriceError(true);
-        setPriceHelperText("Enter the quantity");
+        setPriceHelperText("Enter the price");
       } else if (!priceRegex.test(value)) {
         setPriceError(true);
         setPriceHelperText("Invalid format");

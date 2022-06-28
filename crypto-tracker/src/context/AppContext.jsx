@@ -14,6 +14,10 @@ const initialState = {
     transactionOpen: false,
     transactionStepNum: 0,
   },
+  alert: {
+    priceError: true,
+    priceHelperText: "Enter the target price",
+  },
 };
 
 const reducer = (state, action) => {
@@ -50,6 +54,22 @@ const reducer = (state, action) => {
           transactionStepNum: action.payload,
         },
       };
+    case "setPriceHelperText":
+      return {
+        ...state,
+        alert: {
+          ...state.alert,
+          priceHelperText: action.payload,
+        },
+      };
+    case "setPriceError":
+      return {
+        ...state,
+        alert: {
+          ...state.alert,
+          priceError: action.payload,
+        },
+      };
     default:
       return state;
   }
@@ -72,7 +92,8 @@ export const AppContextProvider = ({ children }) => {
   const [state, dispatchAppContext] = useReducer(reducer, initialState);
   const [currencies] = useState(supportedCurrencies);
 
-  const { settings, transaction } = state;
+  const { settings, transaction, alert } = state;
+  const { priceError, priceHelperText } = alert;
 
   // Set initial settings
   useEffect(() => {
@@ -88,6 +109,8 @@ export const AppContextProvider = ({ children }) => {
         settings,
         supportedCurrencies,
         transaction,
+        priceError,
+        priceHelperText,
         dispatchAppContext,
       }}
     >

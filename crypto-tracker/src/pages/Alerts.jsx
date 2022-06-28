@@ -7,13 +7,13 @@ import AddAlertSidebar from "../components/alerts-components/AddAlertSidebar";
 import AlertsDisplay from "../components/alerts-components/AlertsDisplay";
 import AlertsHeader from "../components/layout/AlertsHeader";
 import { UserContext } from "../context/UserContext";
+import { priceRegex } from "../utils/priceRegex";
 
 const Alerts = () => {
   const useUserContext = useContext(UserContext);
   const { dispatchUserContext } = useUserContext;
 
   const [alertsStep, setAlertsStep] = useState(1);
-
   const [newAlert, setNewAlert] = useState({
     coinId: "",
     coinName: "",
@@ -21,6 +21,21 @@ const Alerts = () => {
     targetPrice: "",
     type: "Higher",
   });
+  const [priceHelperText, setPriceHelperText] = useState("");
+  const [priceError, setPriceError] = useState(true);
+
+  const validateForm = (value) => {
+    if (value === "") {
+      setPriceError(true);
+      setPriceHelperText("Enter the target price");
+    } else if (!priceRegex.test(value)) {
+      setPriceError(true);
+      setPriceHelperText("Invalid format");
+    } else {
+      setPriceError(false);
+      setPriceHelperText("");
+    }
+  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -28,20 +43,25 @@ const Alerts = () => {
       ...newAlert,
       [name]: value,
     });
+    if (name === "targetPrice") {
+      validateForm(value);
+    }
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatchUserContext({
-      type: "addAlert",
-      payload: {
-        coinId: newAlert.coinId,
-        coinName: newAlert.coinName,
-        coinSymbol: newAlert.coinSymbol,
-        targetPrice: newAlert.targetPrice,
-        type: newAlert.type,
-      },
-    });
+    if (!priceError) {
+      dispatchUserContext({
+        type: "addAlert",
+        payload: {
+          coinId: newAlert.coinId,
+          coinName: newAlert.coinName,
+          coinSymbol: newAlert.coinSymbol,
+          targetPrice: newAlert.targetPrice,
+          type: newAlert.type,
+        },
+      });
+    }
   };
 
   // Refresh unopened alerts badge upon loading the alerts page
@@ -68,6 +88,8 @@ const Alerts = () => {
             setNewAlert={setNewAlert}
             handleInputChange={handleInputChange}
             handleSubmit={handleSubmit}
+            priceError={priceError}
+            priceHelperText={priceHelperText}
           />
         </Grid>
       </Grid>

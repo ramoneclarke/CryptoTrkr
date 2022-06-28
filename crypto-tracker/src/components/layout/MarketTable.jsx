@@ -31,6 +31,7 @@ import { useState } from "react";
 import { NotificationAdd } from "@mui/icons-material";
 import AddAlertPopup from "../alerts-components/AddAlertPopup";
 import { UserContext } from "../../context/UserContext";
+import { priceRegex } from "../../utils/priceRegex";
 
 function CustomPagination() {
   const apiRef = useGridApiContext();
@@ -62,7 +63,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
   const isSmallDevice = useMediaQuery(theme.breakpoints.down("md"));
 
   const useAppContext = useContext(AppContext);
-  const { settings } = useAppContext;
+  const { settings, priceError, dispatchAppContext } = useAppContext;
   const { activeCurrency: currency } = settings;
   const useUserContext = useContext(UserContext);
   const { dispatchUserContext } = useUserContext;
@@ -79,6 +80,13 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
       coinId: cellValues.row.id,
       coinName: cellValues.row.name,
       coinSymbol: cellValues.row.symbol,
+      targetPrice: "",
+      type: "Higher",
+    });
+    dispatchAppContext({ type: "setPriceError", payload: true });
+    dispatchAppContext({
+      type: "setPriceHelperText",
+      payload: "Enter the target price",
     });
     setSelectedCoinImage(cellValues.row.image);
   };
@@ -95,47 +103,71 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
     type: "Higher",
   });
 
+  const validateForm = (value) => {
+    if (value === "") {
+      dispatchAppContext({ type: "setPriceError", payload: true });
+      dispatchAppContext({
+        type: "setPriceHelperText",
+        payload: "Enter the target price",
+      });
+    } else if (!priceRegex.test(value)) {
+      dispatchAppContext({ type: "setPriceError", payload: true });
+      dispatchAppContext({
+        type: "setPriceHelperText",
+        payload: "Invalid format",
+      });
+    } else {
+      dispatchAppContext({ type: "setPriceError", payload: false });
+      dispatchAppContext({ type: "setPriceHelperText", payload: "" });
+    }
+  };
+
   const handleAlertInputChange = (event) => {
     const { name, value } = event.target;
     setNewAlert({
       ...newAlert,
       [name]: value,
     });
+    if (name === "targetPrice") {
+      validateForm(value);
+    }
   };
 
   const handleAlertSubmit = (event) => {
     event.preventDefault();
-    dispatchUserContext({
-      type: "addAlert",
-      payload: {
-        coinId: newAlert.coinId,
-        coinName: newAlert.coinName,
-        coinSymbol: newAlert.coinSymbol,
-        targetPrice: newAlert.targetPrice,
-        type: newAlert.type,
-      },
-    });
-    let message = (
-      <Stack direction="row" alignItems="center" justifyContent="center">
-        <NotificationAdd sx={{ mr: "0.5rem" }} />
-        {`Alert created for ${newAlert.coinId}`}
-      </Stack>
-    );
+    if (!priceError) {
+      dispatchUserContext({
+        type: "addAlert",
+        payload: {
+          coinId: newAlert.coinId,
+          coinName: newAlert.coinName,
+          coinSymbol: newAlert.coinSymbol,
+          targetPrice: newAlert.targetPrice,
+          type: newAlert.type,
+        },
+      });
+      let message = (
+        <Stack direction="row" alignItems="center" justifyContent="center">
+          <NotificationAdd sx={{ mr: "0.5rem" }} />
+          {`Alert created for ${newAlert.coinId}`}
+        </Stack>
+      );
 
-    enqueueSnackbar(message, {
-      // TransitionComponent: Zoom,
-      preventDuplicate: true,
-      sx: {
-        "& .SnackbarContent-root": {
-          color: "text.primary",
-          backgroundColor: "secondary.dark",
+      enqueueSnackbar(message, {
+        // TransitionComponent: Zoom,
+        preventDuplicate: true,
+        sx: {
+          "& .SnackbarContent-root": {
+            color: "text.primary",
+            backgroundColor: "secondary.dark",
+          },
+          "& .SnackbarItem-wrappedRoot": {
+            borderRadius: "22px",
+          },
         },
-        "& .SnackbarItem-wrappedRoot": {
-          borderRadius: "22px",
-        },
-      },
-    });
-    handleAlertClose();
+      });
+      handleAlertClose();
+    }
   };
 
   let columns;
