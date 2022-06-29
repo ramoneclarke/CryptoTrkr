@@ -19,7 +19,7 @@ const WatchList = () => {
   const useAppContext = useContext(AppContext);
   const useUserContext = useContext(UserContext);
 
-  const { coinData, isLoading } = useDataContext;
+  const { coinData } = useDataContext;
   const { settings } = useAppContext;
   const { watchList, portfolio, dispatchUserContext } = useUserContext;
 
@@ -31,15 +31,14 @@ const WatchList = () => {
 
   // for Add to watchlist pop up
   const [popUpOpen, setPopUpOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("");
 
   const handleClickOpen = () => {
     setPopUpOpen(true);
   };
 
   const handleClose = (value) => {
-    setPopUpOpen(false);
     dispatchUserContext({ type: "addToWatchList", payload: value });
+    setPopUpOpen(false);
   };
 
   // Fetch coin data from CoinGecko
@@ -107,8 +106,6 @@ const WatchList = () => {
         open={popUpOpen}
         handleClickOpen={handleClickOpen}
         handleClose={handleClose}
-        selectedValue={selectedValue}
-        setSelectedValue={setSelectedValue}
       />
       <MarketTable
         data={watchListData}

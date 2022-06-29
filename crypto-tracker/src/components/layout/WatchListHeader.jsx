@@ -11,8 +11,6 @@ const WatchListHeader = ({
   open,
   handleClickOpen,
   handleClose,
-  selectedValue,
-  setSelectedValue,
 }) => {
   const theme = useTheme();
   const isSmallDevice = useMediaQuery(theme.breakpoints.down("md"));
@@ -59,12 +57,7 @@ const WatchListHeader = ({
               }}
             />
             <AddToWatchListHeaderButton handleClickOpen={handleClickOpen} />
-            <AddToWatchListPopUpBox
-              onClose={handleClose}
-              open={open}
-              selectedValue={selectedValue}
-              setSelectedValue={setSelectedValue}
-            />
+            <AddToWatchListPopUpBox onClose={handleClose} open={open} />
           </Stack>
         </>
       ) : (
@@ -81,12 +74,7 @@ const WatchListHeader = ({
           />
           <CurrencySelector />
           <AddToWatchListHeaderButton handleClickOpen={handleClickOpen} />
-          <AddToWatchListPopUpBox
-            onClose={handleClose}
-            open={open}
-            selectedValue={selectedValue}
-            setSelectedValue={setSelectedValue}
-          />
+          <AddToWatchListPopUpBox handleClose={handleClose} open={open} />
         </Stack>
       )}
     </Box>
