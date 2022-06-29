@@ -1,7 +1,7 @@
 import { Search } from "@mui/icons-material";
 import { IconButton, InputBase, Paper } from "@mui/material";
 import React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const FilterSearchBar = ({ placeholder, setFilterText, ML, MB, width }) => {
   const [text, setText] = useState("");
@@ -16,11 +16,17 @@ const FilterSearchBar = ({ placeholder, setFilterText, ML, MB, width }) => {
     setFilterText(event.target.value);
   };
 
-  const focusInputField = (input) => {
-    if (input) {
-      input.focus();
-    }
-  };
+  const inputRef = React.useRef();
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      inputRef.current.focus();
+    }, 100);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
 
   return (
     <Paper
@@ -45,8 +51,8 @@ const FilterSearchBar = ({ placeholder, setFilterText, ML, MB, width }) => {
         label="Filter"
         value={text}
         onChange={handleChange}
-        ref={focusInputField}
         inputProps={{ "aria-label": "filter" }}
+        inputRef={inputRef}
       />
     </Paper>
   );
