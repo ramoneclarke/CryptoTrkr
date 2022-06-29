@@ -22,7 +22,7 @@ const Alerts = () => {
     type: "Higher",
   });
   const [priceHelperText, setPriceHelperText] = useState("");
-  const [priceError, setPriceError] = useState(true);
+  const [priceError, setPriceError] = useState(false);
 
   const validateForm = (value) => {
     if (value === "") {
@@ -50,7 +50,7 @@ const Alerts = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!priceError) {
+    if (!priceError && newAlert.targetPrice !== "") {
       dispatchUserContext({
         type: "addAlert",
         payload: {
@@ -61,6 +61,8 @@ const Alerts = () => {
           type: newAlert.type,
         },
       });
+    } else if (!priceError && newAlert.targetPrice === "") {
+      validateForm(newAlert.targetPrice);
     }
   };
 
