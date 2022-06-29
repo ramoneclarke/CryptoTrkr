@@ -26,10 +26,14 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case "addToWatchList":
-      return {
-        ...state,
-        watchList: [...state.watchList, action.payload],
-      };
+      return state.watchList.includes(action.payload)
+        ? {
+            ...state,
+          }
+        : {
+            ...state,
+            watchList: [...state.watchList, action.payload],
+          };
     case "removeFromWatchList":
       return {
         ...state,
