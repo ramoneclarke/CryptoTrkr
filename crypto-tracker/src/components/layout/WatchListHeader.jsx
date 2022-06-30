@@ -4,7 +4,6 @@ import AddToWatchListHeaderButton from "../watchlist-components/AddToWatchListHe
 import AddToWatchListPopUpBox from "../watchlist-components/AddToWatchListPopUpBox";
 import CurrencySelector from "../shared-components/CurrencySelector";
 import FilterSearchBar from "../shared-components/FilterSearchBar";
-import PageTitle from "./PageTitle";
 
 const WatchListHeader = ({
   setFilterText,
@@ -74,7 +73,7 @@ const WatchListHeader = ({
           />
           <CurrencySelector />
           <AddToWatchListHeaderButton handleClickOpen={handleClickOpen} />
-          <AddToWatchListPopUpBox handleClose={handleClose} open={open} />
+          <AddToWatchListPopUpBox onClose={handleClose} open={open} />
         </Stack>
       )}
     </Box>
