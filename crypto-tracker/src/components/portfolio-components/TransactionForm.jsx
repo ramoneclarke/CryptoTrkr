@@ -21,7 +21,6 @@ import BuySellToggleButton from "./BuySellToggleButton";
 import { DataContext } from "../../context/DataContext";
 import { useSnackbar } from "notistack";
 import { AccountBalanceWallet } from "@mui/icons-material";
-import { useEffect } from "react";
 import { priceRegex } from "../../utils/priceRegex";
 
 const TransactionForm = ({ transactionType, handleClose }) => {
@@ -42,10 +41,9 @@ const TransactionForm = ({ transactionType, handleClose }) => {
     date: dateValue,
   });
   const [priceHelperText, setPriceHelperText] = useState("");
-  const [quantityHelperText, setQuantityHelperText] =
-    useState("Enter the quantity");
+  const [quantityHelperText, setQuantityHelperText] = useState("");
   const [priceError, setPriceError] = useState(false);
-  const [quantityError, setQuantityError] = useState(true);
+  const [quantityError, setQuantityError] = useState(false);
 
   const theme = useTheme();
   const isSmallDevice = useMediaQuery(theme.breakpoints.down("md"));
@@ -101,7 +99,7 @@ const TransactionForm = ({ transactionType, handleClose }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!priceError && !quantityError) {
+    if (!priceError && !quantityError && formValues.quantity !== "") {
       dispatchUserContext({
         type: "addTransaction",
         payload: {
@@ -113,6 +111,8 @@ const TransactionForm = ({ transactionType, handleClose }) => {
       });
       handleClose();
       togglePortfolioSnackbar(transactionType, selectedCoin.name);
+    } else if (!priceError && !quantityError && formValues.quantity === "") {
+      validateForm("quantity", formValues.quantity, transactionStepNum);
     }
   };
 
