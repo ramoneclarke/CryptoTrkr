@@ -8,7 +8,7 @@ export const AppContext = createContext();
 
 const initialState = {
   settings: {
-    activeCurrency: { code: "gbp", symbol: "£" },
+    activeCurrency: { code: "usd", symbol: "$" },
   },
   transaction: {
     transactionOpen: false,
@@ -99,7 +99,7 @@ export const AppContextProvider = ({ children }) => {
   useEffect(() => {
     dispatchAppContext({
       type: "setActiveCurrency",
-      payload: supportedCurrencies.gbp,
+      payload: supportedCurrencies.usd,
     });
   }, []);
 
