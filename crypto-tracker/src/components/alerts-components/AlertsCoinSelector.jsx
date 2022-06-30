@@ -57,6 +57,7 @@ const AlertsCoinSelector = ({
         sx: {
           height: "80vh",
           width: "25rem",
+          paddingTop: "1rem",
           backgroundColor: "#263238 !important",
           display: "flex",
           flexDirection: "column",

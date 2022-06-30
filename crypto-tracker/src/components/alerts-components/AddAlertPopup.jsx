@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useContext } from "react";
-import { useState } from "react";
 import { AppContext } from "../../context/AppContext";
 
 const AddAlertPopup = ({
@@ -25,7 +24,7 @@ const AddAlertPopup = ({
 }) => {
   const theme = useTheme();
   const useAppContext = useContext(AppContext);
-  const { priceError, priceHelperText, dispatchAppContext } = useAppContext;
+  const { priceError, priceHelperText } = useAppContext;
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -38,7 +37,7 @@ const AddAlertPopup = ({
         }}
       >
         <Stack direction="column">
-          <Typography variant="h5" component="div" align="center" my={3}>
+          <Typography variant="h5" component="div" align="center" my={3} mt={3}>
             Add New Alert
           </Typography>
           <Stack
