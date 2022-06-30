@@ -75,16 +75,16 @@ const PortfolioTable = ({ data, filteredData, filterText, page }) => {
       targetPrice: "",
       type: "Higher",
     });
-    dispatchAppContext({ type: "setPriceError", payload: true });
-    dispatchAppContext({
-      type: "setPriceHelperText",
-      payload: "Enter the target price",
-    });
     setSelectedCoinImage(cellValues.row.image);
   };
 
   const handleAlertClose = () => {
     setPopUpOpen(false);
+    dispatchAppContext({ type: "setPriceError", payload: false });
+    dispatchAppContext({
+      type: "setPriceHelperText",
+      payload: "",
+    });
   };
 
   const [newAlert, setNewAlert] = useState({
@@ -127,7 +127,7 @@ const PortfolioTable = ({ data, filteredData, filterText, page }) => {
 
   const handleAlertSubmit = (event) => {
     event.preventDefault();
-    if (!priceError) {
+    if (!priceError && newAlert.targetPrice !== "") {
       dispatchUserContext({
         type: "addAlert",
         payload: {
@@ -159,6 +159,8 @@ const PortfolioTable = ({ data, filteredData, filterText, page }) => {
         },
       });
       handleAlertClose();
+    } else if (!priceError && newAlert.targetPrice === "") {
+      validateForm(newAlert.targetPrice);
     }
   };
 

@@ -15,8 +15,8 @@ const initialState = {
     transactionStepNum: 0,
   },
   alert: {
-    priceError: true,
-    priceHelperText: "Enter the target price",
+    priceError: false,
+    priceHelperText: "",
   },
 };
 
