@@ -5,16 +5,21 @@ import {
   Box,
   IconButton,
   Link as MuiLink,
+  Badge,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Logo from "./Logo";
-import Profile from "./Profile";
 import { useState } from "react";
 import MobileDrawer from "./MobileDrawer";
 import { Link } from "react-router-dom";
 import CurrencySelector from "../shared-components/CurrencySelector";
+import { Notifications } from "@mui/icons-material";
+import { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
 
 const MobileNavbar = () => {
+  const useUserContext = useContext(UserContext);
+  const { unopenedAlerts } = useUserContext;
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const toggleDrawer = () => {
@@ -32,9 +37,26 @@ const MobileNavbar = () => {
           >
             <Logo />
           </MuiLink>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
             <CurrencySelector />
-            {/* <Profile /> */}
+            <MuiLink
+              component={Link}
+              to="/alerts"
+              underline="none"
+              sx={{ ml: "1rem" }}
+            >
+              <Badge badgeContent={unopenedAlerts} color="warning">
+                <Notifications
+                  fontSize="large"
+                  sx={{ color: "text.secondary" }}
+                />
+              </Badge>
+            </MuiLink>
             <IconButton
               size="large"
               edge="end"
