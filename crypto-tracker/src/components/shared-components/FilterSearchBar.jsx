@@ -13,7 +13,7 @@ const FilterSearchBar = ({ placeholder, setFilterText, ML, MB, width }) => {
   const handleChange = (event) => {
     event.preventDefault();
     setText(event.target.value);
-    setFilterText(event.target.value);
+    setFilterText(event.target.value.toLowerCase());
   };
 
   const inputRef = React.useRef();
