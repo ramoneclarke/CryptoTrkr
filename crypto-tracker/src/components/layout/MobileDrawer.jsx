@@ -1,7 +1,6 @@
 import {
   AccountBalanceWallet,
   Notifications,
-  Home,
   Settings,
   ShowChart,
   Star,
