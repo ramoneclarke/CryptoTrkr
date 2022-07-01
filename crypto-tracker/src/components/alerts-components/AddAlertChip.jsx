@@ -11,7 +11,7 @@ const AddAlertChip = ({ cellValues, enqueueSnackbar }) => {
   const useUserContext = useContext(UserContext);
   const { dispatchUserContext } = useUserContext;
   const useAppContext = useContext(AppContext);
-  const { priceError, setPriceHelperText, dispatchAppContext } = useAppContext;
+  const { priceError, dispatchAppContext } = useAppContext;
 
   const [newAlert, setNewAlert] = useState({
     coinId: "",
@@ -67,30 +67,29 @@ const AddAlertChip = ({ cellValues, enqueueSnackbar }) => {
           type: newAlert.type,
         },
       });
+      let message = (
+        <Stack direction="row" alignItems="center" justifyContent="center">
+          <NotificationAdd sx={{ mr: "0.5rem" }} />
+          {`Alert created for ${newAlert.coinId}`}
+        </Stack>
+      );
+
+      enqueueSnackbar(message, {
+        preventDuplicate: true,
+        sx: {
+          "& .SnackbarContent-root": {
+            color: "text.primary",
+            backgroundColor: "secondary.dark",
+          },
+          "& .SnackbarItem-wrappedRoot": {
+            borderRadius: "22px",
+          },
+        },
+      });
+      handleAlertClose();
     } else if (!priceError && newAlert.targetPrice === "") {
       validateForm(newAlert.targetPrice);
     }
-    let message = (
-      <Stack direction="row" alignItems="center" justifyContent="center">
-        <NotificationAdd sx={{ mr: "0.5rem" }} />
-        {`Alert created for ${newAlert.coinId}`}
-      </Stack>
-    );
-
-    enqueueSnackbar(message, {
-      // TransitionComponent: Zoom,
-      preventDuplicate: true,
-      sx: {
-        "& .SnackbarContent-root": {
-          color: "text.primary",
-          backgroundColor: "secondary.dark",
-        },
-        "& .SnackbarItem-wrappedRoot": {
-          borderRadius: "22px",
-        },
-      },
-    });
-    handleAlertClose();
   };
 
   const handleAlertClickOpen = (cellValues) => {
