@@ -6,6 +6,7 @@ import {
   IconButton,
   Link as MuiLink,
   Badge,
+  styled,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Logo from "./Logo";
@@ -16,6 +17,18 @@ import CurrencySelector from "../shared-components/CurrencySelector";
 import { Notifications } from "@mui/icons-material";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
+
+const styledLink = styled(Link)(({ theme }) => ({
+  textDecoration: "none",
+  outline: "none",
+  boxShadow: "none",
+  "&:focus, &:hover, &:visited, &:link, &:active": {
+    textDecoration: "none",
+    outline: "none",
+    boxShadow: "none",
+  },
+  // "&:last-child td, &:last-child th":
+}));
 
 const MobileNavbar = () => {
   const useUserContext = useContext(UserContext);
@@ -45,10 +58,16 @@ const MobileNavbar = () => {
           >
             <CurrencySelector />
             <MuiLink
-              component={Link}
+              component={styledLink}
               to="/alerts"
               underline="none"
-              sx={{ ml: "1rem" }}
+              sx={{
+                ml: "1rem",
+                textDecoration: "none",
+                "& .MuiLink-root": {
+                  textDecoration: "none",
+                },
+              }}
             >
               <Badge badgeContent={unopenedAlerts} color="warning">
                 <Notifications

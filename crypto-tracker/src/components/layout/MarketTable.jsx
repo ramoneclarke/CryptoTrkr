@@ -91,7 +91,10 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
                   cellValues={cellValues}
                   enqueueSnackbar={enqueueSnackbar}
                 />
-                <AddToPortfolioChip cellValues={cellValues} />
+                <AddToPortfolioChip
+                  cellValues={cellValues}
+                  enqueueSnackbar={enqueueSnackbar}
+                />
                 <AddTransaction />
               </Stack>
             </Stack>
@@ -281,7 +284,10 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
                   enqueueSnackbar={enqueueSnackbar}
                   closeSnackbar={closeSnackbar}
                 />
-                <AddToPortfolioChip cellValues={cellValues} />
+                <AddToPortfolioChip
+                  cellValues={cellValues}
+                  enqueueSnackbar={enqueueSnackbar}
+                />
                 <AddTransaction />
               </Stack>
             </Stack>

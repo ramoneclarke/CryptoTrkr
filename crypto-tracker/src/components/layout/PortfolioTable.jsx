@@ -73,7 +73,10 @@ const PortfolioTable = ({ data, filteredData, filterText, page }) => {
             >
               {cellValues.row.symbol}
               <Stack direction="row" spacing={0.5}>
-                <AddToPortfolioChip cellValues={cellValues} />
+                <AddToPortfolioChip
+                  cellValues={cellValues}
+                  enqueueSnackbar={enqueueSnackbar}
+                />
                 <AddTransaction />
               </Stack>
             </Stack>
@@ -188,7 +191,10 @@ const PortfolioTable = ({ data, filteredData, filterText, page }) => {
                   enqueueSnackbar={enqueueSnackbar}
                   closeSnackbar={closeSnackbar}
                 />
-                <AddToPortfolioChip cellValues={cellValues} />
+                <AddToPortfolioChip
+                  cellValues={cellValues}
+                  enqueueSnackbar={enqueueSnackbar}
+                />
                 <AddTransaction />
               </Stack>
             </Stack>
