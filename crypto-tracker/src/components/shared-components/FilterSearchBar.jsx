@@ -1,9 +1,17 @@
 import { Search } from "@mui/icons-material";
-import { IconButton, InputBase, Paper } from "@mui/material";
+import {
+  IconButton,
+  InputBase,
+  Paper,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import React from "react";
 import { useEffect, useState } from "react";
 
 const FilterSearchBar = ({ placeholder, setFilterText, ML, MB, width }) => {
+  const theme = useTheme();
+  const isSmallDevice = useMediaQuery(theme.breakpoints.down("md"));
   const [text, setText] = useState("");
 
   const handleSubmit = (event) => {
@@ -45,15 +53,26 @@ const FilterSearchBar = ({ placeholder, setFilterText, ML, MB, width }) => {
       <IconButton>
         <Search sx={{ color: "text.secondary" }} />
       </IconButton>
-      <InputBase
-        sx={{ ml: 1, flex: 1 }}
-        placeholder={placeholder}
-        label="Filter"
-        value={text}
-        onChange={handleChange}
-        inputProps={{ "aria-label": "filter" }}
-        inputRef={inputRef}
-      />
+      {isSmallDevice ? (
+        <InputBase
+          sx={{ ml: 1, flex: 1 }}
+          placeholder={placeholder}
+          label="Filter"
+          value={text}
+          onChange={handleChange}
+          inputProps={{ "aria-label": "filter" }}
+        />
+      ) : (
+        <InputBase
+          sx={{ ml: 1, flex: 1 }}
+          placeholder={placeholder}
+          label="Filter"
+          value={text}
+          onChange={handleChange}
+          inputProps={{ "aria-label": "filter" }}
+          inputRef={inputRef}
+        />
+      )}
     </Paper>
   );
 };
