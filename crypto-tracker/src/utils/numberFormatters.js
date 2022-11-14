@@ -6,15 +6,15 @@ export const largeNumberFormatter = new Intl.NumberFormat("en-US", {
 
 export const smallNumberFormatter = new Intl.NumberFormat("en-US", {
   // Numbers < 1 && > 0.01
-  minimumFractionDigits: 4,
+  minimumFractionDigits: 5,
   maximumFractionDigits: 5,
   roundingIncrement: 5,
 });
 
 export const extraSmallNumberFormatter = new Intl.NumberFormat("en-US", {
   // Numbers < 0.01
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 12,
+  minimumFractionDigits: 8,
+  maximumFractionDigits: 8,
   roundingIncrement: 5,
 });
 
@@ -46,6 +46,9 @@ export const percentageFormatter = (number) => {
 };
 
 export const numberFormatter = (number) => {
+  if (number === 0) {
+    return largeNumberFormatter.format(number);
+  }
   if (number >= 1) {
     return largeNumberFormatter.format(number);
   } else if (number < 1 && number > 0.01) {
