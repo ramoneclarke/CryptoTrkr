@@ -26,9 +26,9 @@ const theme = createTheme({
       main: colors.blueGrey[800],
     },
     secondary: {
-      main: colors.cyan[500],
-      light: colors.cyan[300],
-      dark: colors.cyan[700],
+      main: colors.lightBlue[500],
+      light: colors.lightBlue[300],
+      dark: colors.lightBlue[700],
     },
     tertiary: {
       main: "#752719",
@@ -44,13 +44,15 @@ const theme = createTheme({
       secondary: colors.blueGrey[400],
     },
     background: {
-      paper: colors.blueGrey[800],
-      default: colors.blueGrey[900],
-      // paper: "#1A1B1D",
-      // default: "#141416",
+      // paper: colors.blueGrey[800],
+      // default: colors.blueGrey[900],
+      default: "#1A1B1D",
+      paper: "#141416",
+      // paper: "#111827", // Gummy search
+      // default: "#1F2937",
     },
     action: {
-      hover: colors.blueGrey[700],
+      hover: "#1A1B1D",
     },
     chip: {
       default: colors.blueGrey[400],
