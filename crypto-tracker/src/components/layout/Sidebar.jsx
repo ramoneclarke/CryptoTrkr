@@ -1,20 +1,17 @@
 import React from "react";
 import {
-  Badge,
   Box,
   Divider,
   Drawer,
   IconButton,
   Link as MuiLink,
   List,
-  Stack,
   Toolbar,
   Tooltip,
 } from "@mui/material";
 import SidebarLink from "./SidebarLink";
 import {
   ShowChart,
-  Home,
   AccountBalanceWallet,
   Visibility,
   Notifications,
@@ -55,7 +52,7 @@ const Sidebar = () => {
         <Divider variant="middle" sx={{ bgcolor: "text.secondary" }} />
         <Box sx={{ height: "85%" }}>
           <Toolbar sx={{ height: "15%" }}>
-            <Profile name />
+            <Profile />
           </Toolbar>
           <Divider variant="middle" sx={{ bgcolor: "text.secondary" }} />
           <List>
