@@ -1,7 +1,16 @@
-import { Avatar, Badge, Stack, Typography } from "@mui/material";
+import {
+  Avatar,
+  Badge,
+  InputBase,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { Person } from "@mui/icons-material/";
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "@mui/system";
+import { BsCheckLg } from "react-icons/bs";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -32,8 +41,72 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-const Profile = ({ name }) => {
-  if (name) {
+const Profile = () => {
+  const [username, setUsername] = useLocalStorage("username", "Enter username");
+  const [userCreated, setUserCreated] = useLocalStorage("user created", false);
+  const [nameInput, setNameInput] = useState("");
+
+  const handleChange = (e) => {
+    setNameInput(e.target.value);
+  };
+
+  const handleCreateUsername = (name) => {
+    setUsername(name);
+    setUserCreated(true);
+  };
+
+  if (userCreated === false) {
+    return (
+      <Stack
+        flexDirection="row"
+        alignItems="center"
+        justifyContent={{
+          xs: "flex-start",
+          lg: "center",
+        }}
+        gap={1}
+        width="100%"
+        sx={{
+          cursor: "pointer",
+        }}
+      >
+        <Paper
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            width: {
+              xs: "fit-content",
+              lg: "100%",
+            },
+            height: "2.8rem",
+            bgcolor: "background.default",
+          }}
+        >
+          <InputBase
+            sx={{
+              ml: 2,
+              flex: 1,
+              "& ::placeholder": {
+                fontSize: "15px",
+              },
+            }}
+            placeholder="Enter your name"
+            label="Filter"
+            value={nameInput}
+            onChange={(e) => handleChange(e)}
+            inputProps={{ "aria-label": "username" }}
+          />
+        </Paper>
+        <Stack
+          justifyContent="center"
+          alignItems="center"
+          onClick={() => handleCreateUsername(nameInput)}
+        >
+          <BsCheckLg size="1.3rem" />
+        </Stack>
+      </Stack>
+    );
+  } else {
     return (
       <Stack flexDirection="row" alignItems="center">
         <StyledBadge
@@ -41,26 +114,14 @@ const Profile = ({ name }) => {
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
           variant="dot"
         >
-          <Avatar alt="Satoshi Nakamoto" sx={{ bgcolor: "text.secondary" }}>
+          <Avatar alt="user" sx={{ bgcolor: "text.secondary" }}>
             <Person />
           </Avatar>
         </StyledBadge>
         <Typography variant="body1" ml="10px">
-          Satoshi Nakamoto
+          {username}
         </Typography>
       </Stack>
-    );
-  } else {
-    return (
-      <StyledBadge
-        overlap="circular"
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        variant="dot"
-      >
-        <Avatar alt="Satoshi Nakamoto" sx={{ bgcolor: "text.secondary" }}>
-          <Person />
-        </Avatar>
-      </StyledBadge>
     );
   }
 };
