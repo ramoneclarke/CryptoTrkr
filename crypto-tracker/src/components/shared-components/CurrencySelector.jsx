@@ -1,18 +1,19 @@
 import { MenuItem, Select } from "@mui/material";
 import React from "react";
 import { ExpandMore } from "@mui/icons-material";
-import useLocalStorage from "../../hooks/useLocalStorage";
-import { supportedCurrencies } from "../../utils/currencies";
+import { useContext } from "react";
+import { AppContext } from "../../context/AppContext";
 
 const CurrencySelector = () => {
-  const [activeCurrency, setActiveCurrency] = useLocalStorage(
-    "active currency",
-    { code: "usd", symbol: "$" }
-  );
+  const useAppContext = useContext(AppContext);
+  const { settings, supportedCurrencies, dispatchAppContext } = useAppContext;
 
   const handleChange = (e) => {
     if (e.target.value !== "") {
-      setActiveCurrency(supportedCurrencies[e.target.value]);
+      dispatchAppContext({
+        type: "setActiveCurrency",
+        payload: supportedCurrencies[e.target.value],
+      });
     }
   };
 
@@ -30,7 +31,7 @@ const CurrencySelector = () => {
     <Select
       MenuProps={menuProps}
       IconComponent={ExpandMore}
-      value={activeCurrency.code}
+      value={settings.activeCurrency.code}
       onChange={handleChange}
       sx={{
         bgcolor: "secondary.dark",
