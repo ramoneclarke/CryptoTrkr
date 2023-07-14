@@ -9,7 +9,7 @@ import {
 import { Person } from "@mui/icons-material/";
 import React, { useState } from "react";
 import { styled } from "@mui/system";
-import { BsCheckLg } from "react-icons/bs";
+import { AiOutlineCheckCircle } from "react-icons/ai";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -80,6 +80,7 @@ const Profile = () => {
             },
             height: "2.8rem",
             bgcolor: "background.default",
+            borderRadius: "4px",
           }}
         >
           <InputBase
@@ -102,7 +103,7 @@ const Profile = () => {
           alignItems="center"
           onClick={() => handleCreateUsername(nameInput)}
         >
-          <BsCheckLg size="1.3rem" />
+          <AiOutlineCheckCircle size="1.5rem" style={{ color: "#4fc3f7" }} />
         </Stack>
       </Stack>
     );
