@@ -28,14 +28,6 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "setActiveCurrency":
-      return {
-        ...state,
-        settings: {
-          ...state.settings,
-          activeCurrency: action.payload,
-        },
-      };
     case "handleTransactionClickOpen":
       return {
         ...state,
@@ -113,22 +105,8 @@ const reducer = (state, action) => {
   }
 };
 
-const supportedCurrencies = {
-  usd: { code: "usd", symbol: "$" },
-  eur: { code: "eur", symbol: "€" },
-  gbp: { code: "gbp", symbol: "£" },
-  jpy: { code: "jpy", symbol: "¥" },
-  cny: { code: "cny", symbol: "¥" },
-  inr: { code: "inr", symbol: "₹" },
-  krw: { code: "krw", symbol: "₩" },
-  btc: { code: "btc", symbol: "₿" },
-  eth: { code: "eth", symbol: "Ξ" },
-  ltc: { code: "ltc", symbol: "Ł" },
-};
-
 export const AppContextProvider = ({ children }) => {
   const [state, dispatchAppContext] = useReducer(reducer, initialState);
-  const [currencies] = useState(supportedCurrencies);
 
   const { settings, transaction, alert, portfolio } = state;
   const { priceError, priceHelperText } = alert;
@@ -139,19 +117,10 @@ export const AppContextProvider = ({ children }) => {
     quantityHelperTextPortfolio,
   } = portfolio;
 
-  // Set initial settings
-  useEffect(() => {
-    dispatchAppContext({
-      type: "setActiveCurrency",
-      payload: supportedCurrencies.usd,
-    });
-  }, []);
-
   return (
     <AppContext.Provider
       value={{
         settings,
-        supportedCurrencies,
         transaction,
         priceError,
         priceHelperText,
