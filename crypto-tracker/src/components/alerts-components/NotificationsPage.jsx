@@ -66,6 +66,7 @@ const NotificationsPage = () => {
             borderRadius: "5px",
           },
         }}
+        data-test="alerts-notifications"
       >
         <FixedSizeList
           itemData={activatedAlerts}

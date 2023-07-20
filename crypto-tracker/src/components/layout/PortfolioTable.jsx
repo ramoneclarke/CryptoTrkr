@@ -351,6 +351,7 @@ const PortfolioTable = ({ data, filteredData, filterText, page }) => {
           outline: "1px solid slategrey",
         },
       }}
+      data-test="portfolio-table"
     >
       <DataGrid
         rows={filterText === "" ? data : filteredData}

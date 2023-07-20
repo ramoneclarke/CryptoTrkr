@@ -37,6 +37,7 @@ const SidebarLink = ({ text, Icon, route, toggleDrawer, alerts }) => {
             },
           }}
           onClick={toggleDrawer}
+          data-test={`nav-link-${text.toLowerCase()}`}
         >
           <ListItemIcon>
             {alerts ? (

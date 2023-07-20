@@ -69,6 +69,7 @@ const AddToWatchlistChip = ({ cellValues, enqueueSnackbar }) => {
         onClick={(event) => {
           handleCellButtonClick(event, cellValues);
         }}
+        data-test="watchlist-chip"
       >
         <Visibility
           sx={{

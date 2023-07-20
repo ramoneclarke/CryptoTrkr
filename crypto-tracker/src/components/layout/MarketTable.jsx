@@ -84,8 +84,9 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
               width="100%"
               justifyContent="space-between"
               alignItems="center"
+              data-test="coin"
             >
-              {cellValues.row.symbol}
+              <p data-test="coin-name">{cellValues.row.symbol}</p>
               <Stack direction="row">
                 <AddToWatchlistChip
                   cellValues={cellValues}
@@ -109,10 +110,10 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
         headerClassName: "market-table-header",
         renderCell: (cellValues) => {
           return (
-            <>
+            <div data-test="coin-price">
               {currency.symbol}
               {cellValues.row.price}
-            </>
+            </div>
           );
         },
       },
@@ -271,9 +272,12 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
               width="100%"
               justifyContent="space-between"
               alignItems="center"
+              data-test="coin"
             >
               <Stack direction="row" spacing={1} alignItems="flex-end">
-                <Typography>{cellValues.row.name}</Typography>
+                <Typography data-test="coin-name">
+                  {cellValues.row.name}
+                </Typography>
                 <Typography variant="caption" sx={{ color: "text.secondary" }}>
                   {cellValues.row.symbol}
                 </Typography>
@@ -310,6 +314,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
                 justifyContent: "flex-start",
                 alignItems: "center",
               }}
+              data-test="coin-price"
             >
               {currency.symbol}
               {cellValues.row.price}{" "}
@@ -439,6 +444,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
               height="100%"
               alignItems="center"
               justifyContent="center"
+              data-test="coin-alerts-field"
             >
               <AddAlertChip
                 cellValues={cellValues}
@@ -472,6 +478,7 @@ const MarketTable = ({ data, filteredData, filterText, page }) => {
           outline: "1px solid slategrey",
         },
       }}
+      data-test="market-table"
     >
       <DataGrid
         rows={filterText === "" ? data : filteredData}

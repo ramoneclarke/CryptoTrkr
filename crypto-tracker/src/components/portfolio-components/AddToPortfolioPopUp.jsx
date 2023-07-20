@@ -81,6 +81,7 @@ const AddToPortfolioPopUp = ({
               onChange={handleInputChange}
               error={quantityError}
               helperText={quantityHelperText}
+              data-test="quantity-add-portfolio"
             />
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               {isSmallDevice ? (
@@ -117,7 +118,12 @@ const AddToPortfolioPopUp = ({
                 />
               )}
             </LocalizationProvider>
-            <Button variant="contained" color="secondary" type="submit">
+            <Button
+              variant="contained"
+              color="secondary"
+              type="submit"
+              data-test="submit-add-portfolio"
+            >
               Save
             </Button>
           </Stack>

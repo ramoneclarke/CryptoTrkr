@@ -60,7 +60,7 @@ const FilterSearchBar = ({ placeholder, setFilterText, ML, MB, width }) => {
           label="Filter"
           value={text}
           onChange={handleChange}
-          inputProps={{ "aria-label": "filter" }}
+          inputProps={{ "aria-label": "filter", "data-test": "search-bar" }}
         />
       ) : (
         <InputBase
@@ -69,7 +69,7 @@ const FilterSearchBar = ({ placeholder, setFilterText, ML, MB, width }) => {
           label="Filter"
           value={text}
           onChange={handleChange}
-          inputProps={{ "aria-label": "filter" }}
+          inputProps={{ "aria-label": "filter", "data-test": "search-bar" }}
           inputRef={inputRef}
         />
       )}
