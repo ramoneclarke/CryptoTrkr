@@ -56,7 +56,7 @@ const AddTransaction = () => {
             xs: "90%",
             md: "30rem",
           },
-          backgroundColor: "#263238 !important",
+          backgroundColor: "background.default",
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-start",

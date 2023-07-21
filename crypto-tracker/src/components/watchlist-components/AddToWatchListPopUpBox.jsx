@@ -20,7 +20,7 @@ import { DataContext } from "../../context/DataContext";
 import FilterSearchBar from "../shared-components/FilterSearchBar";
 import { useEffect } from "react";
 
-const AddToWatchListPopUpBox = ({ onClose, open }) => {
+const AddToWatchListPopUpBox = ({ handleClose, handleClickClose, open }) => {
   const useDataContext = useContext(DataContext);
   const { coinData } = useDataContext;
 
@@ -36,13 +36,14 @@ const AddToWatchListPopUpBox = ({ onClose, open }) => {
   }, [coinData, filterText]);
 
   const handleListItemClick = (value) => {
-    onClose(value);
+    handleClickClose(value);
     setFilterText("");
   };
 
   return (
     <Dialog
       open={open}
+      onClose={handleClose}
       maxWidth="xl"
       sx={{
         "& ::-webkit-scrollbar": {
@@ -61,7 +62,7 @@ const AddToWatchListPopUpBox = ({ onClose, open }) => {
         sx: {
           height: "80vh",
           width: "25rem",
-          backgroundColor: "#263238 !important",
+          backgroundColor: "background.default",
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-start",
