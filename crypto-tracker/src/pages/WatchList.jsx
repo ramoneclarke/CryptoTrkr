@@ -36,8 +36,12 @@ const WatchList = () => {
     setPopUpOpen(true);
   };
 
-  const handleClose = (value) => {
+  const handleClickClose = (value) => {
     dispatchUserContext({ type: "addToWatchList", payload: value });
+    setPopUpOpen(false);
+  };
+
+  const handleClose = () => {
     setPopUpOpen(false);
   };
 
@@ -105,6 +109,7 @@ const WatchList = () => {
         setFilterText={setFilterText}
         open={popUpOpen}
         handleClickOpen={handleClickOpen}
+        handleClickClose={handleClickClose}
         handleClose={handleClose}
       />
       <MarketTable

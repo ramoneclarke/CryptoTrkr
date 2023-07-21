@@ -128,7 +128,6 @@ const supportedCurrencies = {
 
 export const AppContextProvider = ({ children }) => {
   const [state, dispatchAppContext] = useReducer(reducer, initialState);
-  const [currencies] = useState(supportedCurrencies);
 
   const { settings, transaction, alert, portfolio } = state;
   const { priceError, priceHelperText } = alert;
