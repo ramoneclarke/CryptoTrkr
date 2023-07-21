@@ -92,7 +92,11 @@ const PortfolioTable = ({ data, filteredData, filterText, page }) => {
         renderCell: (cellValues) => {
           return (
             <Stack direction="column">
-              <Stack direction="row" justifyContent="flex-end">
+              <Stack
+                direction="row"
+                justifyContent="flex-end"
+                data-test="coin-price"
+              >
                 {currency.symbol}
                 {cellValues.row.price}
               </Stack>
@@ -217,6 +221,7 @@ const PortfolioTable = ({ data, filteredData, filterText, page }) => {
                 justifyContent: "flex-end",
                 alignItems: "center",
               }}
+              data-test="coin-price"
             >
               {currency.symbol}
               {cellValues.row.price}{" "}

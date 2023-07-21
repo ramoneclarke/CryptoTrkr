@@ -84,4 +84,10 @@ describe("The Home Page", () => {
       "be.visible"
     );
   });
+
+  it("create a username", () => {
+    cy.get('[data-test="username-field"]').type("Satoshi Nakamoto");
+    cy.get('[data-test="username-submit"]').click();
+    cy.get('[data-test="username"]').should("contain", "Satoshi Nakamoto");
+  });
 });

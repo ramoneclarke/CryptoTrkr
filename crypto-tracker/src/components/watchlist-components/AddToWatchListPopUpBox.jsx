@@ -123,6 +123,7 @@ const AddToWatchListPopUpBox = ({ onClose, open }) => {
                           textAlign: "left",
                           color: "text.secondary",
                         }}
+                        data-test="watchlist-dialog-coin-symbol"
                       />
                     </Grid>
                     <Grid item xs={9}>

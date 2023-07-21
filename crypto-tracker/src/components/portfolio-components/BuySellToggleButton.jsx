@@ -65,6 +65,7 @@ const BuySellToggleButton = ({ validateForm, quantity }) => {
             aria-label="buy"
             disableFocusRipple
             sx={{ color: "text.secondary" }}
+            data-test="buy-toggle"
           >
             <Typography>Buy</Typography>
           </ToggleButton>
@@ -73,6 +74,7 @@ const BuySellToggleButton = ({ validateForm, quantity }) => {
             aria-label="sell"
             disableFocusRipple
             sx={{ color: "text.secondary" }}
+            data-test="sell-toggle"
           >
             <Typography>Sell</Typography>
           </ToggleButton>

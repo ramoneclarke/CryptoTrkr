@@ -112,6 +112,7 @@ const TransactionCoinSelector = ({
                           textAlign: "left",
                           color: "text.secondary",
                         }}
+                        data-test="portfolio-dialog-coin-symbol"
                       />
                     </Grid>
                     <Grid item xs={9}>

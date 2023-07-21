@@ -33,7 +33,7 @@ const PortfolioBalance = () => {
         <Typography variant="caption" display="block" color="text.secondary">
           Portfolio value
         </Typography>
-        <Typography variant="h4">
+        <Typography variant="h4" data-test="portfolio-value">
           {activeCurrency.symbol}
           {portfolioBalance}
         </Typography>
