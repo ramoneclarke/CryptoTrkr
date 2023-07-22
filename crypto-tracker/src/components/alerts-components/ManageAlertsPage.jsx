@@ -55,6 +55,7 @@ const ManageAlertsPage = () => {
           borderRadius: "5px",
         },
       }}
+      data-test="manage-alerts-page"
     >
       <TableContainer component={Paper} sx={{ width: "100%", height: "100%" }}>
         <Table
@@ -99,6 +100,7 @@ const ManageAlertsPage = () => {
                   borderBottom: "1.2px solid",
                   borderBottomColor: "primary.dark",
                 }}
+                data-test="alerts-table-row"
               >
                 {!isSmallDevice && (
                   <TableCell>
@@ -106,6 +108,7 @@ const ManageAlertsPage = () => {
                       size="small"
                       color="inherit"
                       onClick={() => handleCancelAlert(coin.id)}
+                      data-test="delete-alert-icon"
                     >
                       <Close color="warning" />
                     </IconButton>
@@ -116,12 +119,14 @@ const ManageAlertsPage = () => {
                     direction="row"
                     alignItems="center"
                     justifyContent="space-between"
+                    data-test="alerts-coin-cell"
                   >
                     {isSmallDevice && (
                       <IconButton
                         size="small"
                         color="inherit"
                         onClick={() => handleCancelAlert(coin.id)}
+                        data-test="delete-alert-icon"
                       >
                         <Close color="warning" />
                       </IconButton>
@@ -131,8 +136,8 @@ const ManageAlertsPage = () => {
                       : coin.coinName}
                   </Stack>
                 </TableCell>
-                <TableCell>{coin.type}</TableCell>
-                <TableCell>
+                <TableCell data-test="alerts-type-cell">{coin.type}</TableCell>
+                <TableCell data-test="alerts-target-price-cell">
                   {settings.activeCurrency.symbol}
                   {numberFormatter(coin.targetPrice)}
                 </TableCell>

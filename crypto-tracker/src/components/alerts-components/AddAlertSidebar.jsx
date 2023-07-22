@@ -98,6 +98,7 @@ const AddAlertSidebar = ({
                       color="secondary"
                       size="small"
                       onClick={handleClickOpen}
+                      data-test="alert-coin-select"
                     >
                       Select coin
                     </Button>
@@ -111,6 +112,7 @@ const AddAlertSidebar = ({
                     sx={{
                       width: "100%",
                     }}
+                    data-test="alert-coin-select"
                   >
                     Select coin
                   </Button>
@@ -140,6 +142,7 @@ const AddAlertSidebar = ({
                   onChange={handleInputChange}
                   error={priceError}
                   helperText={priceHelperText}
+                  data-test="alert-target-price"
                 />
                 <FormControl fullWidth>
                   <InputLabel id="alert-type">Alert Type</InputLabel>
@@ -150,17 +153,31 @@ const AddAlertSidebar = ({
                     value={newAlert.type}
                     label="Alert Type"
                     onChange={handleInputChange}
+                    data-test="alerts-type-select"
                   >
-                    <MenuItem value={"Higher"} sx={{ padding: "0.25rem" }}>
+                    <MenuItem
+                      value={"Higher"}
+                      sx={{ padding: "0.25rem" }}
+                      data-test="alerts-higher-type"
+                    >
                       Higher
                     </MenuItem>
-                    <MenuItem value={"Lower"} sx={{ padding: "0.25rem" }}>
+                    <MenuItem
+                      value={"Lower"}
+                      sx={{ padding: "0.25rem" }}
+                      data-test="alerts-lower-type"
+                    >
                       Lower
                     </MenuItem>
                   </Select>
                 </FormControl>
 
-                <Button variant="contained" color="secondary" type="submit">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  type="submit"
+                  data-test="alerts-save"
+                >
                   Save
                 </Button>
               </Stack>

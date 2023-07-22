@@ -43,6 +43,7 @@ const NotificationsPage = () => {
           justifyContent: "center",
           alignItems: "center",
         }}
+        data-test="notifications-page"
       >
         <Typography>No Notifications</Typography>
       </Box>
@@ -66,7 +67,7 @@ const NotificationsPage = () => {
             borderRadius: "5px",
           },
         }}
-        data-test="alerts-notifications"
+        data-test="notifications-page"
       >
         <FixedSizeList
           itemData={activatedAlerts}
@@ -88,6 +89,7 @@ const NotificationsPage = () => {
                   width: "100%",
                 }}
                 style={style}
+                data-test="activated-alert"
               >
                 <Stack
                   direction="row"
@@ -101,10 +103,14 @@ const NotificationsPage = () => {
                     color="inherit"
                     sx={{ ml: "1rem" }}
                     onClick={() => handleCloseAlert(data[index].id)}
+                    data-test="close-activated-alert"
                   >
                     <Close color="warning" />
                   </IconButton>
-                  <Typography variant="body2">
+                  <Typography
+                    variant="body2"
+                    data-test="activated-alert-message"
+                  >
                     {`${data[index].coinName} is now ${data[index].type} than ${
                       settings.activeCurrency.symbol
                     }${currencyFormatter(

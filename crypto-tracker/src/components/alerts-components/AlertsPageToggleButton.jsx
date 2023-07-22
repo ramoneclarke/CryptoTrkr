@@ -55,6 +55,7 @@ const AlertsPageToggleButton = ({ alertsStep, setAlertsStep }) => {
             aria-label="notifications"
             disableFocusRipple
             sx={{ color: "text.secondary" }}
+            data-test="alerts-notifications-toggle"
           >
             <Typography>Notifications</Typography>
           </ToggleButton>
@@ -63,6 +64,7 @@ const AlertsPageToggleButton = ({ alertsStep, setAlertsStep }) => {
             aria-label="manage-alerts"
             disableFocusRipple
             sx={{ color: "text.secondary" }}
+            data-test="alerts-manage-toggle"
           >
             <Typography>Manage Alerts</Typography>
           </ToggleButton>

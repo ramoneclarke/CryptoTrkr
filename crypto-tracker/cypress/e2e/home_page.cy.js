@@ -80,7 +80,7 @@ describe("The Home Page", () => {
     cy.get('[data-test="submit-alert"]').click();
     cy.contains("Alert created for ethereum");
     cy.get('[data-test="nav-link-alerts"]').click();
-    cy.contains('[data-test="alerts-notifications"]', "Ethereum").should(
+    cy.contains('[data-test="notifications-page"]', "Ethereum").should(
       "be.visible"
     );
   });
