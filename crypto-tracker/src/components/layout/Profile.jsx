@@ -95,13 +95,17 @@ const Profile = () => {
             label="Filter"
             value={nameInput}
             onChange={(e) => handleChange(e)}
-            inputProps={{ "aria-label": "username" }}
+            inputProps={{
+              "aria-label": "username",
+              "data-test": "username-field",
+            }}
           />
         </Paper>
         <Stack
           justifyContent="center"
           alignItems="center"
           onClick={() => handleCreateUsername(nameInput)}
+          data-test="username-submit"
         >
           <AiOutlineCheckCircle size="1.5rem" style={{ color: "#4fc3f7" }} />
         </Stack>
@@ -119,7 +123,7 @@ const Profile = () => {
             <Person />
           </Avatar>
         </StyledBadge>
-        <Typography variant="body1" ml="10px">
+        <Typography variant="body1" ml="10px" data-test="username">
           {username}
         </Typography>
       </Stack>

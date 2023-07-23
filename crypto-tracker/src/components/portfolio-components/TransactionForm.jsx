@@ -196,6 +196,7 @@ const TransactionForm = ({ transactionType, handleClose }) => {
               onChange={handleInputChange}
               error={quantityError}
               helperText={quantityHelperText}
+              data-test="quantity-add-portfolio-form"
             />
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               {isSmallDevice ? (
@@ -232,7 +233,12 @@ const TransactionForm = ({ transactionType, handleClose }) => {
                 />
               )}
             </LocalizationProvider>
-            <Button variant="contained" color="secondary" type="submit">
+            <Button
+              variant="contained"
+              color="secondary"
+              type="submit"
+              data-test="submit-add-portfolio-form"
+            >
               Save
             </Button>
           </Stack>

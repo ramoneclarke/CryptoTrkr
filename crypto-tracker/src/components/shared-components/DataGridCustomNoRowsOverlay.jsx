@@ -15,7 +15,11 @@ const DataGridCustomNoRowsOverlay = ({ filterText, page }) => {
         sx={{ mt: 1 }}
       >
         {filterText === "" ? (
-          <CircularProgress size={75} sx={{ color: "text.primary" }} />
+          <CircularProgress
+            data-test="loading-spinner"
+            size={75}
+            sx={{ color: "text.primary" }}
+          />
         ) : (
           <Typography variant="h4">No results for '{filterText}'</Typography>
         )}

@@ -19,6 +19,7 @@ const AddToWatchListHeaderButton = ({ handleClickOpen }) => {
             md: "3rem",
           },
         }}
+        data-test="watchlist-selector-button"
       >
         <AddCircle sx={{ color: "secondary.main" }} />
       </Button>

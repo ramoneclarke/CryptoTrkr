@@ -120,6 +120,7 @@ const AddAlertChip = ({ cellValues, enqueueSnackbar }) => {
         size="small"
         color="inherit"
         onClick={() => handleAlertClickOpen(cellValues)}
+        data-test="alert-chip"
       >
         <NotificationAdd fontSize="medium" sx={{ color: "chip.default" }} />
       </IconButton>

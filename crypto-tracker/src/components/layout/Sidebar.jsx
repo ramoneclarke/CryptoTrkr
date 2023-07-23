@@ -58,7 +58,7 @@ const Sidebar = () => {
           <List>
             <SidebarLink text="Market" route="/" Icon={ShowChart} />
             <SidebarLink
-              text="Watch List"
+              text="Watchlist"
               route="/watchlist"
               Icon={Visibility}
             />

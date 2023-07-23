@@ -28,6 +28,7 @@ const AddToPortfolioHeaderButton = () => {
             md: "3rem",
           },
         }}
+        data-test="portfolio-selector-button"
       >
         <AddCircle sx={{ color: "secondary.main" }} />
       </Button>

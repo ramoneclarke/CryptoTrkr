@@ -221,6 +221,7 @@ const AddToPortfolioChip = ({ cellValues, enqueueSnackbar }) => {
         onClick={(event) => {
           handleCellButtonClick(event, cellValues);
         }}
+        data-test="portfolio-chip"
       >
         <AccountBalanceWallet sx={{ color: chipColor }} />
       </IconButton>

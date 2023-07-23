@@ -119,6 +119,7 @@ const AlertsCoinSelector = ({
                           textAlign: "left",
                           color: "text.secondary",
                         }}
+                        data-test="alerts-dialog-coin-symbol"
                       />
                     </Grid>
                     <Grid item xs={9}>

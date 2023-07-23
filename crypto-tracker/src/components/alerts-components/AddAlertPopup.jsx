@@ -72,6 +72,7 @@ const AddAlertPopup = ({
                   onChange={handleInputChange}
                   error={priceError}
                   helperText={priceHelperText}
+                  data-test="target-price-field"
                 />
                 <FormControl fullWidth>
                   <InputLabel id="alert-type">Alert Type</InputLabel>
@@ -92,7 +93,12 @@ const AddAlertPopup = ({
                   </Select>
                 </FormControl>
 
-                <Button variant="contained" color="secondary" type="submit">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  type="submit"
+                  data-test="submit-alert"
+                >
                   Save
                 </Button>
               </Stack>

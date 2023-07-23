@@ -47,9 +47,14 @@ const CurrencySelector = () => {
           md: "0 1rem 0 1rem",
         },
       }}
+      data-test="currency-selector"
     >
       {Object.keys(supportedCurrencies).map((currency, index) => (
-        <MenuItem value={currency} key={index}>
+        <MenuItem
+          value={currency}
+          key={index}
+          data-test={`currency-${currency}`}
+        >
           {`${supportedCurrencies[currency].symbol} ${currency.toUpperCase()}`}
         </MenuItem>
       ))}
