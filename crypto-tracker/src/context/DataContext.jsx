@@ -71,6 +71,7 @@ const DataContextProvider = ({ children }) => {
     return () => {
       clearInterval(interval);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [settings.activeCurrency.code]);
 
   // Update coin prices

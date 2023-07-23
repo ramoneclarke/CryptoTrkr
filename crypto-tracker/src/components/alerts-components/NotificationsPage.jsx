@@ -13,10 +13,7 @@ import { FixedSizeList } from "react-window";
 import { AppContext } from "../../context/AppContext";
 import { DataContext } from "../../context/DataContext";
 import { UserContext } from "../../context/UserContext";
-import {
-  currencyFormatter,
-  numberFormatter,
-} from "../../utils/numberFormatters";
+import { currencyFormatter } from "../../utils/numberFormatters";
 
 const NotificationsPage = () => {
   const useUserContext = useContext(UserContext);

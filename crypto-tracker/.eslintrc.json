@@ -1,5 +1,7 @@
 {
   "extends": [
-    "plugin:cypress/recommended"
+    "plugin:cypress/recommended",
+    "eslint:recommended",
+    "react-app"
   ]
 }

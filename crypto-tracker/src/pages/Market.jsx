@@ -18,7 +18,7 @@ const Market = () => {
   const useDataContext = useContext(DataContext);
   const useAppContext = useContext(AppContext);
   const useUserContext = useContext(UserContext);
-  const { coinData, isLoading } = useDataContext;
+  const { coinData } = useDataContext;
   const { settings } = useAppContext;
   const { activeCurrency: currency } = settings;
   const { watchList, portfolio } = useUserContext;

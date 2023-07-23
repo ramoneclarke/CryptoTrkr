@@ -41,7 +41,7 @@ const reducer = (state, action) => {
           ...state.watchList.filter((coinId) => coinId !== action.payload),
         ],
       };
-    case "addToPortfolio":
+    case "addToPortfolio": {
       // takes a coin id
       let transactionsArr;
       if (state.portfolioTransactions[action.payload]) {
@@ -64,13 +64,14 @@ const reducer = (state, action) => {
           [action.payload]: transactionsArr,
         },
       };
+    }
     case "removeFromPortfolio":
       // takes a coin id
       delete state.portfolio[action.payload];
       return {
         ...state,
       };
-    case "addTransaction":
+    case "addTransaction": {
       // takes an object containing transaction info
 
       const transactionObj = {
@@ -104,6 +105,7 @@ const reducer = (state, action) => {
         },
         transactionHistory: [...state.transactionHistory, transactionObj],
       };
+    }
     case "updateBalance":
       // takes a number
 
@@ -117,7 +119,7 @@ const reducer = (state, action) => {
         ...state,
         selectedCoin: action.payload,
       };
-    case "addAlert":
+    case "addAlert": {
       // takes an object with 'coinId', 'coinName', 'coinSymbol', 'targetPrice', 'type' (lower/higher)
 
       const nextAlertId = state.alertIdCounter + 1;
@@ -128,6 +130,7 @@ const reducer = (state, action) => {
         alerts: [...state.alerts, alertObject],
         alertIdCounter: nextAlertId,
       };
+    }
     case "removeAlert":
       // takes an alert id
       return {
