@@ -5,7 +5,7 @@ describe("The Watchlist Page", () => {
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false&price_change_percentage=24h%2C7d",
       {
         fixture: "market_data.json", // Use fixture to simulate CoinGecko API response data
-      }
+      },
     ).as("fetchMarketData");
     cy.visit("/watchlist");
     cy.wait("@fetchMarketData", { timeout: 20000 })
@@ -15,7 +15,7 @@ describe("The Watchlist Page", () => {
 
   it("should display watchlist empty when no coins added to watchlist", () => {
     cy.contains('[data-test="market-table"]', "Watchlist empty").should(
-      "be.visible"
+      "be.visible",
     );
   });
 

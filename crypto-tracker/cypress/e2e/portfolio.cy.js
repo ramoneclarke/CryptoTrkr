@@ -5,7 +5,7 @@ describe("The Portfolio Page", () => {
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false&price_change_percentage=24h%2C7d",
       {
         fixture: "market_data.json", // Use fixture to simulate CoinGecko API response data
-      }
+      },
     ).as("fetchMarketData");
     cy.visit("/portfolio");
     cy.wait("@fetchMarketData", { timeout: 20000 })
@@ -15,7 +15,7 @@ describe("The Portfolio Page", () => {
 
   it("should display portfolio empty when no coins added to portfolio", () => {
     cy.contains('[data-test="portfolio-table"]', "Portfolio empty").should(
-      "be.visible"
+      "be.visible",
     );
   });
 
@@ -26,7 +26,7 @@ describe("The Portfolio Page", () => {
     cy.get('[data-test="quantity-add-portfolio-form"]').type("2");
     cy.get('[data-test="submit-add-portfolio-form"]').click();
     cy.contains('[data-test="portfolio-table"]', "Ethereum").should(
-      "be.visible"
+      "be.visible",
     );
   });
 
@@ -38,7 +38,7 @@ describe("The Portfolio Page", () => {
     cy.get('[data-test="quantity-add-portfolio-form"]').type("2");
     cy.get('[data-test="submit-add-portfolio-form"]').click();
     cy.contains('[data-test="portfolio-table"]', "Ethereum").should(
-      "be.visible"
+      "be.visible",
     );
 
     // sell the eth
@@ -52,7 +52,7 @@ describe("The Portfolio Page", () => {
     cy.get('[data-test="submit-add-portfolio-form"]').eq(1).click();
     cy.contains("Ethereum has been removed from your portfolio");
     cy.contains('[data-test="portfolio-table"]', "Ethereum").should(
-      "not.exist"
+      "not.exist",
     );
   });
 
@@ -64,7 +64,7 @@ describe("The Portfolio Page", () => {
     cy.get('[data-test="quantity-add-portfolio-form"]').type("2");
     cy.get('[data-test="submit-add-portfolio-form"]').click();
     cy.contains('[data-test="portfolio-table"]', "Ethereum").should(
-      "be.visible"
+      "be.visible",
     );
     cy.get('[data-test="portfolio-value"]').then(($portfolioValue) => {
       const value = parseFloat($portfolioValue.text().replace("$", ""));

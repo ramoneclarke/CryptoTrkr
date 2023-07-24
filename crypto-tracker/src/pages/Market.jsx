@@ -56,14 +56,14 @@ const Market = () => {
           coin.total_supply === null
             ? "N/A"
             : largeCurrencyFormatter(coin.total_supply),
-      }))
+      })),
     );
   }, [coinData, currency, watchList, portfolio]);
 
   // Apply filter search to market data
   useEffect(() => {
     let filtered = marketData.filter((coin) =>
-      coin.name.toLowerCase().startsWith(filterText)
+      coin.name.toLowerCase().startsWith(filterText),
     );
     setFilteredMarketData(filtered);
   }, [marketData, filterText]);

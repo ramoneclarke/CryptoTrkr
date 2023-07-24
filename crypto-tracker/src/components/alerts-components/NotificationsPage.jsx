@@ -111,7 +111,7 @@ const NotificationsPage = () => {
                     {`${data[index].coinName} is now ${data[index].type} than ${
                       settings.activeCurrency.symbol
                     }${currencyFormatter(
-                      data[index].targetPrice
+                      data[index].targetPrice,
                     )}. The current price is ${
                       settings.activeCurrency.symbol
                     }${currencyFormatter(coinPrices[data[index].coinId])}`}

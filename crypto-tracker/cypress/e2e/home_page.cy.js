@@ -5,7 +5,7 @@ describe("The Home Page", () => {
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false&price_change_percentage=24h%2C7d",
       {
         fixture: "market_data.json", // Use fixture to simulate CoinGecko API response data
-      }
+      },
     ).as("fetchMarketData");
     cy.visit("/");
     cy.wait("@fetchMarketData", { timeout: 20000 })
@@ -66,7 +66,7 @@ describe("The Home Page", () => {
     cy.contains("has been added to your portfolio");
     cy.get('[data-test="nav-link-portfolio"]').click();
     cy.contains('[data-test="portfolio-table"]', "Ethereum").should(
-      "be.visible"
+      "be.visible",
     );
   });
 
@@ -81,7 +81,7 @@ describe("The Home Page", () => {
     cy.contains("Alert created for ethereum");
     cy.get('[data-test="nav-link-alerts"]').click();
     cy.contains('[data-test="notifications-page"]', "Ethereum").should(
-      "be.visible"
+      "be.visible",
     );
   });
 

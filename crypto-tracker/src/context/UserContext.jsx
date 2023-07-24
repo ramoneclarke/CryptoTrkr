@@ -145,7 +145,7 @@ const reducer = (state, action) => {
         ...state,
         alerts: [
           ...state.alerts.filter(
-            (alertObj) => alertObj.id !== action.payload.id
+            (alertObj) => alertObj.id !== action.payload.id,
           ),
         ], // remove alert
         activatedAlerts: [action.payload, ...state.activatedAlerts],
@@ -156,7 +156,7 @@ const reducer = (state, action) => {
         ...state,
         activatedAlerts: [
           ...state.activatedAlerts.filter(
-            (alertObj) => alertObj.id !== action.payload
+            (alertObj) => alertObj.id !== action.payload,
           ),
         ],
       };

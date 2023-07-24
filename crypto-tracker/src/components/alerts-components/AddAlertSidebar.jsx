@@ -46,7 +46,7 @@ const AddAlertSidebar = ({
 
   useEffect(() => {
     let filtered = coinData.filter((coin) =>
-      coin.name.toLowerCase().startsWith(filterText)
+      coin.name.toLowerCase().startsWith(filterText),
     );
     setFilteredCoinData(filtered);
   }, [coinData, filterText]);

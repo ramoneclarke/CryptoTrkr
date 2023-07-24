@@ -69,7 +69,7 @@ const TransactionForm = ({ transactionType, handleClose }) => {
         // if a sell transaction, check to ensure the sell quantity is not more than the held quantity
         setQuantityError(true);
         setQuantityHelperText(
-          `You are unable to sell more ${selectedCoin.name} than you hold`
+          `You are unable to sell more ${selectedCoin.name} than you hold`,
         );
       } else if (value === "") {
         setQuantityError(true);

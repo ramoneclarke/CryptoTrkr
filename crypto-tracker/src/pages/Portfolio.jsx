@@ -31,7 +31,7 @@ const Portfolio = () => {
   // Fetch coin data from CoinGecko
   useEffect(() => {
     const portfolioCoinData = coinData.filter(
-      (coin) => coin.id in portfolio && portfolio[coin.id].holdings > 0
+      (coin) => coin.id in portfolio && portfolio[coin.id].holdings > 0,
     );
     setPortfolioData(
       portfolioCoinData.map((coin, index) => ({
@@ -53,15 +53,15 @@ const Portfolio = () => {
             : percentageFormatter(coin.price_change_percentage_7d_in_currency),
         holdings: portfolio[coin.id].holdings,
         value: numberFormatter(
-          portfolio[coin.id].holdings * coin.current_price
+          portfolio[coin.id].holdings * coin.current_price,
         ),
-      }))
+      })),
     );
   }, [coinData, currency, portfolio, watchList]);
 
   useEffect(() => {
     let filtered = portfolioData.filter((coin) =>
-      coin.name.toLowerCase().startsWith(filterText)
+      coin.name.toLowerCase().startsWith(filterText),
     );
     setFilteredPortfolioData(filtered);
   }, [portfolioData, filterText]);

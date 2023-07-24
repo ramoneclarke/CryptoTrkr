@@ -31,5 +31,5 @@ root.render(
         </Route>
       </Routes>
     </React.StrictMode>
-  </BrowserRouter>
+  </BrowserRouter>,
 );
