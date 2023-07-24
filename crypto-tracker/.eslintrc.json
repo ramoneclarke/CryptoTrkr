@@ -2,6 +2,7 @@
   "extends": [
     "plugin:cypress/recommended",
     "eslint:recommended",
-    "react-app"
+    "react-app",
+    "prettier"
   ]
 }
