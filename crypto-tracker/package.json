@@ -30,7 +30,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
-    "check-format": "prettier . --check"
+    "prettier": "prettier . --check"
   },
   "eslintConfig": {
     "extends": [
