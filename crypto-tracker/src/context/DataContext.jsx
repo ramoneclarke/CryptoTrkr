@@ -53,7 +53,7 @@ const DataContextProvider = ({ children }) => {
     }
     axios
       .get(
-        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${settings.activeCurrency.code}&order=market_cap_desc&per_page=250&page=1&sparkline=false&price_change_percentage=24h%2C7d`
+        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${settings.activeCurrency.code}&order=market_cap_desc&per_page=250&page=1&sparkline=false&price_change_percentage=24h%2C7d`,
       )
       .then((res) => {
         console.log(res.data);
@@ -71,13 +71,14 @@ const DataContextProvider = ({ children }) => {
     return () => {
       clearInterval(interval);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [settings.activeCurrency.code]);
 
   // Update coin prices
   useEffect(() => {
     let updatedPrices = coinData.reduce(
       (obj, item) => ({ ...obj, [item.id]: item.current_price }),
-      {}
+      {},
     );
     dispatchDataContext({ type: "updateCoinPrices", payload: updatedPrices });
   }, [coinData]);

@@ -13,10 +13,7 @@ import { FixedSizeList } from "react-window";
 import { AppContext } from "../../context/AppContext";
 import { DataContext } from "../../context/DataContext";
 import { UserContext } from "../../context/UserContext";
-import {
-  currencyFormatter,
-  numberFormatter,
-} from "../../utils/numberFormatters";
+import { currencyFormatter } from "../../utils/numberFormatters";
 
 const NotificationsPage = () => {
   const useUserContext = useContext(UserContext);
@@ -114,7 +111,7 @@ const NotificationsPage = () => {
                     {`${data[index].coinName} is now ${data[index].type} than ${
                       settings.activeCurrency.symbol
                     }${currencyFormatter(
-                      data[index].targetPrice
+                      data[index].targetPrice,
                     )}. The current price is ${
                       settings.activeCurrency.symbol
                     }${currencyFormatter(coinPrices[data[index].coinId])}`}

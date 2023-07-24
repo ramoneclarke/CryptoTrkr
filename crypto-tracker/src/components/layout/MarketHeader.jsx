@@ -1,8 +1,7 @@
-import { Box, Stack, useMediaQuery, useTheme } from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import React from "react";
 import CurrencySelector from "../shared-components/CurrencySelector";
 import FilterSearchBar from "../shared-components/FilterSearchBar";
-import PageTitle from "./PageTitle";
 
 const MarketHeader = ({ setFilterText }) => {
   const theme = useTheme();

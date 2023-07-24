@@ -18,7 +18,7 @@ const Market = () => {
   const useDataContext = useContext(DataContext);
   const useAppContext = useContext(AppContext);
   const useUserContext = useContext(UserContext);
-  const { coinData, isLoading } = useDataContext;
+  const { coinData } = useDataContext;
   const { settings } = useAppContext;
   const { activeCurrency: currency } = settings;
   const { watchList, portfolio } = useUserContext;
@@ -56,14 +56,14 @@ const Market = () => {
           coin.total_supply === null
             ? "N/A"
             : largeCurrencyFormatter(coin.total_supply),
-      }))
+      })),
     );
   }, [coinData, currency, watchList, portfolio]);
 
   // Apply filter search to market data
   useEffect(() => {
     let filtered = marketData.filter((coin) =>
-      coin.name.toLowerCase().startsWith(filterText)
+      coin.name.toLowerCase().startsWith(filterText),
     );
     setFilteredMarketData(filtered);
   }, [marketData, filterText]);

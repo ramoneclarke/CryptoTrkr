@@ -3,9 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
 import Market from "./pages/Market";
-import News from "./pages/News";
 import Portfolio from "./pages/Portfolio";
 import Settings from "./pages/Settings";
 import WatchList from "./pages/WatchList";
@@ -33,5 +31,5 @@ root.render(
         </Route>
       </Routes>
     </React.StrictMode>
-  </BrowserRouter>
+  </BrowserRouter>,
 );

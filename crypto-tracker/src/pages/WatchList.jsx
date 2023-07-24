@@ -48,7 +48,7 @@ const WatchList = () => {
   // Fetch coin data from CoinGecko
   useEffect(() => {
     const watchListCoinData = coinData.filter((coin) =>
-      watchList.includes(coin.id)
+      watchList.includes(coin.id),
     );
     setWatchListData(
       watchListCoinData.map((coin, index) => ({
@@ -77,13 +77,13 @@ const WatchList = () => {
           coin.total_supply === null
             ? "N/A"
             : largeCurrencyFormatter(coin.total_supply),
-      }))
+      })),
     );
   }, [coinData, currency, watchList, portfolio]);
 
   useEffect(() => {
     let filtered = watchListData.filter((coin) =>
-      coin.name.toLowerCase().startsWith(filterText)
+      coin.name.toLowerCase().startsWith(filterText),
     );
     setFilteredWatchListData(filtered);
   }, [watchListData, filterText]);

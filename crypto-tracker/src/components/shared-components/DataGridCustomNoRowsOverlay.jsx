@@ -1,7 +1,5 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
 import React from "react";
-import WatchListEmptyAddButton from "../watchlist-components/WatchListEmptyAddButton";
-import WatchListEmptyCard from "../watchlist-components/WatchListEmptyAddButton";
 
 const DataGridCustomNoRowsOverlay = ({ filterText, page }) => {
   if (page === "market") {
