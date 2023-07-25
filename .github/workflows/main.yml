@@ -16,9 +16,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.sha }}
-          path: /crypto-tracker # Set the working directory explicitly
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -26,17 +23,13 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        working-directory: /crypto-tracker
         run: npm ci
 
       - name: Linting
-        working-directory: /crypto-tracker
         run: npm run lint
 
       - name: Run Prettier
-        working-directory: /crypto-tracker
         run: npm run prettier
 
       - name: Build
-        working-directory: /crypto-tracker
         run: npm run build --if-present
