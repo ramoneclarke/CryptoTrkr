@@ -6,8 +6,6 @@ import { useContext } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 
-const a = "c";
-
 const AddToWatchlistChip = ({ cellValues, enqueueSnackbar }) => {
   const useUserContext = useContext(UserContext);
   const { watchList, dispatchUserContext } = useUserContext;
