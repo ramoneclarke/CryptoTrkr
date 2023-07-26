@@ -8,7 +8,7 @@ describe("The Alerts Page", () => {
       },
     ).as("fetchMarketData");
     cy.visit("/alerts");
-    cy.wait("@fetchMarketData", { timeout: 40000 })
+    cy.wait("@fetchMarketData", { timeout: 20000 })
       .its("response.statusCode")
       .should("eq", 200);
   });
@@ -112,6 +112,10 @@ describe("The Alerts Page", () => {
         cy.get('[data-test="close-activated-alert"]').click();
       });
     });
+    cy.contains(
+      '[data-test="notifications-page"]',
+      "Ethereum is now Higher than $300.00.",
+    );
     cy.contains(
       '[data-test="notifications-page"]',
       "Ethereum is now Higher than $300.00.",
