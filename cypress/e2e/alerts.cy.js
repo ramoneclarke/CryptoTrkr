@@ -115,6 +115,6 @@ describe("The Alerts Page", () => {
     cy.contains(
       '[data-test="notifications-page"]',
       "Ethereum is now Higher than $300.00.",
-    );
+    ).should("not.exist");
   });
 });
