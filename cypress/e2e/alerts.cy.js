@@ -4,7 +4,7 @@ describe("The Alerts Page", () => {
     cy.intercept(
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false&price_change_percentage=24h%2C7d",
       {
-        fixture: "market_data.json", // Use fixture to simulate CoinGecko API response data
+        fixture: "market_data.json", // Use fixture to simulate CoinGecko API response
       },
     ).as("fetchMarketData");
     cy.visit("/alerts");
@@ -13,7 +13,7 @@ describe("The Alerts Page", () => {
       .should("eq", 200);
   });
 
-  it("should display no notificationa when no alerts have been activated", () => {
+  it("should display no notifications when no alerts have been activated", () => {
     cy.contains('[data-test="notifications-page"]', "No Notifications").should(
       "be.visible",
     );
